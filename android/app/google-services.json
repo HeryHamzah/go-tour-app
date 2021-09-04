@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "636832302997",
+    "project_id": "travel-makassar",
+    "storage_bucket": "travel-makassar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:636832302997:android:f600c6671c69811ec9989c",
+        "android_client_info": {
+          "package_name": "com.example.travel_tourguide_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "636832302997-9e3bn431j175p09cs5k7fpp9f671i82b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAXcnZ0eBv0HzcF15XxVw2FYoGTRg7iXI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "636832302997-9e3bn431j175p09cs5k7fpp9f671i82b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
