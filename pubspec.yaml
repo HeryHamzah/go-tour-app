@@ -22,11 +22,17 @@ environment:
 
 dependencies:
   cupertino_icons: ^1.0.2
+  email_validator: ^1.0.4
+  equatable: ^1.2.4
+  firebase_auth: ^0.18.0+1
+  firebase_core: ^0.5.0
   flutter:
     sdk: flutter
+  flutter_spinkit: ^4.1.2+1
   flutter_svg: ^0.22.0
-  google_fonts: ^2.1.0
+  google_fonts: ^0.3.10
   image_picker: ^0.6.4
+  provider: ^4.0.4
 
 dev_dependencies:
   flutter_test:

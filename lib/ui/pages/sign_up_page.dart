@@ -6,9 +6,14 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
   bool obscurePassword = true;
   bool obscureRetypePassword = true;
   File profilePicture;
+  bool signUpProcess = false;
 
   void showModalPhoto() {
     showModalBottomSheet(
@@ -151,6 +156,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ),
                 TextField(
+                  controller: emailController,
                   decoration: InputDecoration(
                       hintText: "Email",
                       filled: true,
@@ -163,6 +169,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   height: 10,
                 ),
                 TextField(
+                  controller: nameController,
                   decoration: InputDecoration(
                       hintText: "Name",
                       filled: true,
@@ -175,6 +182,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   height: 10,
                 ),
                 TextField(
+                  controller: passwordController,
                   obscureText: obscurePassword,
                   decoration: InputDecoration(
                       hintText: "Password",
@@ -218,19 +226,40 @@ class _SignUpPageState extends State<SignUpPage> {
                 SizedBox(
                   height: 30,
                 ),
-                Container(
-                  width: double.infinity,
-                  height: 50,
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          primary: mainColor, onPrimary: Colors.white),
-                      onPressed: () {},
-                      child: Text(
-                        "Sign Up",
-                        style: themeFont.copyWith(
-                            fontSize: 18, color: Colors.white),
-                      )),
-                ),
+                (signUpProcess != null)
+                    ? Container(
+                        width: double.infinity,
+                        height: 50,
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                primary: mainColor, onPrimary: Colors.white),
+                            onPressed: () async {
+                              setState(() {
+                                signUpProcess = true;
+                              });
+                              if (profilePicture != null) {
+                                imageToUpload = profilePicture;
+                              }
+                              SignInSignUpResult result =
+                                  await AuthServices.signUp(
+                                      emailController.text,
+                                      passwordController.text,
+                                      nameController.text);
+
+                              if (result.user == null) {
+                                print(result.message);
+                                setState(() {
+                                  signUpProcess = false;
+                                });
+                              }
+                            },
+                            child: Text(
+                              "Sign Up",
+                              style: themeFont.copyWith(
+                                  fontSize: 18, color: Colors.white),
+                            )),
+                      )
+                    : SpinKitFadingCircle(color: mainColor, size: 50),
                 SizedBox(
                   height: 20,
                 ),

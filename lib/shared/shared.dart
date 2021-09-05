@@ -6,3 +6,5 @@ import 'package:image_picker/image_picker.dart';
 
 part 'theme.dart';
 part 'share_method.dart';
+part 'share_baseurl.dart';
+part 'share_value.dart';
