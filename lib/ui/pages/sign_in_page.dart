@@ -6,7 +6,12 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
   bool obscurePassword = true;
+  bool signInProcess = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,6 +54,7 @@ class _SignInPageState extends State<SignInPage> {
                   height: 30,
                 ),
                 TextField(
+                  controller: emailController,
                   decoration: InputDecoration(
                       hintText: "Email",
                       filled: true,
@@ -61,6 +67,7 @@ class _SignInPageState extends State<SignInPage> {
                   height: 10,
                 ),
                 TextField(
+                  controller: passwordController,
                   obscureText: obscurePassword,
                   decoration: InputDecoration(
                       hintText: "Password",
@@ -95,18 +102,38 @@ class _SignInPageState extends State<SignInPage> {
                   height: 50,
                 ),
 
-                Container(
-                  width: double.infinity,
-                  height: 50,
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(primary: mainColor),
-                      onPressed: () {},
-                      child: Text(
-                        "Sign In",
-                        style: themeFont.copyWith(
-                            color: Colors.white, fontSize: 18),
-                      )),
-                ),
+                (signInProcess == false)
+                    ? Container(
+                        width: double.infinity,
+                        height: 50,
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(primary: mainColor),
+                            onPressed: () async {
+                              setState(() {
+                                signInProcess = true;
+                              });
+                              SignInSignUpResult result =
+                                  await AuthServices.signIn(
+                                      emailController.text,
+                                      passwordController.text);
+
+                              if (result.user == null) {
+                                print(result.message);
+                                setState(() {
+                                  signInProcess = false;
+                                });
+                              }
+                            },
+                            child: Text(
+                              "Sign In",
+                              style: themeFont.copyWith(
+                                  color: Colors.white, fontSize: 18),
+                            )),
+                      )
+                    : SpinKitFadingCircle(
+                        size: 50,
+                        color: mainColor,
+                      ),
                 SizedBox(
                   height: 5,
                 ),

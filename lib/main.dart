@@ -1,7 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:travel_tourguide_app/bloc/blocs.dart';
 import 'package:travel_tourguide_app/services/services.dart';
 import 'package:travel_tourguide_app/ui/pages/pages.dart';
 
@@ -17,12 +19,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamProvider.value(
       value: AuthServices.userStream,
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Go Tour',
-        theme: ThemeData(
-            primarySwatch: Colors.blue, textTheme: GoogleFonts.latoTextTheme()),
-        home: Wrapper(),
+      child: MultiBlocProvider(
+        providers: [BlocProvider(create: (_) => UserBloc())],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Go Tour',
+          theme: ThemeData(
+              primarySwatch: Colors.blue,
+              textTheme: GoogleFonts.latoTextTheme()),
+          home: Wrapper(),
+        ),
       ),
     );
   }

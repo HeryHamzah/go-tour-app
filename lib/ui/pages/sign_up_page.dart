@@ -9,6 +9,7 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController retypePasswordController = TextEditingController();
 
   bool obscurePassword = true;
   bool obscureRetypePassword = true;
@@ -205,6 +206,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   height: 10,
                 ),
                 TextField(
+                  controller: retypePasswordController,
                   obscureText: obscureRetypePassword,
                   decoration: InputDecoration(
                       hintText: "Retype Password",
@@ -226,7 +228,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 SizedBox(
                   height: 30,
                 ),
-                (signUpProcess != null)
+                (signUpProcess == false)
                     ? Container(
                         width: double.infinity,
                         height: 50,
