@@ -109,16 +109,20 @@ class _SignInPageState extends State<SignInPage> {
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(primary: mainColor),
                             onPressed: () async {
-                              setState(() {
-                                signInProcess = true;
-                              });
+                              // User user = await UserServices.getUser(
+                              //     "gsArs0NRZ8cM4mCE4yOJ");
+                              // print(
+                              //     user.id + " " + user.email + " " + user.name);
+                              // setState(() {
+                              //   signInProcess = true;
+                              // });
                               SignInSignUpResult result =
                                   await AuthServices.signIn(
                                       emailController.text,
                                       passwordController.text);
 
-                              if (result.user == null) {
-                                print(result.message);
+                              if (result.user != null) {
+                                print(result.user.email);
                                 setState(() {
                                   signInProcess = false;
                                 });

@@ -8,7 +8,7 @@ class Wrapper extends StatelessWidget {
     if (firebaseUser == null) {
       return SplashPage();
     } else {
-      // context.bloc<UserBloc>().add(LoadUser(firebaseUser.uid));
+      context.bloc<UserBloc>().add(LoadUser(firebaseUser.uid));
       return HomePage();
     }
   }
