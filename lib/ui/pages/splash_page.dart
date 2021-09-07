@@ -24,10 +24,7 @@ class SplashPage extends StatelessWidget {
                           color: Colors.white,
                         )),
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SignInPage()));
+                      Get.toNamed('/signIn');
                     },
                     child: Text(
                       "Login",
@@ -45,10 +42,7 @@ class SplashPage extends StatelessWidget {
                         primary: Colors.white,
                         onPrimary: Color(0XFF00D4D5)),
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SignUpPage()));
+                      Get.toNamed('/signUp');
                     },
                     child: Text(
                       "Sign Up",

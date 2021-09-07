@@ -18,12 +18,12 @@ class UserServices {
     try {
       final response = await http.post(BaseUrl.getUser, body: {"id_user": id});
       final data = jsonDecode(response.body);
-      final user = data[0];
+      final user = data['result'] as Map<String, dynamic>;
 
       return User(user['id'], user['email'],
           name: user['name'], profilePicture: user['image'], hp: user['hp']);
     } catch (e) {
-      print("Err: " + e.toString());
+      debugPrint("Err: " + e.toString());
       return null;
     }
   }

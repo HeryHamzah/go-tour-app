@@ -31,6 +31,7 @@ dependencies:
   flutter_bloc: ^5.0.0
   flutter_spinkit: ^4.1.2+1
   flutter_svg: ^0.22.0
+  get: ^4.3.8
   google_fonts: ^0.3.10
   image_picker: ^0.6.4
   provider: ^4.0.4

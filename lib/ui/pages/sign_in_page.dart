@@ -109,20 +109,16 @@ class _SignInPageState extends State<SignInPage> {
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(primary: mainColor),
                             onPressed: () async {
-                              // User user = await UserServices.getUser(
-                              //     "gsArs0NRZ8cM4mCE4yOJ");
-                              // print(
-                              //     user.id + " " + user.email + " " + user.name);
-                              // setState(() {
-                              //   signInProcess = true;
-                              // });
+                              setState(() {
+                                signInProcess = true;
+                              });
                               SignInSignUpResult result =
                                   await AuthServices.signIn(
                                       emailController.text,
                                       passwordController.text);
 
-                              if (result.user != null) {
-                                print(result.user.email);
+                              if (result.user == null) {
+                                print(result.message);
                                 setState(() {
                                   signInProcess = false;
                                 });
@@ -146,10 +142,7 @@ class _SignInPageState extends State<SignInPage> {
                     Text("Start fresh now?  "),
                     InkWell(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SignUpPage()));
+                        Get.toNamed('/signUp');
                       },
                       child: Text(
                         "Sign Up",

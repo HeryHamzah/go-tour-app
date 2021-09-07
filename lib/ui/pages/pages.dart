@@ -10,6 +10,7 @@ import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travel_tourguide_app/models/models.dart';
+import 'package:get/get.dart';
 
 part 'sign_up_page.dart';
 part 'splash_page.dart';

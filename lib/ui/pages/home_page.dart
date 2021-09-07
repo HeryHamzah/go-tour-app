@@ -4,14 +4,6 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //     body: Center(
-      //   child: MaterialButton(
-      //       onPressed: () async {
-      //         await AuthServices.signOut();
-      //         context.bloc<UserBloc>().add(SignOutUser());
-      //       },
-      //       child: Text("Logout")),
-      // )
       body: BlocBuilder<UserBloc, UserState>(
         builder: (_, userState) {
           if (userState is UserLoaded) {
