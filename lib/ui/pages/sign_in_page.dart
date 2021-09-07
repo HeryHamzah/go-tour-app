@@ -114,14 +114,15 @@ class _SignInPageState extends State<SignInPage> {
                               });
                               SignInSignUpResult result =
                                   await AuthServices.signIn(
-                                      emailController.text,
-                                      passwordController.text);
+                                      'hery@gmail.com', '123456');
 
                               if (result.user == null) {
                                 print(result.message);
                                 setState(() {
                                   signInProcess = false;
                                 });
+                              } else {
+                                Get.back();
                               }
                             },
                             child: Text(
