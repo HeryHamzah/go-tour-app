@@ -8,7 +8,7 @@ class SplashPage extends StatelessWidget {
         width: double.infinity,
         decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("assets/splash3.jpg"), fit: BoxFit.cover)),
+                image: AssetImage("assets/splash.jpg"), fit: BoxFit.cover)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [

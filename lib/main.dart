@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       child: MultiBlocProvider(
         providers: [BlocProvider(create: (_) => UserBloc())],
         child: GetMaterialApp(
-          initialRoute: '/',
+          // initialRoute: '/',
           getPages: [
             GetPage(name: '/', page: () => Wrapper()),
             GetPage(name: '/splash', page: () => SplashPage()),
@@ -36,6 +36,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
               primarySwatch: Colors.blue,
               textTheme: GoogleFonts.latoTextTheme()),
+          home: Wrapper(),
         ),
       ),
     );

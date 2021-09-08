@@ -98,7 +98,7 @@ class _SignUpPageState extends State<SignUpPage> {
               children: [
                 InkWell(
                     onTap: () {
-                      Navigator.pop(context);
+                      Get.back();
                     },
                     child: Icon(Icons.arrow_back_ios_new)),
                 SizedBox(
@@ -270,10 +270,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     Text("Already member? "),
                     InkWell(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SignInPage()));
+                        Get.toNamed('/signIn');
                       },
                       child: Text(
                         "Sign In",
