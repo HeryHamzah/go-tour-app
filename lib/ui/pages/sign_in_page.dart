@@ -11,6 +11,7 @@ class _SignInPageState extends State<SignInPage> {
 
   bool obscurePassword = true;
   bool signInProcess = false;
+  bool isValidate = false;
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +56,12 @@ class _SignInPageState extends State<SignInPage> {
                 ),
                 TextField(
                   controller: emailController,
+                  onChanged: (email) {
+                    setState(() {
+                      isValidate = EmailValidator.validate(email) &&
+                          passwordController.text.length >= 6;
+                    });
+                  },
                   decoration: InputDecoration(
                       hintText: "Email",
                       filled: true,
@@ -69,6 +76,13 @@ class _SignInPageState extends State<SignInPage> {
                 TextField(
                   controller: passwordController,
                   obscureText: obscurePassword,
+                  onChanged: (password) {
+                    setState(() {
+                      isValidate =
+                          EmailValidator.validate(emailController.text) &&
+                              password.length >= 6;
+                    });
+                  },
                   decoration: InputDecoration(
                       hintText: "Password",
                       filled: true,
@@ -107,24 +121,32 @@ class _SignInPageState extends State<SignInPage> {
                         width: double.infinity,
                         height: 50,
                         child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(primary: mainColor),
-                            onPressed: () async {
-                              setState(() {
-                                signInProcess = true;
-                              });
-                              SignInSignUpResult result =
-                                  await AuthServices.signIn(
-                                      'hery@gmail.com', '123456');
+                            style: ElevatedButton.styleFrom(
+                                primary:
+                                    (isValidate) ? mainColor : Colors.grey),
+                            onPressed: (isValidate)
+                                ? () async {
+                                    setState(() {
+                                      signInProcess = true;
+                                    });
+                                    SignInSignUpResult result =
+                                        await AuthServices.signIn(
+                                            emailController.text,
+                                            passwordController.text);
 
-                              if (result.user == null) {
-                                print(result.message);
-                                setState(() {
-                                  signInProcess = false;
-                                });
-                              } else {
-                                Get.back();
-                              }
-                            },
+                                    if (result.user == null) {
+                                      showSnackBar(context, result.message);
+                                      setState(() {
+                                        signInProcess = false;
+                                      });
+                                    }
+                                    // TODO: hilangkan nanti
+                                    // else {
+                                    //   Get.back();
+
+                                    // }
+                                  }
+                                : null,
                             child: Text(
                               "Sign In",
                               style: themeFont.copyWith(

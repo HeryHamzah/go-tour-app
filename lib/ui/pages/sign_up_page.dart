@@ -236,23 +236,41 @@ class _SignUpPageState extends State<SignUpPage> {
                             style: ElevatedButton.styleFrom(
                                 primary: mainColor, onPrimary: Colors.white),
                             onPressed: () async {
-                              setState(() {
-                                signUpProcess = true;
-                              });
-                              if (profilePicture != null) {
-                                imageToUpload = profilePicture;
-                              }
-                              SignInSignUpResult result =
-                                  await AuthServices.signUp(
-                                      emailController.text,
-                                      passwordController.text,
-                                      nameController.text);
-
-                              if (result.user == null) {
-                                print(result.message);
+                              if (nameController.text.trim() == "" ||
+                                  emailController.text.trim() == "" ||
+                                  passwordController.text.trim() == "" ||
+                                  retypePasswordController.text.trim() == "") {
+                                showSnackBar(
+                                    context, "Complete the form first!");
+                              } else if (!(EmailValidator.validate(
+                                  emailController.text))) {
+                                showSnackBar(context, "Wrong email form");
+                              } else if (passwordController.text.length < 6) {
+                                showSnackBar(context,
+                                    "Password is a minimum of six character length");
+                              } else if (passwordController.text !=
+                                  retypePasswordController.text) {
+                                showSnackBar(
+                                    context, "Confirm password is incorrect");
+                              } else {
                                 setState(() {
-                                  signUpProcess = false;
+                                  signUpProcess = true;
                                 });
+                                if (profilePicture != null) {
+                                  imageToUpload = profilePicture;
+                                }
+                                SignInSignUpResult result =
+                                    await AuthServices.signUp(
+                                        emailController.text,
+                                        passwordController.text,
+                                        nameController.text);
+
+                                if (result.user == null) {
+                                  showSnackBar(context, result.message);
+                                  setState(() {
+                                    signUpProcess = false;
+                                  });
+                                }
                               }
                             },
                             child: Text(

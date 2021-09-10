@@ -27,4 +27,14 @@ class UserServices {
       return null;
     }
   }
+
+  static Future<List<Location>> getLocation() async {
+    final response = await http.get(BaseUrl.getLocation);
+    final data = json.decode(response.body);
+
+    return (data as List)
+        .map((e) =>
+            Location(id: e['id_location'], name: e['name'], image: e['image']))
+        .toList();
+  }
 }
