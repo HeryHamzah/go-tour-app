@@ -23,7 +23,7 @@ class UserServices {
       return User(user['id'], user['email'],
           name: user['name'], profilePicture: user['image'], hp: user['hp']);
     } catch (e) {
-      debugPrint("Err: " + e.toString());
+      debugPrint("Error Get User: " + e.toString());
       return null;
     }
   }

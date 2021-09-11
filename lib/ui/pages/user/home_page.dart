@@ -8,18 +8,20 @@ class HomePage extends StatelessWidget {
         children: [
           //background home page
           Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage("assets/home.jpg"),
-                      fit: BoxFit.cover))),
+            width: double.infinity,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("assets/home-background.jpg"),
+                    fit: BoxFit.cover)),
+          ),
 
           //content
-          Padding(
-            padding: EdgeInsets.fromLTRB(defaultMargin, 20, defaultMargin, 40),
-            child: ListView(
-              children: [
-                Row(
+          ListView(
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(
+                    defaultMargin, 20, defaultMargin, 0),
+                child: Row(
                   children: [
                     Icon(Icons.menu, color: Colors.white, size: 30),
                     SizedBox(
@@ -46,34 +48,50 @@ class HomePage extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 100,
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 3,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10, left: defaultMargin),
+                child: Text(
+                  "EXPLORE",
+                  style: themeFont.copyWith(fontSize: 16),
                 ),
-                FutureBuilder(
-                    future: UserServices.getLocation(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        List<Location> location = snapshot.data;
-                        return Container(
-                          height: 100,
-                          child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: snapshot.data.length,
-                              itemBuilder: (context, i) => Container(
-                                  width: 90,
-                                  height: 90,
-                                  decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          image: NetworkImage(BaseUrl.getImage +
-                                              location[i].image),
-                                          fit: BoxFit.cover)))),
-                        );
-                      } else {
-                        return SpinKitFadingCircle();
-                      }
-                    })
-              ],
-            ),
+              ),
+              FutureBuilder(
+                  future: UserServices.getLocation(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      List<Location> location = snapshot.data;
+                      return Container(
+                        height: 150,
+                        child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: location.length,
+                            itemBuilder: (context, index) => Padding(
+                                  padding: EdgeInsets.only(
+                                      left: (index == 0) ? defaultMargin : 0,
+                                      right: (index == location.length - 1)
+                                          ? defaultMargin
+                                          : 16),
+                                  child: LocationCard(location[index]),
+                                )),
+                      );
+                    } else {
+                      return SpinKitFadingCircle(color: mainColor, size: 50);
+                    }
+                  }),
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 20, bottom: 10, left: defaultMargin),
+                child: Text(
+                  "Best Destinations",
+                  style: themeFont.copyWith(fontSize: 16),
+                ),
+              ),
+              // FutureBuilder(builder: builder)
+            ],
           ),
         ],
       ),
