@@ -62,10 +62,9 @@ class _MainPageState extends State<MainPage> {
                   },
                   items: [
                     BottomNavigationBarItem(
-                        icon: Icon(Icons.dashboard_rounded), label: "Home"),
+                        icon: Icon(FontAwesomeIcons.home), label: "Home"),
                     BottomNavigationBarItem(
-                        icon: Icon(MaterialCommunityIcons.view_list),
-                        label: "Activity")
+                        icon: Icon(FontAwesomeIcons.list), label: "Activity")
                   ],
                 ),
               ),
@@ -84,7 +83,7 @@ class _MainPageState extends State<MainPage> {
                     shape: BoxShape.circle,
                     color: (bottomNavBarIndex == 0) ? mainColor : Colors.white),
                 child: Icon(
-                  MaterialCommunityIcons.map_marker,
+                  FontAwesomeIcons.mapMarkerAlt,
                   color: (bottomNavBarIndex == 0) ? Colors.white : mainColor,
                 ),
               ),

@@ -3,6 +3,8 @@ import 'dart:ui';
 
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:travel_tourguide_app/bloc/blocs.dart';
 import 'package:travel_tourguide_app/services/services.dart';
@@ -23,3 +25,4 @@ part 'user/home_page.dart';
 part 'user/main_page.dart';
 part 'user/activity_page.dart';
 part 'user/drawer_page.dart';
+part 'user/favorites_page.dart';

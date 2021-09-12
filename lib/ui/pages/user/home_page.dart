@@ -23,7 +23,9 @@ class HomePage extends StatelessWidget {
                     defaultMargin, 20, defaultMargin, 0),
                 child: Row(
                   children: [
-                    Icon(Icons.menu, color: Colors.white, size: 30),
+                    GestureDetector(
+                        onTap: () => ZoomDrawer.of(context).open(),
+                        child: Icon(Icons.menu, color: Colors.white, size: 30)),
                     SizedBox(
                       width: 10,
                     ),
