@@ -21,7 +21,10 @@ class MyApp extends StatelessWidget {
     return StreamProvider.value(
       value: AuthServices.userStream,
       child: MultiBlocProvider(
-        providers: [BlocProvider(create: (_) => UserBloc())],
+        providers: [
+          BlocProvider(create: (_) => UserBloc()),
+          BlocProvider(create: (_) => NavdrawerBloc())
+        ],
         child: GetMaterialApp(
           initialRoute: '/',
           getPages: [

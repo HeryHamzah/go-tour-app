@@ -16,6 +16,7 @@ import 'package:travel_tourguide_app/models/models.dart';
 import 'package:get/get.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:travel_tourguide_app/ui/widgets/widgets.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 part 'sign_up_page.dart';
 part 'splash_page.dart';

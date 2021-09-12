@@ -1,58 +1,41 @@
 part of '../pages.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  PanelController panelController = PanelController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          //background home page
-          Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/home-background.jpg"),
-                    fit: BoxFit.cover)),
-          ),
-
-          //content
-          ListView(
+      body: SlidingUpPanel(
+        controller: panelController,
+        minHeight: MediaQuery.of(context).size.height / 2,
+        maxHeight: MediaQuery.of(context).size.height * 0.8,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        panelBuilder: (scrollController) {
+          return ListView(
+            padding: EdgeInsets.zero,
+            controller: scrollController,
             children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(
-                    defaultMargin, 20, defaultMargin, 0),
-                child: Row(
-                  children: [
-                    GestureDetector(
-                        onTap: () => ZoomDrawer.of(context).open(),
-                        child: Icon(Icons.menu, color: Colors.white, size: 30)),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: Container(
-                          height: 45,
-                          child: TextField(
-                            decoration: InputDecoration(
-                                focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide.none),
-                                prefixIcon: Icon(Icons.search),
-                                hintText: "City, places etc.",
-                                hintStyle: themeFont.copyWith(
-                                    color: Colors.grey, letterSpacing: 1.5),
-                                filled: true,
-                                fillColor: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
               SizedBox(
-                height: MediaQuery.of(context).size.height / 3,
+                height: 10,
+              ),
+              Center(
+                child: GestureDetector(
+                  onTap: () => panelController.isPanelOpen
+                      ? panelController.close()
+                      : panelController.open(),
+                  child: Container(
+                    width: 30,
+                    height: 5,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: Colors.grey[400]),
+                  ),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 10, left: defaultMargin),
@@ -92,10 +75,62 @@ class HomePage extends StatelessWidget {
                   style: themeFont.copyWith(fontSize: 16),
                 ),
               ),
-              // FutureBuilder(builder: builder)
             ],
-          ),
-        ],
+          );
+        },
+        body: Stack(
+          children: [
+            //background home page
+            Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("assets/home.jpg"), fit: BoxFit.cover)),
+            ),
+
+            //content
+            ListView(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(
+                      defaultMargin, 20, defaultMargin, 0),
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                          onTap: () => ZoomDrawer.of(context).open(),
+                          child: Icon(MaterialCommunityIcons.menu,
+                              color: Colors.white, size: 30)),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Container(
+                            height: 45,
+                            child: TextField(
+                              decoration: InputDecoration(
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide.none),
+                                  prefixIcon: Icon(Icons.search),
+                                  hintText: "City, places etc.",
+                                  hintStyle: themeFont.copyWith(
+                                      color: Colors.grey, letterSpacing: 1.5),
+                                  filled: true,
+                                  fillColor: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                // FutureBuilder(builder: builder)
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

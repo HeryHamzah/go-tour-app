@@ -25,7 +25,8 @@ class LocationCard extends StatelessWidget {
           child: Center(
             child: Text(
               location.name,
-              style: themeFont.copyWith(color: mainColor),
+              style: themeFont.copyWith(
+                  color: mainColor, fontWeight: FontWeight.w500),
             ),
           ),
         ),

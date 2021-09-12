@@ -38,22 +38,17 @@ class _MainPageState extends State<MainPage> {
             child: Padding(
               padding: EdgeInsets.only(
                   left: defaultMargin, right: defaultMargin, bottom: 30),
-              child: AnimatedContainer(
-                duration: Duration(milliseconds: 200),
-                curve: Curves.easeOutSine,
+              child: Container(
                 width: double.infinity,
                 height: 60,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                    color: (bottomNavBarIndex == 0) ? Colors.white : mainColor),
+                    borderRadius: BorderRadius.circular(16), color: mainColor),
                 child: BottomNavigationBar(
                   currentIndex: bottomNavBarIndex,
                   elevation: 0,
                   backgroundColor: Colors.transparent,
-                  selectedItemColor:
-                      (bottomNavBarIndex == 0) ? mainColor : Colors.white,
-                  unselectedItemColor:
-                      (bottomNavBarIndex == 0) ? Colors.grey : Colors.grey[400],
+                  selectedItemColor: Colors.white,
+                  unselectedItemColor: Colors.grey[400],
                   onTap: (index) {
                     setState(() {
                       bottomNavBarIndex = index;
@@ -79,12 +74,11 @@ class _MainPageState extends State<MainPage> {
               child: Container(
                 width: 40,
                 height: 40,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: (bottomNavBarIndex == 0) ? mainColor : Colors.white),
+                decoration:
+                    BoxDecoration(shape: BoxShape.circle, color: Colors.white),
                 child: Icon(
                   FontAwesomeIcons.mapMarkerAlt,
-                  color: (bottomNavBarIndex == 0) ? Colors.white : mainColor,
+                  color: mainColor,
                 ),
               ),
             ),

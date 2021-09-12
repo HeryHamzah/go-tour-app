@@ -38,6 +38,7 @@ dependencies:
   google_fonts: ^0.3.10
   image_picker: ^0.6.4
   provider: ^4.0.4
+  sliding_up_panel: ^1.0.2
 
 dev_dependencies:
   flutter_test:
