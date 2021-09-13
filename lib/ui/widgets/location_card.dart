@@ -12,7 +12,7 @@ class LocationCard extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           image: DecorationImage(
-              image: NetworkImage(BaseUrl.getImage + location.image),
+              image: NetworkImage(BaseUrl.getAssets + location.image),
               fit: BoxFit.cover)),
       child: Align(
         alignment: Alignment.bottomLeft,

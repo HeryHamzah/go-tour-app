@@ -17,6 +17,7 @@ import 'package:get/get.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:travel_tourguide_app/ui/widgets/widgets.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:path/path.dart' as path;
 
 part 'sign_up_page.dart';
 part 'splash_page.dart';
@@ -27,3 +28,4 @@ part 'user/main_page.dart';
 part 'user/activity_page.dart';
 part 'user/drawer_page.dart';
 part 'user/favorites_page.dart';
+part 'user/profile_page.dart';

@@ -255,10 +255,9 @@ class _SignUpPageState extends State<SignUpPage> {
                               } else {
                                 setState(() {
                                   signUpProcess = true;
-                                });
-                                if (profilePicture != null) {
                                   imageToUpload = profilePicture;
-                                }
+                                });
+
                                 SignInSignUpResult result =
                                     await AuthServices.signUp(
                                         emailController.text,
@@ -270,6 +269,10 @@ class _SignUpPageState extends State<SignUpPage> {
                                   setState(() {
                                     signUpProcess = false;
                                   });
+                                }
+                                //TODO: Hilangkan nanti
+                                else {
+                                  Get.back();
                                 }
                               }
                             },

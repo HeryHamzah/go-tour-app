@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -21,6 +22,13 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       yield UserLoaded(user);
     } else if (event is SignOutUser) {
       yield UserInitial();
+    } else if (event is UploadProfileUser) {
+      User user = await UserServices.uploadImage(
+          imageFile: event.imageFile, user: event.user);
+
+      // User user = await UserServices.getUser(event.id);
+
+      yield UserLoaded(user);
     }
   }
 }

@@ -13,7 +13,7 @@ class AuthServices {
       await UserServices.regisUser(user);
       return SignInSignUpResult(user: user);
     } catch (e) {
-      return SignInSignUpResult(message: "Error: " + e.toString());
+      return SignInSignUpResult(message: "Error Auth signUp: " + e.toString());
     }
   }
 
@@ -27,7 +27,7 @@ class AuthServices {
       return SignInSignUpResult(user: user);
     } catch (e) {
       print(e.toString());
-      return SignInSignUpResult(message: "Error: " + e.toString());
+      return SignInSignUpResult(message: "Error Auth signIn: " + e.toString());
     }
   }
 

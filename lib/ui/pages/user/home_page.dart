@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               FutureBuilder(
-                  future: UserServices.getLocation(),
+                  future: UserServices.getLocations(),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       List<Location> location = snapshot.data;
