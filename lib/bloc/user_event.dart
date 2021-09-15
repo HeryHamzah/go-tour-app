@@ -26,3 +26,11 @@ class UploadProfileUser extends UserEvent {
   @override
   List<Object> get props => [imageFile, user];
 }
+
+class UpdateUser extends UserEvent {
+  final User user;
+
+  UpdateUser(this.user);
+  @override
+  List<Object> get props => [user];
+}

@@ -9,15 +9,35 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController hpController = TextEditingController();
+
   File profilePictureFile;
   String profilePicturePath;
+  // User updatedUser;
 
   final _key = GlobalKey<FormState>();
+
+  // Future<File> getProfileFile(String profilePath) async {
+  //   Directory tempDir = await getTemporaryDirectory();
+  //   String tempPath = tempDir.path;
+  //   File file = new File('$tempPath' + profilePath);
+  //   http.Response response =
+  //       await http.get(BaseUrl.getUserImages + profilePath);
+  //   await file.writeAsBytes(response.bodyBytes);
+
+  //   return file;
+  // }
 
   @override
   void initState() {
     super.initState();
+    // updatedUser = widget.user;
     profilePicturePath = widget.user.profilePicture;
+    nameController = TextEditingController(text: widget.user.name);
+    emailController = TextEditingController(text: widget.user.email);
+    hpController = TextEditingController(text: widget.user.hp);
   }
 
   void showModalPhoto() {
@@ -41,7 +61,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     InkWell(
                       onTap: () async {
                         profilePictureFile = await galleryPhoto();
-                        Navigator.pop(context);
+                        Get.back();
                         setState(() {});
                       },
                       child: Column(
@@ -61,7 +81,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     InkWell(
                       onTap: () async {
                         profilePictureFile = await cameraPhoto();
-                        Navigator.pop(context);
+                        Get.back();
                         setState(() {});
                       },
                       child: Column(
@@ -198,7 +218,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   Container(
                     height: 50,
                     child: TextFormField(
-                      controller: TextEditingController(text: widget.user.name),
+                      controller: nameController,
                       decoration: InputDecoration(
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8))),
@@ -229,8 +249,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   Container(
                     height: 50,
                     child: TextFormField(
-                      controller:
-                          TextEditingController(text: widget.user.email),
+                      controller: emailController,
                       decoration: InputDecoration(
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8))),
@@ -252,7 +271,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   Container(
                     height: 50,
                     child: TextFormField(
-                      controller: TextEditingController(text: widget.user.hp),
+                      controller: hpController,
                       decoration: InputDecoration(
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8))),
@@ -266,7 +285,27 @@ class _ProfilePageState extends State<ProfilePage> {
                     height: 46,
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(primary: mainColor),
-                        onPressed: () {},
+                        onPressed: () async {
+                          if (profilePictureFile != null) {
+                            imageToUpload = profilePictureFile;
+                          }
+                          context.bloc<UserBloc>().add(UpdateUser(widget.user
+                              .copyWith(
+                                  email: emailController.text,
+                                  name: nameController.text,
+                                  hp: hpController.text,
+                                  profilePicture: profilePicturePath)));
+
+                          // context.bloc<UserBloc>().add(UpdateUser(
+                          //     imageFile: profilePictureFile ?? pp,
+                          //     user: widget.user.copyWith(
+                          //         email: emailController.text,
+                          //         name: nameController.text,
+                          //         hp: hpController.text,
+                          //         profilePicture: profilePicturePath)));
+
+                          // context.bloc<NavdrawerBloc>().add(ChangePage(1));
+                        },
                         child: Text(
                           "Save",
                           style: themeFont.copyWith(

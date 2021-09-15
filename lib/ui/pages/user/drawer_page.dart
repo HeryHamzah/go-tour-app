@@ -13,24 +13,28 @@ class _MainDrawerState extends State<MainDrawer> {
     return Scaffold(
       body: BlocBuilder<UserBloc, UserState>(
         builder: (context, userState) {
-          return BlocBuilder<NavdrawerBloc, NavdrawerState>(
-            builder: (context, drawerState) {
-              return ZoomDrawer(
-                style: DrawerStyle.Style1,
-                controller: drawerController,
-                menuScreen: DrawerPage(),
-                mainScreen: buildMainScreen(
-                    idPage: drawerState.idPage,
-                    user: (userState as UserLoaded).user),
-                borderRadius: 24.0,
-                angle: 0.0,
-                showShadow: true,
-                backgroundColor: Colors.grey[300],
-                slideWidth: MediaQuery.of(context).size.width *
-                    (ZoomDrawer.isRTL() ? .45 : 0.65),
-              );
-            },
-          );
+          if (userState is UserLoaded) {
+            User user = userState.user;
+            return BlocBuilder<NavdrawerBloc, NavdrawerState>(
+              builder: (context, drawerState) {
+                return ZoomDrawer(
+                  style: DrawerStyle.Style1,
+                  controller: drawerController,
+                  menuScreen: DrawerPage(),
+                  mainScreen:
+                      buildMainScreen(idPage: drawerState.idPage, user: user),
+                  borderRadius: 24.0,
+                  angle: 0.0,
+                  showShadow: true,
+                  backgroundColor: Colors.grey[300],
+                  slideWidth: MediaQuery.of(context).size.width *
+                      (ZoomDrawer.isRTL() ? .45 : 0.65),
+                );
+              },
+            );
+          } else {
+            return SpinKitFadingCircle(color: mainColor, size: 50);
+          }
         },
       ),
     );

@@ -29,7 +29,7 @@ class UserServices {
   }
 
   static Future<List<Location>> getLocations() async {
-    final response = await http.get(BaseUrl.getLocation);
+    final response = await http.get(BaseUrl.getLocations);
     final data = json.decode(response.body);
 
     return (data as List)
@@ -66,6 +66,23 @@ class UserServices {
     } catch (e) {
       print("Error upload image:" + e.toString());
       return user;
+    }
+  }
+
+  static Future<User> updateUser(User user) async {
+    try {
+      await http.post(BaseUrl.userUpdate, body: {
+        "id": user.id,
+        "email": user.email,
+        "name": user.name,
+        "hp": user.hp,
+        "image": user.profilePicture
+      });
+
+      return user;
+    } catch (e) {
+      debugPrint("Error update user: $e");
+      return null;
     }
   }
 }

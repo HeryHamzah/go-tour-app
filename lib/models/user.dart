@@ -11,7 +11,7 @@ class User extends Equatable {
 
   User copyWith(
           {String name, String email, String profilePicture, String hp}) =>
-      User(this.id, this.email,
+      User(this.id, email ?? this.email,
           name: name ?? this.name,
           profilePicture: profilePicture ?? this.profilePicture,
           hp: hp ?? this.hp);

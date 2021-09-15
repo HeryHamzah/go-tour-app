@@ -35,6 +35,11 @@ class AuthServices {
     await _auth.signOut();
   }
 
+  // static Future<void> updateEmail(String email) async {
+  //   await _auth.currentUser.reauthenticateWithCredential(
+  //       auth.EmailAuthProvider.getCredential(email: email, password: '123456'));
+  // }
+
   static Stream<auth.User> get userStream => _auth.authStateChanges();
 }
 
