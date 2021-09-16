@@ -60,7 +60,10 @@ class _HomePageState extends State<HomePage> {
                                       right: (index == location.length - 1)
                                           ? defaultMargin
                                           : 16),
-                                  child: LocationCard(location[index]),
+                                  child: GestureDetector(
+                                      onTap: () => Get.toNamed('/destinations',
+                                          arguments: location[index]),
+                                      child: LocationCard(location[index])),
                                 )),
                       );
                     } else {

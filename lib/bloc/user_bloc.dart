@@ -23,10 +23,12 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     } else if (event is SignOutUser) {
       yield UserInitial();
     } else if (event is UploadProfileUser) {
-      User user = await UserServices.uploadImage(
-          imageFile: event.imageFile, user: event.user);
+      await UserServices.uploadImage(
+          imageFile: event.imageFile, idUser: event.idUser);
 
-      yield UserLoaded(user);
+      User updatedUser = await UserServices.getUser(event.idUser);
+
+      yield UserLoaded(updatedUser);
     } else if (event is UpdateUser) {
       User user = await UserServices.updateUser(event.user);
 

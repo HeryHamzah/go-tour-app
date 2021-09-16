@@ -38,12 +38,12 @@ class UserServices {
         .toList();
   }
 
-  static Future<User> uploadImage({File imageFile, User user}) async {
+  static Future<void> uploadImage({File imageFile, String idUser}) async {
     try {
       var uri = Uri.parse(BaseUrl.uploadUserImage);
       var request = http.MultipartRequest("POST", uri);
 
-      request.fields['id_user'] = user.id;
+      request.fields['id_user'] = idUser;
 
       var stream =
           http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
@@ -58,14 +58,14 @@ class UserServices {
       String message = data["message"];
       if (value == 1) {
         print(message);
-        return user.copyWith(profilePicture: path.basename(imageFile.path));
+        // return user.copyWith(profilePicture: path.basename(imageFile.path));
       } else {
         print(message);
-        return user;
+        // return user;
       }
     } catch (e) {
       print("Error upload image:" + e.toString());
-      return user;
+      // return user;
     }
   }
 
@@ -79,10 +79,38 @@ class UserServices {
         "image": user.profilePicture
       });
 
+      // await AuthServices.updateEmailFirebase(user.email);
+
       return user;
     } catch (e) {
       debugPrint("Error update user: $e");
       return null;
     }
+  }
+
+  static Future<List<Destination>> getDestinations(String idLocation) async {
+    final response = await http
+        .post(BaseUrl.getDestinations, body: {"id_location": idLocation});
+    final data = json.decode(response.body);
+
+    // List<String> images;
+
+    // for (int i = 0; i < 3; i++) {
+    //   images.add("${data[i]['name']}${(i + 1).toString()}");
+    // }
+    return (data as List)
+        .map(
+          (e) => Destination(
+              id: e['id_destination'],
+              name: e['name'],
+              price: e['price'],
+              location: e['location'],
+              images: [
+                "${e['name']}1.jpg",
+                "${e['name']}2.jpg",
+                "${e['name']}3.jpg",
+              ]),
+        )
+        .toList();
   }
 }

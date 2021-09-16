@@ -141,7 +141,10 @@ class _SignUpPageState extends State<SignUpPage> {
                               width: 30,
                               height: 30,
                               decoration: BoxDecoration(
-                                  color: mainColor, shape: BoxShape.circle),
+                                  color: (profilePicture == null)
+                                      ? mainColor
+                                      : Colors.redAccent,
+                                  shape: BoxShape.circle),
                               child: Icon(
                                 (profilePicture == null)
                                     ? Icons.photo

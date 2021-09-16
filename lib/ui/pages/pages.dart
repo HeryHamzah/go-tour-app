@@ -29,3 +29,4 @@ part 'user/activity_page.dart';
 part 'user/drawer_page.dart';
 part 'user/favorites_page.dart';
 part 'user/profile_page.dart';
+part 'user/destinations_page.dart';

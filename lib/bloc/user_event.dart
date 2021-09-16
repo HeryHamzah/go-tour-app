@@ -20,11 +20,11 @@ class SignOutUser extends UserEvent {
 
 class UploadProfileUser extends UserEvent {
   final File imageFile;
-  final User user;
+  final String idUser;
 
-  UploadProfileUser({this.imageFile, this.user});
+  UploadProfileUser({this.imageFile, this.idUser});
   @override
-  List<Object> get props => [imageFile, user];
+  List<Object> get props => [imageFile, idUser];
 }
 
 class UpdateUser extends UserEvent {

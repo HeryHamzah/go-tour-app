@@ -15,29 +15,33 @@ class _ProfilePageState extends State<ProfilePage> {
 
   File profilePictureFile;
   String profilePicturePath;
-  // User updatedUser;
+  bool isEdited = false;
 
   final _key = GlobalKey<FormState>();
-
-  // Future<File> getProfileFile(String profilePath) async {
-  //   Directory tempDir = await getTemporaryDirectory();
-  //   String tempPath = tempDir.path;
-  //   File file = new File('$tempPath' + profilePath);
-  //   http.Response response =
-  //       await http.get(BaseUrl.getUserImages + profilePath);
-  //   await file.writeAsBytes(response.bodyBytes);
-
-  //   return file;
-  // }
 
   @override
   void initState() {
     super.initState();
-    // updatedUser = widget.user;
     profilePicturePath = widget.user.profilePicture;
     nameController = TextEditingController(text: widget.user.name);
     emailController = TextEditingController(text: widget.user.email);
     hpController = TextEditingController(text: widget.user.hp);
+  }
+
+  void checkForm() {
+    final form = _key.currentState;
+    if (form.validate()) {
+      if (profilePictureFile != null) {
+        imageToUpload = profilePictureFile;
+      }
+      context.bloc<UserBloc>().add(UpdateUser(widget.user.copyWith(
+          email: emailController.text,
+          name: nameController.text,
+          hp: hpController.text,
+          profilePicture: profilePicturePath)));
+
+      context.bloc<NavdrawerBloc>().add(ChangePage(1));
+    }
   }
 
   void showModalPhoto() {
@@ -170,7 +174,16 @@ class _ProfilePageState extends State<ProfilePage> {
                                 profilePicturePath = "";
                                 profilePictureFile = null;
                               }
-                              setState(() {});
+                              setState(() {
+                                setState(() {
+                                  isEdited = profilePicturePath !=
+                                          widget.user.profilePicture ||
+                                      nameController.text.trim() !=
+                                          widget.user.name ||
+                                      hpController.text.trim() !=
+                                          widget.user.hp;
+                                });
+                              });
                             },
                             child: Container(
                               // width: 30,
@@ -219,6 +232,20 @@ class _ProfilePageState extends State<ProfilePage> {
                     height: 50,
                     child: TextFormField(
                       controller: nameController,
+                      validator: (val) {
+                        if (val.trim().isEmpty) {
+                          return "Please enter your name";
+                        }
+                        return null;
+                      },
+                      onChanged: (name) {
+                        setState(() {
+                          isEdited = profilePicturePath !=
+                                  widget.user.profilePicture ||
+                              name.trim() != widget.user.name ||
+                              hpController.text.trim() != widget.user.hp;
+                        });
+                      },
                       decoration: InputDecoration(
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8))),
@@ -248,11 +275,13 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   Container(
                     height: 50,
-                    child: TextFormField(
-                      controller: emailController,
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8))),
+                    child: AbsorbPointer(
+                      child: TextFormField(
+                        controller: emailController,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8))),
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -272,6 +301,14 @@ class _ProfilePageState extends State<ProfilePage> {
                     height: 50,
                     child: TextFormField(
                       controller: hpController,
+                      onChanged: (hp) {
+                        setState(() {
+                          isEdited = profilePicturePath !=
+                                  widget.user.profilePicture ||
+                              nameController.text.trim() != widget.user.name ||
+                              hp.trim() != widget.user.hp;
+                        });
+                      },
                       decoration: InputDecoration(
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8))),
@@ -285,27 +322,11 @@ class _ProfilePageState extends State<ProfilePage> {
                     height: 46,
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(primary: mainColor),
-                        onPressed: () async {
-                          if (profilePictureFile != null) {
-                            imageToUpload = profilePictureFile;
-                          }
-                          context.bloc<UserBloc>().add(UpdateUser(widget.user
-                              .copyWith(
-                                  email: emailController.text,
-                                  name: nameController.text,
-                                  hp: hpController.text,
-                                  profilePicture: profilePicturePath)));
-
-                          // context.bloc<UserBloc>().add(UpdateUser(
-                          //     imageFile: profilePictureFile ?? pp,
-                          //     user: widget.user.copyWith(
-                          //         email: emailController.text,
-                          //         name: nameController.text,
-                          //         hp: hpController.text,
-                          //         profilePicture: profilePicturePath)));
-
-                          // context.bloc<NavdrawerBloc>().add(ChangePage(1));
-                        },
+                        onPressed: (isEdited)
+                            ? () async {
+                                checkForm();
+                              }
+                            : null,
                         child: Text(
                           "Save",
                           style: themeFont.copyWith(
