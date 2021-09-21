@@ -93,11 +93,6 @@ class UserServices {
         .post(BaseUrl.getDestinations, body: {"id_location": idLocation});
     final data = json.decode(response.body);
 
-    // List<String> images;
-
-    // for (int i = 0; i < 3; i++) {
-    //   images.add("${data[i]['name']}${(i + 1).toString()}");
-    // }
     return (data as List)
         .map(
           (e) => Destination(
@@ -105,11 +100,7 @@ class UserServices {
               name: e['name'],
               price: e['price'],
               location: e['location'],
-              images: [
-                "${e['name']}1.jpg",
-                "${e['name']}2.jpg",
-                "${e['name']}3.jpg",
-              ]),
+              images: e['images'].split(",")),
         )
         .toList();
   }

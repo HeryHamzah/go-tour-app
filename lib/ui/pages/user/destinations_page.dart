@@ -52,7 +52,11 @@ class DestinationsList extends StatelessWidget {
                   right: defaultMargin,
                   top: (i == 0) ? 20 : 0,
                   bottom: (i == destination.length - 1) ? 40 : 20),
-              child: DestinationCard(destination[i]));
+              child: DestinationCard(
+                destination: destination[i],
+                onTap: () => Get.toNamed('/destinationDetail',
+                    arguments: destination[i]),
+              ));
         });
   }
 }

@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:travel_tourguide_app/bloc/blocs.dart';
 import 'package:travel_tourguide_app/services/services.dart';
+import 'package:travel_tourguide_app/shared/shared.dart';
 import 'package:travel_tourguide_app/ui/pages/pages.dart';
 
 void main() async {
@@ -33,12 +34,14 @@ class MyApp extends StatelessWidget {
             GetPage(name: '/signIn', page: () => SignInPage()),
             GetPage(name: '/signUp', page: () => SignUpPage()),
             GetPage(name: '/home', page: () => HomePage()),
-            GetPage(name: '/destinations', page: () => DestinationsPage())
+            GetPage(name: '/destinations', page: () => DestinationsPage()),
+            GetPage(
+                name: '/destinationDetail', page: () => DestinationDetailPage())
           ],
           debugShowCheckedModeBanner: false,
           title: 'Go Tour',
           theme: ThemeData(
-              primarySwatch: Colors.blue,
+              primarySwatch: materialMainColor,
               textTheme: GoogleFonts.latoTextTheme()),
           // home: MainDrawer(),
         ),
