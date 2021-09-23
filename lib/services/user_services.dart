@@ -93,15 +93,54 @@ class UserServices {
         .post(BaseUrl.getDestinations, body: {"id_location": idLocation});
     final data = json.decode(response.body);
 
-    return (data as List)
-        .map(
-          (e) => Destination(
-              id: e['id_destination'],
-              name: e['name'],
-              price: e['price'],
-              location: e['location'],
-              images: e['images'].split(",")),
-        )
-        .toList();
+    return (data as List).map((e) => Destination.fromJson(e)).toList();
+  }
+
+  static Future<void> addToFavorites(
+      String idUser, Destination destination) async {
+    try {
+      final response = await http.post(BaseUrl.addToFavorites,
+          body: {"id_user": idUser, "id_destination": destination.id});
+      final data = jsonDecode(response.body);
+      int value = data["value"];
+      String message = data["message"];
+      if (value == 1) {
+        print(message);
+      } else {
+        print(message);
+      }
+    } catch (e) {
+      print("Error Add to Favorites: $e");
+    }
+  }
+
+  static Future<void> removeFromFavorites(String idFavorite) async {
+    try {
+      final response = await http
+          .post(BaseUrl.removeFromFavorites, body: {"id_favorite": idFavorite});
+      final data = jsonDecode(response.body);
+      int value = data["value"];
+      String message = data["message"];
+      if (value == 1) {
+        print(message);
+      } else {
+        print(message);
+      }
+    } catch (e) {
+      print("Error Remove from Favorites: $e");
+    }
+  }
+
+  static Future<List<Destination>> getFavorites(String idUser) async {
+    try {
+      final response =
+          await http.post(BaseUrl.getFavorites, body: {"id_user": idUser});
+      final data = jsonDecode(response.body);
+
+      return (data as List).map((e) => Destination.fromJson(e)).toList();
+    } catch (e) {
+      print("Error Get Favorites: $e");
+      return null;
+    }
   }
 }

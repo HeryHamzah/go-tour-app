@@ -59,7 +59,7 @@ class DestinationCard extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Rating(7.8),
+                Rating(8.9),
                 Spacer(),
                 SizedBox(
                     width: (MediaQuery.of(context).size.width -

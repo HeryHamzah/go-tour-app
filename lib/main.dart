@@ -24,7 +24,8 @@ class MyApp extends StatelessWidget {
       child: MultiBlocProvider(
         providers: [
           BlocProvider(create: (_) => UserBloc()),
-          BlocProvider(create: (_) => NavdrawerBloc())
+          BlocProvider(create: (_) => NavdrawerBloc()),
+          BlocProvider(create: (_) => FavoriteDestinationBloc())
         ],
         child: GetMaterialApp(
           initialRoute: '/',

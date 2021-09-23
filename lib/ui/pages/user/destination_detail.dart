@@ -123,6 +123,62 @@ class _DestinationDetailPageState extends State<DestinationDetailPage> {
                           fontSize: 20, fontWeight: FontWeight.w600),
                     ),
                   ),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Rating(8.9),
+                SizedBox(height: 10),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Text("About",
+                      style: themeFont.copyWith(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      )),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(destination.about,
+                      maxLines: 4,
+                      style: themeFont.copyWith(
+                        fontSize: 16,
+                      )),
+                ),
+                SizedBox(height: 20),
+                Row(
+                  children: [
+                    Text(
+                      NumberFormat.currency(
+                              locale: 'id_ID', decimalDigits: 0, symbol: "Rp")
+                          .format(int.parse(destination.price)),
+                      style: themeFont.copyWith(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: mainColor),
+                    ),
+                    Text(
+                      "/person",
+                      style:
+                          themeFont.copyWith(fontSize: 16, color: Colors.grey),
+                    ),
+                    Spacer(),
+                    Container(
+                      height: 40,
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              primary: mainColor,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8))),
+                          onPressed: () {},
+                          child: Text("Add to MyTrip",
+                              style: themeFont.copyWith(
+                                  color: Colors.white, fontSize: 16))),
+                    )
+                  ],
                 )
               ],
             ),

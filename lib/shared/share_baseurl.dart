@@ -11,4 +11,8 @@ class BaseUrl {
   static String uploadUserImage = dbUrl + "user_API/upload_user_image.php";
   static String userUpdate = dbUrl + "user_API/user_update.php";
   static String getDestinations = dbUrl + "user_API/get_destinations.php";
+  static String addToFavorites = dbUrl + "user_API/add_to_favorites.php";
+  static String removeFromFavorites =
+      dbUrl + "user_API/remove_from_favorites.php";
+  static String getFavorites = dbUrl + "user_API/get_favorites.php";
 }

@@ -50,7 +50,9 @@ buildMainScreen({int idPage, User user}) {
     case 2:
       return ProfilePage(user);
     case 3:
-      return FavoritePage();
+      return FavoritePage(user.id);
+    case 4:
+      return MyTripPage();
   }
 }
 
@@ -159,6 +161,25 @@ class _DrawerPageState extends State<DrawerPage> {
               ),
               onTap: () {
                 context.bloc<NavdrawerBloc>().add(ChangePage(3));
+                ZoomDrawer.of(context).close();
+              },
+            ),
+            Divider(
+              thickness: 1,
+              color: Colors.white,
+            ),
+            ListTile(
+              contentPadding: EdgeInsets.all(0),
+              leading: Icon(
+                FontAwesomeIcons.plane,
+                color: Colors.white,
+              ),
+              title: Text(
+                'MyTrip',
+                style: themeFont.copyWith(color: Colors.white),
+              ),
+              onTap: () {
+                context.bloc<NavdrawerBloc>().add(ChangePage(4));
                 ZoomDrawer.of(context).close();
               },
             ),
