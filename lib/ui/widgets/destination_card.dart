@@ -36,9 +36,17 @@ class DestinationCard extends StatelessWidget {
                         fit: BoxFit.cover)),
                 child: Align(
                   alignment: Alignment.topRight,
-                  child: Icon(
-                    Icons.favorite,
-                    color: Colors.redAccent,
+                  child: GestureDetector(
+                    onTap: () {
+                      context.bloc<FavoriteDestinationBloc>().add(
+                          AddToFavorites(
+                              idUser: "8nIGOI2xezOHO4nPHEcUAos1ngg1",
+                              destination: destination));
+                    },
+                    child: Icon(
+                      Icons.favorite,
+                      color: Colors.redAccent,
+                    ),
                   ),
                 ),
               ),

@@ -13,15 +13,18 @@ class FavoriteDestinationBloc
 
   @override
   Stream<FavoriteDestinationState> mapEventToState(
-      FavoriteDestinationEvent event) async* {
+    FavoriteDestinationEvent event,
+  ) async* {
     if (event is AddToFavorites) {
       await UserServices.addToFavorites(event.idUser, event.destination);
 
       List<Destination> destinations = state.destinations + [event.destination];
 
+      print(destinations.length);
+
       yield FavoriteDestinationState(destinations);
     } else if (event is RemoveFromFavorites) {
-      await UserServices.removeFromFavorites(event.idFavorite);
+      await UserServices.removeFromFavorites(event.destination.id);
 
       List<Destination> destinations = state.destinations;
       destinations.remove(event.destination);

@@ -114,10 +114,10 @@ class UserServices {
     }
   }
 
-  static Future<void> removeFromFavorites(String idFavorite) async {
+  static Future<void> removeFromFavorites(String idDestination) async {
     try {
-      final response = await http
-          .post(BaseUrl.removeFromFavorites, body: {"id_favorite": idFavorite});
+      final response = await http.post(BaseUrl.removeFromFavorites,
+          body: {"id_destination": idDestination});
       final data = jsonDecode(response.body);
       int value = data["value"];
       String message = data["message"];

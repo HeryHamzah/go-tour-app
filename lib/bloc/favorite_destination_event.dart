@@ -14,12 +14,11 @@ class AddToFavorites extends FavoriteDestinationEvent {
 }
 
 class RemoveFromFavorites extends FavoriteDestinationEvent {
-  final String idFavorite;
   final Destination destination;
 
-  RemoveFromFavorites({this.idFavorite, this.destination});
+  RemoveFromFavorites(this.destination);
   @override
-  List<Object> get props => [idFavorite, destination];
+  List<Object> get props => [destination];
 }
 
 class GetFavorites extends FavoriteDestinationEvent {
