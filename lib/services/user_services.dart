@@ -97,10 +97,10 @@ class UserServices {
   }
 
   static Future<void> addToFavorites(
-      String idUser, Destination destination) async {
+      String idUser, String idDestination) async {
     try {
       final response = await http.post(BaseUrl.addToFavorites,
-          body: {"id_user": idUser, "id_destination": destination.id});
+          body: {"id_user": idUser, "id_destination": idDestination});
       final data = jsonDecode(response.body);
       int value = data["value"];
       String message = data["message"];

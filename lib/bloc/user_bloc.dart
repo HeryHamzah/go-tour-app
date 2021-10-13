@@ -18,8 +18,10 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   ) async* {
     if (event is LoadUser) {
       User user = await UserServices.getUser(event.id);
+      List<Destination> destinations = await UserServices.getFavorites(event.id);
+      List<String> idDestinations = destinations.map((e) => e.id).toList();
 
-      yield UserLoaded(user);
+      yield UserLoaded(user.copyWith(favorites: idDestinations));
     } else if (event is SignOutUser) {
       yield UserInitial();
     } else if (event is UploadProfileUser) {
@@ -32,17 +34,22 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     } else if (event is UpdateUser) {
       User user = await UserServices.updateUser(event.user);
 
-      // print(user.id +
-      //     " " +
-      //     user.email +
-      //     " " +
-      //     user.name +
-      //     " " +
-      //     user.hp +
-      //     " " +
-      //     user.profilePicture);
+      yield UserLoaded(user);
+    } else if (event is AddToFavorite) {
+      await UserServices.addToFavorites(event.idUser, event.idDestination);
 
-      // await AuthServices.updateEmail(user.email);
+      User user = (state as UserLoaded).user.copyWith(
+          favorites:
+              (state as UserLoaded).user.favorites + [event.idDestination]);
+
+      yield UserLoaded(user);
+    } else if (event is RemoveFromFavorite) {
+      await UserServices.removeFromFavorites(event.idDestination);
+
+      List<String> favorites = (state as UserLoaded).user.favorites;
+      favorites.remove(event.idDestination);
+
+      User user = (state as UserLoaded).user.copyWith(favorites: favorites);
 
       yield UserLoaded(user);
     }

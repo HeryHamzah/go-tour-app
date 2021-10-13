@@ -34,3 +34,22 @@ class UpdateUser extends UserEvent {
   @override
   List<Object> get props => [user];
 }
+
+class AddToFavorite extends UserEvent {
+  final String idUser;
+  final String idDestination;
+
+  AddToFavorite(this.idUser, this.idDestination);
+
+  @override
+  List<Object> get props => [idUser, idDestination];
+}
+
+class RemoveFromFavorite extends UserEvent {
+  final String idDestination;
+
+  RemoveFromFavorite(this.idDestination);
+
+  @override
+  List<Object> get props => [idDestination];
+}

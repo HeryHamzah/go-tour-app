@@ -10,9 +10,7 @@ class Wrapper extends StatelessWidget {
     } else {
       print("LOGIN");
       context.bloc<UserBloc>().add(LoadUser(firebaseUser.uid));
-      context
-          .bloc<FavoriteDestinationBloc>()
-          .add(GetFavorites(firebaseUser.uid));
+     
       return MainDrawer();
     }
   }

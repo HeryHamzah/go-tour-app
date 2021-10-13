@@ -15,22 +15,25 @@ class Rating extends StatelessWidget {
           ? Icon(
               Icons.star,
               color: Colors.amber,
+              size: 18,
             )
           : (i - value < 1 && i - value > 0)
               ? Icon(
                   Icons.star_half,
                   color: Colors.amber,
+                  size: 18,
                 )
               : Icon(
                   Icons.star_border,
                   color: Colors.amber,
+                  size: 18,
                 ));
     }
 
     stars.add(SizedBox(
       width: 5,
     ));
-    stars.add(Text(rating.toString(), style: themeFont.copyWith(fontSize: 16)));
+    stars.add(Text(rating.toString(), style: themeFont.copyWith(fontSize: 14)));
 
     return Row(
       children: stars,
