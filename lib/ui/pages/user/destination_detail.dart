@@ -40,147 +40,182 @@ class _DestinationDetailPageState extends State<DestinationDetailPage> {
           Padding(
             padding: const EdgeInsets.only(
                 bottom: 40, top: 30, left: defaultMargin, right: defaultMargin),
-            child: Column(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(40),
-                  child: Container(
-                    width: size.width,
-                    height: 450,
-                    color: Colors.blue,
-                    child: Stack(
-                      children: [
-                        PageView(
-                          onPageChanged: (page) {
-                            setState(() {
-                              _currentImage = page;
-                            });
-                          },
-                          children: destination.images
-                              .map((e) => Hero(
-                                    tag: destination.id,
-                                    child: Container(
-                                      width: size.width,
-                                      height: 450,
-                                      decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                              image: NetworkImage(
-                                                  BaseUrl.getAssets + e),
-                                              fit: BoxFit.cover)),
-                                    ),
-                                  ))
-                              .toList(),
-                        ),
-                        Positioned(
-                            left: 20,
-                            top: 20,
-                            child: GestureDetector(
-                              onTap: () => Get.back(),
-                              child: Container(
-                                  padding: EdgeInsets.all(5),
-                                  decoration: BoxDecoration(
-                                      color: backColor, shape: BoxShape.circle),
-                                  child: Icon(
-                                    Icons.arrow_back,
-                                    color: mainColor,
-                                  )),
-                            )),
-                        Positioned(
-                            right: 20,
-                            top: 20,
-                            child: GestureDetector(
-                              onTap: () {},
-                              child: Container(
-                                  padding: EdgeInsets.all(5),
-                                  decoration: BoxDecoration(
-                                      color: backColor, shape: BoxShape.circle),
-                                  child: Icon(
-                                    Icons.favorite,
-                                    color: Colors.pink,
-                                  )),
-                            )),
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  width: size.width * 0.15,
-                  margin: EdgeInsets.symmetric(vertical: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: buildImageIndicator(),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: SizedBox(
-                    width: size.width - 2 * defaultMargin,
-                    child: Text(
-                      "${destination.name}, ${destination.location}",
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: themeFont.copyWith(
-                          fontSize: 20, fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Rating(8.9),
-                SizedBox(height: 10),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Text("About",
-                      style: themeFont.copyWith(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                      )),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(destination.about,
-                      maxLines: 4,
-                      style: themeFont.copyWith(
-                        fontSize: 16,
-                      )),
-                ),
-                SizedBox(height: 20),
-                Row(
+            child: BlocBuilder<UserBloc, UserState>(
+              builder: (context, userState) {
+                // User user = (userState as UserLoaded).user;
+                List<String> favorites = (userState as UserLoaded).user.favorites;
+                return Column(
                   children: [
-                    Text(
-                      NumberFormat.currency(
-                              locale: 'id_ID', decimalDigits: 0, symbol: "Rp")
-                          .format(int.parse(destination.price)),
-                      style: themeFont.copyWith(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                          color: mainColor),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(40),
+                      child: Container(
+                        width: size.width,
+                        height: 450,
+                        color: Colors.blue,
+                        child: Stack(
+                          children: [
+                            PageView(
+                              onPageChanged: (page) {
+                                setState(() {
+                                  _currentImage = page;
+                                });
+                              },
+                              children: destination.images
+                                  .map((e) => Hero(
+                                        tag: destination.id,
+                                        child: Container(
+                                          width: size.width,
+                                          height: 450,
+                                          decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: NetworkImage(
+                                                      BaseUrl.getAssets + e),
+                                                  fit: BoxFit.cover)),
+                                        ),
+                                      ))
+                                  .toList(),
+                            ),
+                            Positioned(
+                                left: 20,
+                                top: 20,
+                                child: GestureDetector(
+                                  onTap: () => Get.back(),
+                                  child: Container(
+                                      padding: EdgeInsets.all(5),
+                                      decoration: BoxDecoration(
+                                          color: backColor,
+                                          shape: BoxShape.circle),
+                                      child: Icon(
+                                        Icons.arrow_back,
+                                        color: mainColor,
+                                      )),
+                                )),
+                            Positioned(
+                                right: 20,
+                                top: 20,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    if (favorites
+                                        .contains(destination.id)) {
+                                      context.bloc<UserBloc>().add(
+                                          RemoveFromFavorites(
+                                             destination.id));
+                                    } else {
+                                      context.bloc<UserBloc>().add(
+                                          AddToFavorites(
+                                             destination.id));
+                                    }
+                                    Fluttertoast.showToast(
+                                        msg: (favorites
+                                                .contains(destination.id))
+                                            ? "Remove from Favorites"
+                                            : "Add to Favorites",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.CENTER,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.black,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0);
+                                  },
+                                  child: Container(
+                                      padding: EdgeInsets.all(5),
+                                      decoration: BoxDecoration(
+                                          color: backColor,
+                                          shape: BoxShape.circle),
+                                      child: Icon(
+                                        (favorites
+                                                .contains(destination.id))
+                                            ? Icons.favorite
+                                            : Icons.favorite_border,
+                                        color: Colors.pink,
+                                      )),
+                                )),
+                          ],
+                        ),
+                      ),
                     ),
-                    Text(
-                      "/person",
-                      style:
-                          themeFont.copyWith(fontSize: 16, color: Colors.grey),
-                    ),
-                    Spacer(),
                     Container(
-                      height: 40,
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              primary: mainColor,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8))),
-                          onPressed: () {},
-                          child: Text("Add to MyTrip",
-                              style: themeFont.copyWith(
-                                  color: Colors.white, fontSize: 16))),
+                      width: size.width * 0.15,
+                      margin: EdgeInsets.symmetric(vertical: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: buildImageIndicator(),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: SizedBox(
+                        width: size.width - 2 * defaultMargin,
+                        child: Text(
+                          "${destination.name}, ${destination.location}",
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: themeFont.copyWith(
+                              fontSize: 20, fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Rating(8.9),
+                    SizedBox(height: 10),
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Text("About",
+                          style: themeFont.copyWith(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                          )),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(destination.about,
+                          maxLines: 4,
+                          style: themeFont.copyWith(
+                            fontSize: 16,
+                          )),
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      children: [
+                        Text(
+                          NumberFormat.currency(
+                                  locale: 'id_ID',
+                                  decimalDigits: 0,
+                                  symbol: "Rp")
+                              .format(int.parse(destination.price)),
+                          style: themeFont.copyWith(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                              color: mainColor),
+                        ),
+                        Text(
+                          "/person",
+                          style: themeFont.copyWith(
+                              fontSize: 16, color: Colors.grey),
+                        ),
+                        Spacer(),
+                        Container(
+                          height: 40,
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  primary: mainColor,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8))),
+                              onPressed: () {},
+                              child: Text("Add to MyTrip",
+                                  style: themeFont.copyWith(
+                                      color: Colors.white, fontSize: 16))),
+                        )
+                      ],
                     )
                   ],
-                )
-              ],
+                );
+              },
             ),
           )
         ],

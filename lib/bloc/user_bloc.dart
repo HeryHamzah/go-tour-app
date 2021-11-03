@@ -18,10 +18,15 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   ) async* {
     if (event is LoadUser) {
       User user = await UserServices.getUser(event.id);
-      List<Destination> destinations = await UserServices.getFavorites(event.id);
-      List<String> idDestinations = destinations.map((e) => e.id).toList();
+      // List<Destination> destinations =
+      //     await UserServices.getFavorites(event.id);
+      // List<String> idDestinations = destinations.map((e) => e.id).toList();
 
-      yield UserLoaded(user.copyWith(favorites: idDestinations));
+      // User newUser = user.copyWith(favorites: idDestinations);
+
+      // print(newUser.favorites);
+
+      yield UserLoaded(user);
     } else if (event is SignOutUser) {
       yield UserInitial();
     } else if (event is UploadProfileUser) {
@@ -35,23 +40,28 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       User user = await UserServices.updateUser(event.user);
 
       yield UserLoaded(user);
-    } else if (event is AddToFavorite) {
-      await UserServices.addToFavorites(event.idUser, event.idDestination);
+    } else if (event is AddToFavorites) {
+      // await UserServices.addToFavorites(event.idUser, event.idDestination);
 
-      User user = (state as UserLoaded).user.copyWith(
+      User updatedUser = (state as UserLoaded).user.copyWith(
           favorites:
               (state as UserLoaded).user.favorites + [event.idDestination]);
 
-      yield UserLoaded(user);
-    } else if (event is RemoveFromFavorite) {
-      await UserServices.removeFromFavorites(event.idDestination);
+      await UserServices.updateUser(updatedUser);
 
-      List<String> favorites = (state as UserLoaded).user.favorites;
-      favorites.remove(event.idDestination);
+      yield UserLoaded(updatedUser);
+    } else if (event is RemoveFromFavorites) {
+      // await UserServices.removeFromFavorites(event.idUser, event.idDestination);
 
-      User user = (state as UserLoaded).user.copyWith(favorites: favorites);
+      List<String> idDestinations = (state as UserLoaded).user.favorites;
+      idDestinations.remove(event.idDestination);
 
-      yield UserLoaded(user);
+      User updatedUser =
+          (state as UserLoaded).user.copyWith(favorites: idDestinations);
+
+          await UserServices.updateUser(updatedUser);
+
+      yield UserLoaded(updatedUser);
     }
   }
 }

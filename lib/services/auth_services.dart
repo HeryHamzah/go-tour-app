@@ -11,6 +11,7 @@ class AuthServices {
 
       User user = result.user.convertToUser(name: name);
       await UserServices.regisUser(user);
+      await UserServices.regisUserFirebase(user);
       return SignInSignUpResult(user: user);
     } catch (e) {
       return SignInSignUpResult(message: "Error Auth signUp: " + e.toString());

@@ -19,10 +19,23 @@ class FavoritePage extends StatelessWidget {
                   if (snapshot.hasData) {
                     List<Destination> destinations = snapshot.data;
                     return Column(
-                      children: destinations.map((e) => Text(e.name)).toList(),
+                      children: destinations
+                          .map(
+                            (e) => GestureDetector(
+                              onTap: () {
+                                context
+                                    .bloc<UserBloc>()
+                                    .add(RemoveFromFavorites(e.id));
+
+                                // context.bloc<UserBloc>().add(LoadUser(user.id));
+                              },
+                              child: Text(e.name),
+                            ),
+                          )
+                          .toList(),
                     );
                   } else {
-                    return Text("Belum Ada Data");
+                    return SpinKitFadingCircle(color: mainColor,);
                   }
                 });
           },

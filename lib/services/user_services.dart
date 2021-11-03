@@ -1,6 +1,15 @@
 part of 'services.dart';
 
 class UserServices {
+  static CollectionReference _userCollection =
+      FirebaseFirestore.instance.collection('users');
+
+  static Future<void> regisUserFirebase(User user) async {
+    await _userCollection
+        .doc(user.id)
+        .set({'email': user.email, 'favorites': user.favorites});
+  }
+
   static Future<void> regisUser(User user) async {
     try {
       await http.post(BaseUrl.regisUser, body: {
@@ -15,27 +24,23 @@ class UserServices {
   }
 
   static Future<User> getUser(String id) async {
+    DocumentSnapshot snapshot = await _userCollection.doc(id).get();
+
     try {
       final response = await http.post(BaseUrl.getUser, body: {"id_user": id});
       final data = jsonDecode(response.body);
       final user = data['result'] as Map<String, dynamic>;
 
       return User(id, user['email'],
-          name: user['name'], profilePicture: user['image'], hp: user['hp']);
+          name: user['name'],
+          profilePicture: user['image'],
+          hp: user['hp'],
+          favorites:
+              (snapshot.data()['favorites'] as List).map((e) => e as String).toList());
     } catch (e) {
       debugPrint("Error Get User: " + e.toString());
       return null;
     }
-  }
-
-  static Future<List<Location>> getLocations() async {
-    final response = await http.get(BaseUrl.getLocations);
-    final data = json.decode(response.body);
-
-    return (data as List)
-        .map((e) =>
-            Location(id: e['id_location'], name: e['name'], image: e['image']))
-        .toList();
   }
 
   static Future<void> uploadImage({File imageFile, String idUser}) async {
@@ -70,6 +75,8 @@ class UserServices {
   }
 
   static Future<User> updateUser(User user) async {
+
+    //UPDATE TO MYSQL
     try {
       await http.post(BaseUrl.userUpdate, body: {
         "id": user.id,
@@ -81,6 +88,11 @@ class UserServices {
 
       // await AuthServices.updateEmailFirebase(user.email);
 
+      //UPDATE TO FIREBASE
+      await _userCollection
+          .doc(user.id)
+          .set({'email': user.email, 'favorites': user.favorites});
+
       return user;
     } catch (e) {
       debugPrint("Error update user: $e");
@@ -88,59 +100,56 @@ class UserServices {
     }
   }
 
-  static Future<List<Destination>> getDestinations(String idLocation) async {
-    final response = await http
-        .post(BaseUrl.getDestinations, body: {"id_location": idLocation});
-    final data = json.decode(response.body);
+  // static Future<void> addToFavorites(
+  //     String idUser, String idDestination) async {
+  //   try {
+  //     final response = await http.post(BaseUrl.addToFavorites,
+  //         body: {"id_user": idUser, "id_destination": idDestination});
+  //     final data = jsonDecode(response.body);
+  //     // int value = data["value"];
+  //     String message = data["message"];
+  //     print(message);
+  //   } catch (e) {
+  //     print("Error Add to Favorites: $e");
+  //   }
+  // }
 
-    return (data as List).map((e) => Destination.fromJson(e)).toList();
-  }
+  // static Future<void> removeFromFavorites(
+  //     String idUser, String idDestination) async {
+  //   try {
+  //     final response = await http.post(BaseUrl.removeFromFavorites,
+  //         body: {"id_destination": idDestination, "id_user": idUser});
+  //     final data = jsonDecode(response.body);
+  //     // int value = data["value"];
+  //     String message = data["message"];
+  //     print(message);
+  //   } catch (e) {
+  //     print("Error Remove from Favorites: $e");
+  //   }
+  // }
 
-  static Future<void> addToFavorites(
-      String idUser, String idDestination) async {
-    try {
-      final response = await http.post(BaseUrl.addToFavorites,
-          body: {"id_user": idUser, "id_destination": idDestination});
-      final data = jsonDecode(response.body);
-      int value = data["value"];
-      String message = data["message"];
-      if (value == 1) {
-        print(message);
-      } else {
-        print(message);
-      }
-    } catch (e) {
-      print("Error Add to Favorites: $e");
+  static Future<List<Destination>> getFavorites(String userID) async {
+    // try {
+    //   final response =
+    //       await http.post(BaseUrl.getFavorites, body: {"id_user": idUser});
+    //   final data = jsonDecode(response.body);
+
+    //   return (data as List).map((e) => Destination.fromJson(e)).toList();
+    // } catch (e) {
+    //   print("Error Get Favorites: $e");
+    //   return null;
+    // }
+
+    DocumentSnapshot snapshots = await _userCollection.doc(userID).get();
+
+    List<Destination> favorites = [];
+
+    for (var snapshot in snapshots.data()['favorites']) {
+      Destination destination =
+          await GeneralServices.getDetailDestination(snapshot);
+
+      favorites.add(destination);
     }
-  }
-
-  static Future<void> removeFromFavorites(String idDestination) async {
-    try {
-      final response = await http.post(BaseUrl.removeFromFavorites,
-          body: {"id_destination": idDestination});
-      final data = jsonDecode(response.body);
-      int value = data["value"];
-      String message = data["message"];
-      if (value == 1) {
-        print(message);
-      } else {
-        print(message);
-      }
-    } catch (e) {
-      print("Error Remove from Favorites: $e");
-    }
-  }
-
-  static Future<List<Destination>> getFavorites(String idUser) async {
-    try {
-      final response =
-          await http.post(BaseUrl.getFavorites, body: {"id_user": idUser});
-      final data = jsonDecode(response.body);
-
-      return (data as List).map((e) => Destination.fromJson(e)).toList();
-    } catch (e) {
-      print("Error Get Favorites: $e");
-      return null;
-    }
+    return favorites;
   }
 }

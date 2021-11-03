@@ -8,7 +8,7 @@ class User extends Equatable {
   final String hp;
   final List<String> favorites;
 
-  User(this.id, this.email, {this.name, this.profilePicture, this.hp, this.favorites});
+  User(this.id, this.email, {this.name, this.profilePicture, this.hp, this.favorites = const []});
 
   User copyWith(
           {String name, String email, String profilePicture, String hp, List<String> favorites}) =>
