@@ -1,17 +1,22 @@
 part of 'widgets.dart';
 
-class DestinationCard extends StatelessWidget {
+class DestinationCard extends StatefulWidget {
   final Destination destination;
   final Function onTap;
 
   DestinationCard({this.destination, this.onTap});
 
   @override
+  State<DestinationCard> createState() => _DestinationCardState();
+}
+
+class _DestinationCardState extends State<DestinationCard> {
+  @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        if (onTap != null) {
-          onTap();
+        if (widget.onTap != null) {
+          widget.onTap();
         }
       },
       child: BlocBuilder<UserBloc, UserState>(
@@ -28,7 +33,7 @@ class DestinationCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Hero(
-                    tag: destination.id,
+                    tag: widget.destination.id,
                     child: Container(
                       height: 200,
                       width: double.infinity,
@@ -36,23 +41,24 @@ class DestinationCard extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(18),
                           image: DecorationImage(
-                              image: NetworkImage(
-                                  BaseUrl.getAssets + destination.images[0]),
+                              image: NetworkImage(BaseUrl.getAssets +
+                                  widget.destination.images[0]),
                               fit: BoxFit.cover)),
                       child: Align(
                         alignment: Alignment.topRight,
                         child: GestureDetector(
                           onTap: () {
-                            (favorites.contains(destination.id))
-                                ? context
-                                    .bloc<UserBloc>()
-                                    .add(RemoveFromFavorites(destination.id))
+                            (favorites.contains(widget.destination.id))
+                                ? context.bloc<UserBloc>().add(
+                                    RemoveFromFavorites(widget.destination.id))
                                 : context
                                     .bloc<UserBloc>()
-                                    .add(AddToFavorites(destination.id));
+                                    .add(AddToFavorites(widget.destination.id));
+
+                            setState(() {});
 
                             Fluttertoast.showToast(
-                                msg: (favorites.contains(destination.id))
+                                msg: (favorites.contains(widget.destination.id))
                                     ? "Remove from Favorites"
                                     : "Add to Favorites",
                                 toastLength: Toast.LENGTH_SHORT,
@@ -63,7 +69,7 @@ class DestinationCard extends StatelessWidget {
                                 fontSize: 16.0);
                           },
                           child: Icon(
-                            (favorites.contains(destination.id))
+                            (favorites.contains(widget.destination.id))
                                 ? Icons.favorite
                                 : Icons.favorite_border,
                             color: Colors.redAccent,
@@ -76,7 +82,7 @@ class DestinationCard extends StatelessWidget {
                     height: 15,
                   ),
                   Text(
-                    destination.name,
+                    widget.destination.name,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: themeFont.copyWith(

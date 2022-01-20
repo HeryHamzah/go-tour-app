@@ -11,7 +11,7 @@ class GeneralServices {
         .toList();
   }
 
-   static Future<List<Destination>> getDestinations(String idLocation) async {
+  static Future<List<Destination>> getDestinations(String idLocation) async {
     final response = await http
         .post(BaseUrl.getDestinations, body: {"id_location": idLocation});
     final data = json.decode(response.body);
@@ -19,13 +19,12 @@ class GeneralServices {
     return (data as List).map((e) => Destination.fromJson(e)).toList();
   }
 
-  static Future<Destination> getDetailDestination(String idDestination) async{
-    final response = await http.post(BaseUrl.getDetailDestination, body: {
-      "id_destination": idDestination
-    });
-    final data = json.decode(response.body);
+  static Future<Destination> getDetailDestination(String idDestination) async {
+    final response = await http.post(BaseUrl.getDetailDestination,
+        body: {"id_destination": idDestination});
+    final data = jsonDecode(response.body);
+    final user = data['result'] as Map<String, dynamic>;
 
-    return Destination.fromJson(data);
+    return Destination.fromJson(user);
   }
-  
 }

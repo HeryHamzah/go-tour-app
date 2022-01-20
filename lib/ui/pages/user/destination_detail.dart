@@ -105,6 +105,9 @@ class _DestinationDetailPageState extends State<DestinationDetailPage> {
                                           AddToFavorites(
                                              destination.id));
                                     }
+                                    setState(() {
+                                      
+                                    });
                                     Fluttertoast.showToast(
                                         msg: (favorites
                                                 .contains(destination.id))
