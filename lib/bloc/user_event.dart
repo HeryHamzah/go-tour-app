@@ -52,3 +52,21 @@ class RemoveFromFavorites extends UserEvent {
   @override
   List<Object> get props => [idDestination];
 }
+
+class AddToMyTrip extends UserEvent {
+  final String idDestination;
+
+  AddToMyTrip(this.idDestination);
+
+  @override
+  List<Object> get props => [idDestination];
+}
+
+class RemoveFromMyTrip extends UserEvent {
+  final String idDestination;
+
+  RemoveFromMyTrip(this.idDestination);
+
+  @override
+  List<Object> get props => [idDestination];
+}

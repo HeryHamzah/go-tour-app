@@ -5,9 +5,11 @@ class UserServices {
       FirebaseFirestore.instance.collection('users');
 
   static Future<void> regisUserFirebase(User user) async {
-    await _userCollection
-        .doc(user.id)
-        .set({'email': user.email, 'favorites': user.favorites});
+    await _userCollection.doc(user.id).set({
+      'email': user.email,
+      'favorites': user.favorites,
+      'myTrips': user.myTrips
+    });
   }
 
   static Future<void> regisUser(User user) async {
@@ -31,12 +33,19 @@ class UserServices {
       final data = jsonDecode(response.body);
       final user = data['result'] as Map<String, dynamic>;
 
-      return User(id, user['email'],
-          name: user['name'],
-          profilePicture: user['image'],
-          hp: user['hp'],
-          favorites:
-              (snapshot.data()['favorites'] as List).map((e) => e as String).toList());
+      return User(
+        id,
+        user['email'],
+        name: user['name'],
+        profilePicture: user['image'],
+        hp: user['hp'],
+        favorites: (snapshot.data()['favorites'] as List)
+            .map((e) => e as String)
+            .toList(),
+        myTrips: (snapshot.data()['myTrips'] as List)
+            .map((e) => e as String)
+            .toList(),
+      );
     } catch (e) {
       debugPrint("Error Get User: " + e.toString());
       return null;
@@ -75,7 +84,6 @@ class UserServices {
   }
 
   static Future<User> updateUser(User user) async {
-
     //UPDATE TO MYSQL
     try {
       await http.post(BaseUrl.userUpdate, body: {
@@ -89,9 +97,11 @@ class UserServices {
       // await AuthServices.updateEmailFirebase(user.email);
 
       //UPDATE TO FIREBASE
-      await _userCollection
-          .doc(user.id)
-          .set({'email': user.email, 'favorites': user.favorites});
+      await _userCollection.doc(user.id).set({
+        'email': user.email,
+        'favorites': user.favorites,
+        'myTrips': user.myTrips
+      });
 
       return user;
     } catch (e) {
@@ -151,5 +161,19 @@ class UserServices {
       favorites.add(destination);
     }
     return favorites;
+  }
+
+  static Future<List<Destination>> getMyTrips(String userID) async {
+    DocumentSnapshot snapshots = await _userCollection.doc(userID).get();
+
+    List<Destination> myTrips = [];
+
+    for (var snapshot in snapshots.data()['myTrips']) {
+      Destination destination =
+          await GeneralServices.getDetailDestination(snapshot);
+
+      myTrips.add(destination);
+    }
+    return myTrips;
   }
 }

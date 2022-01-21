@@ -59,8 +59,23 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       User updatedUser =
           (state as UserLoaded).user.copyWith(favorites: idDestinations);
 
-          await UserServices.updateUser(updatedUser);
+      await UserServices.updateUser(updatedUser);
 
+      yield UserLoaded(updatedUser);
+    } else if (event is AddToMyTrip) {
+      User updatedUser = (state as UserLoaded).user.copyWith(
+          myTrips: (state as UserLoaded).user.myTrips + [event.idDestination]);
+
+      await UserServices.updateUser(updatedUser);
+      yield UserLoaded(updatedUser);
+    } else if (event is RemoveFromMyTrip) {
+      List<String> idDestinations = (state as UserLoaded).user.myTrips;
+      idDestinations.remove(event.idDestination);
+
+      User updatedUser =
+          (state as UserLoaded).user.copyWith(myTrips: idDestinations);
+
+      await UserServices.updateUser(updatedUser);
       yield UserLoaded(updatedUser);
     }
   }
