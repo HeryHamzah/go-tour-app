@@ -15,7 +15,6 @@ class _FavoriteCardState extends State<FavoriteCard> {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: defaultMargin),
       child: Row(
-        // crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             width: 75,

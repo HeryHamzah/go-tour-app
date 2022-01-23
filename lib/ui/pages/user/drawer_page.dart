@@ -203,6 +203,22 @@ class _DrawerPageState extends State<DrawerPage> {
               thickness: 1,
               color: Colors.white,
             ),
+            ListTile(
+                contentPadding: EdgeInsets.all(0),
+                leading: Icon(
+                  Icons.ac_unit,
+                  color: Colors.white,
+                  size: 30,
+                ),
+                title: Text(
+                  'About Us',
+                  style: themeFont.copyWith(color: Colors.white),
+                ),
+                onTap: () {}),
+                Divider(
+              thickness: 1,
+              color: Colors.white,
+            ),
             Spacer(),
             OutlinedButton(
                 style: OutlinedButton.styleFrom(

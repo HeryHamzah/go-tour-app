@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.only(bottom: 10, left: defaultMargin),
                 child: Text(
                   "EXPLORE",
-                  style: themeFont.copyWith(fontSize: 16),
+                  style: themeFont.copyWith(fontSize: 18),
                 ),
               ),
               FutureBuilder(
@@ -75,9 +75,27 @@ class _HomePageState extends State<HomePage> {
                     top: 20, bottom: 10, left: defaultMargin),
                 child: Text(
                   "Best Destinations",
-                  style: themeFont.copyWith(fontSize: 16),
+                  style: themeFont.copyWith(fontSize: 18),
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: defaultMargin, right: defaultMargin, bottom: 10),
+                child: BestDestinationsCard(),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: defaultMargin, right: defaultMargin, bottom: 10),
+                child: BestDestinationsCard(),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: defaultMargin, right: defaultMargin, bottom: 10),
+                child: BestDestinationsCard(),
+              ),
+              SizedBox(
+                height: 100,
+              )
             ],
           );
         },
