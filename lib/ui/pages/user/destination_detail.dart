@@ -43,7 +43,8 @@ class _DestinationDetailPageState extends State<DestinationDetailPage> {
             child: BlocBuilder<UserBloc, UserState>(
               builder: (context, userState) {
                 // User user = (userState as UserLoaded).user;
-                List<String> favorites = (userState as UserLoaded).user.favorites;
+                List<String> favorites =
+                    (userState as UserLoaded).user.favorites;
                 return Column(
                   children: [
                     ClipRRect(
@@ -95,24 +96,20 @@ class _DestinationDetailPageState extends State<DestinationDetailPage> {
                                 top: 20,
                                 child: GestureDetector(
                                   onTap: () {
-                                    if (favorites
-                                        .contains(destination.id)) {
+                                    if (favorites.contains(destination.id)) {
                                       context.bloc<UserBloc>().add(
-                                          RemoveFromFavorites(
-                                             destination.id));
+                                          RemoveFromFavorites(destination.id));
                                     } else {
-                                      context.bloc<UserBloc>().add(
-                                          AddToFavorites(
-                                             destination.id));
+                                      context
+                                          .bloc<UserBloc>()
+                                          .add(AddToFavorites(destination.id));
                                     }
-                                    setState(() {
-                                      
-                                    });
+                                    setState(() {});
                                     Fluttertoast.showToast(
-                                        msg: (favorites
-                                                .contains(destination.id))
-                                            ? "Remove from Favorites"
-                                            : "Add to Favorites",
+                                        msg:
+                                            (favorites.contains(destination.id))
+                                                ? "Remove from Favorites"
+                                                : "Add to Favorites",
                                         toastLength: Toast.LENGTH_SHORT,
                                         gravity: ToastGravity.CENTER,
                                         timeInSecForIosWeb: 1,
@@ -126,8 +123,7 @@ class _DestinationDetailPageState extends State<DestinationDetailPage> {
                                           color: backColor,
                                           shape: BoxShape.circle),
                                       child: Icon(
-                                        (favorites
-                                                .contains(destination.id))
+                                        (favorites.contains(destination.id))
                                             ? Icons.favorite
                                             : Icons.favorite_border,
                                         color: Colors.pink,
@@ -209,8 +205,8 @@ class _DestinationDetailPageState extends State<DestinationDetailPage> {
                                   primary: mainColor,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(8))),
-                              onPressed: () {},
-                              child: Text("Add to MyTrip",
+                              onPressed: () => Get.toNamed('/bookingPage'),
+                              child: Text("Book",
                                   style: themeFont.copyWith(
                                       color: Colors.white, fontSize: 16))),
                         )

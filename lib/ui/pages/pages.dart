@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -34,3 +35,4 @@ part 'user/profile_page.dart';
 part 'user/destinations_page.dart';
 part 'user/destination_detail.dart';
 part 'user/mytrip_page.dart';
+part 'user/booking_page.dart';
