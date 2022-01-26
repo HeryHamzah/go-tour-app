@@ -8,6 +8,7 @@ class BookingPage extends StatefulWidget {
 }
 
 class _BookingPageState extends State<BookingPage> {
+  Destination destination = Get.arguments;
   DatePickerController _dateTimeController = DatePickerController();
   int totalTicket = 0;
   int totalPrice = 0;
@@ -103,6 +104,9 @@ class _BookingPageState extends State<BookingPage> {
                                   onPressed: () {
                                     setState(() {
                                       totalTicket += 1;
+                                      totalPrice =
+                                          int.tryParse(destination.price) *
+                                              totalTicket;
                                     });
                                   },
                                 ),
@@ -116,6 +120,24 @@ class _BookingPageState extends State<BookingPage> {
                   SizedBox(
                     height: 10,
                   ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Total Pembayaran:",
+                        style: themeFont.copyWith(fontSize: 18),
+                      ),
+                      Text(
+                        NumberFormat.currency(
+                                locale: "id_ID", decimalDigits: 0, symbol: "Rp")
+                            .format(totalPrice),
+                        style: themeFont.copyWith(
+                            color: mainColor,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  )
                 ],
               )
             ],

@@ -205,7 +205,8 @@ class _DestinationDetailPageState extends State<DestinationDetailPage> {
                                   primary: mainColor,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(8))),
-                              onPressed: () => Get.toNamed('/bookingPage'),
+                              onPressed: () => Get.toNamed('/bookingPage',
+                                  arguments: destination),
                               child: Text("Book",
                                   style: themeFont.copyWith(
                                       color: Colors.white, fontSize: 16))),
