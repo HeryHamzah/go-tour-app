@@ -18,7 +18,8 @@ class UserServices {
         "id": user.id,
         "email": user.email,
         "name": user.name,
-        "hp": user.hp
+        "hp": user.hp,
+        "balance": user.balance
       });
     } catch (e) {
       print("Error : $e");
@@ -39,6 +40,7 @@ class UserServices {
         name: user['name'],
         profilePicture: user['image'],
         hp: user['hp'],
+        balance: int.tryParse(user['balance']),
         favorites: (snapshot.data()['favorites'] as List)
             .map((e) => e as String)
             .toList(),

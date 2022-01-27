@@ -6,6 +6,7 @@ class User extends Equatable {
   final String email;
   final String profilePicture;
   final String hp;
+  final int balance;
   final List<String> favorites;
   final List<String> myTrips;
 
@@ -13,6 +14,7 @@ class User extends Equatable {
       {this.name,
       this.profilePicture,
       this.hp,
+      this.balance,
       this.favorites = const [],
       this.myTrips = const []});
 
@@ -21,16 +23,18 @@ class User extends Equatable {
           String email,
           String profilePicture,
           String hp,
+          int balance,
           List<String> favorites,
           List<String> myTrips}) =>
       User(this.id, email ?? this.email,
           name: name ?? this.name,
           profilePicture: profilePicture ?? this.profilePicture,
           hp: hp ?? this.hp,
+          balance: balance ?? this.balance,
           favorites: favorites ?? this.favorites,
           myTrips: myTrips ?? this.myTrips);
 
   @override
   List<Object> get props =>
-      [id, name, email, profilePicture, hp, favorites, myTrips];
+      [id, name, email, profilePicture, hp, balance, favorites, myTrips];
 }

@@ -54,7 +54,7 @@ buildMainScreen({int idPage, User user}) {
     case 4:
       return MyTripPage();
     case 5:
-      return MyWalletPage();
+      return MyWalletPage(user);
   }
 }
 
