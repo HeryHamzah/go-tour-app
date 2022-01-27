@@ -19,7 +19,7 @@ class UserServices {
         "email": user.email,
         "name": user.name,
         "hp": user.hp,
-        "balance": user.balance
+        "balance": user.balance.toString()
       });
     } catch (e) {
       print("Error : $e");
@@ -27,8 +27,10 @@ class UserServices {
   }
 
   static Future<User> getUser(String id) async {
+    //Note: GET USER FROM FIREBASE
     DocumentSnapshot snapshot = await _userCollection.doc(id).get();
 
+    //Note: GET USER FROM DATABASE
     try {
       final response = await http.post(BaseUrl.getUser, body: {"id_user": id});
       final data = jsonDecode(response.body);
@@ -177,5 +179,18 @@ class UserServices {
       myTrips.add(destination);
     }
     return myTrips;
+  }
+
+  static Future<List<GoTourTransaction>> getTransactions(String userID) async {
+    try {
+      final response =
+          await http.post(BaseUrl.getTransactions, body: {"id_user": userID});
+      final data = jsonDecode(response.body);
+
+      return (data as List).map((e) => GoTourTransaction.fromJson(e)).toList();
+    } catch (e) {
+      print("Error get transaction: " + e.toString());
+      return null;
+    }
   }
 }

@@ -27,80 +27,36 @@ class _MyWalletPageState extends State<MyWalletPage> {
         child: ListView(
           children: [
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                //CARD
-                Container(
-                  width: double.infinity,
-                  height: 185,
-                  padding: EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                      color: mainColor,
-                      borderRadius: BorderRadius.circular(15),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black26,
-                            blurRadius: 10,
-                            spreadRadius: 0,
-                            offset: Offset(0, 5))
-                      ]),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(widget.user.id.substring(0, 12).toUpperCase(),
-                              style: themeFont.copyWith(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500)),
-                          Container(
-                            width: 50,
-                            child: Stack(
-                              children: [
-                                Align(
-                                  alignment: Alignment.topRight,
-                                  child: Container(
-                                    width: 30,
-                                    height: 30,
-                                    decoration: BoxDecoration(
-                                        color: Colors.amber,
-                                        shape: BoxShape.circle),
-                                  ),
-                                ),
-                                Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Container(
-                                    width: 30,
-                                    height: 30,
-                                    decoration: BoxDecoration(
-                                        color: Colors.red.withOpacity(.8),
-                                        shape: BoxShape.circle),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Column(
-                            children: [
-                              Text(
-                                "Saldo",
-                                style: themeFont.copyWith(
-                                    color: Colors.grey[200],
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              Text("")
-                            ],
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                )
+                //Note: CARD
+                WalletCard(widget.user),
+                SizedBox(
+                  height: 20,
+                ),
+                //Note: Transaksi Terkini
+                Text("Transaksi Terkini",
+                    style: themeFont.copyWith(
+                        fontSize: 16, fontWeight: FontWeight.w500)),
+                SizedBox(
+                  height: 10,
+                ),
+                FutureBuilder(
+                    future: UserServices.getTransactions(widget.user.id),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        List<GoTourTransaction> transactions = snapshot.data;
+                        return Column(
+                          children: transactions
+                              .map((e) => TransactionCard(e))
+                              .toList(),
+                        );
+                      } else {
+                        return SpinKitFadingCircle(
+                          color: mainColor,
+                        );
+                      }
+                    })
               ],
             )
           ],
