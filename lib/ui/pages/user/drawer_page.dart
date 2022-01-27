@@ -53,6 +53,8 @@ buildMainScreen({int idPage, User user}) {
       return FavoritePage();
     case 4:
       return MyTripPage();
+    case 5:
+      return MyWalletPage();
   }
 }
 
@@ -150,6 +152,24 @@ class _DrawerPageState extends State<DrawerPage> {
               color: Colors.white,
             ),
             ListTile(
+                contentPadding: EdgeInsets.all(0),
+                leading: Icon(
+                  FontAwesomeIcons.wallet,
+                  color: Colors.white,
+                ),
+                title: Text(
+                  'Dompetku',
+                  style: themeFont.copyWith(color: Colors.white),
+                ),
+                onTap: () {
+                  context.bloc<NavdrawerBloc>().add(ChangePage(5));
+                  ZoomDrawer.of(context).close();
+                }),
+            Divider(
+              thickness: 1,
+              color: Colors.white,
+            ),
+            ListTile(
               contentPadding: EdgeInsets.all(0),
               leading: Icon(
                 FontAwesomeIcons.umbrellaBeach,
@@ -215,7 +235,7 @@ class _DrawerPageState extends State<DrawerPage> {
                   style: themeFont.copyWith(color: Colors.white),
                 ),
                 onTap: () {}),
-                Divider(
+            Divider(
               thickness: 1,
               color: Colors.white,
             ),
