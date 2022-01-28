@@ -63,7 +63,9 @@ class _MyWalletPageState extends State<MyWalletPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {},
+          onPressed: () {
+            Get.toNamed('/topUpPage');
+          },
           label:
               Text("Top Up", style: themeFont.copyWith(color: Colors.white))),
     );

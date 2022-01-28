@@ -37,3 +37,4 @@ part 'user/destination_detail.dart';
 part 'user/mytrip_page.dart';
 part 'user/booking_page.dart';
 part 'user/my_wallet_page.dart';
+part 'user/topup_page.dart';

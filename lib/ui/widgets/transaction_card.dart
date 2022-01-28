@@ -25,8 +25,16 @@ class TransactionCard extends StatelessWidget {
           ),
           Column(
             children: [
-              Text(transaction.title),
-              Text(transaction.amount.toString()),
+              Text(
+                transaction.title,
+                style: themeFont.copyWith(fontSize: 16),
+              ),
+              Text(
+                transaction.amount.toString(),
+                style: themeFont.copyWith(
+                    color: (transaction.amount > 0) ? mainColor : Colors.red,
+                    fontWeight: FontWeight.bold),
+              ),
               Text(transaction.desc)
             ],
           ),
