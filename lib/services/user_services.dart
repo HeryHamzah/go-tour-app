@@ -187,8 +187,8 @@ class UserServices {
         "id_user": transaction.userID,
         "title": transaction.title,
         "picture_path": transaction.picturePath,
-        "amount": transaction.amount,
-        // "time": DateTime.fromMillisecondsSinceEpoch(transaction.time),
+        "amount": transaction.amount.toString(),
+        "time": transaction.time.millisecondsSinceEpoch.toString(),
         "description": transaction.desc
       });
     } catch (e) {
