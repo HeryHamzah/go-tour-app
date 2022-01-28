@@ -17,4 +17,5 @@ class BaseUrl {
   static String removeFromFavorites =
       dbUrl + "user_API/remove_from_favorites.php";
   static String getTransactions = dbUrl + "user_API/get_transactions.php";
+  static String saveTransaction = dbUrl + "user_API/save_transaction.php";
 }

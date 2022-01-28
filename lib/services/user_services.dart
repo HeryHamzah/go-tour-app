@@ -181,6 +181,21 @@ class UserServices {
     return myTrips;
   }
 
+  static Future<void> saveTransaction(GoTourTransaction transaction) async {
+    try {
+      await http.post(BaseUrl.saveTransaction, body: {
+        "id_user": transaction.userID,
+        "title": transaction.title,
+        "picture_path": transaction.picturePath,
+        "amount": transaction.amount,
+        // "time": DateTime.fromMillisecondsSinceEpoch(transaction.time),
+        "description": transaction.desc
+      });
+    } catch (e) {
+      print("Error save transaction: " + e.toString());
+    }
+  }
+
   static Future<List<GoTourTransaction>> getTransactions(String userID) async {
     try {
       final response =
@@ -189,7 +204,7 @@ class UserServices {
 
       return (data as List).map((e) => GoTourTransaction.fromJson(e)).toList();
     } catch (e) {
-      print("Error get transaction: " + e.toString());
+      print("Error get transactions: " + e.toString());
       return null;
     }
   }
