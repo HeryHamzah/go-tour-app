@@ -20,7 +20,7 @@ class TransactionCard extends StatelessWidget {
                     image: (transaction.picturePath != "")
                         ? NetworkImage(
                             BaseUrl.getAssets + transaction.picturePath)
-                        : AssetImage("assets/home.jpg"),
+                        : AssetImage("assets/topup_cover.png"),
                     fit: BoxFit.cover)),
           ),
           Column(

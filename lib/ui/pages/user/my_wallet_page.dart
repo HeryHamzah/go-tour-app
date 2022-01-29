@@ -48,7 +48,10 @@ class _MyWalletPageState extends State<MyWalletPage> {
                         List<GoTourTransaction> transactions = snapshot.data;
                         return Column(
                           children: transactions
-                              .map((e) => TransactionCard(e))
+                              .map((e) => Padding(
+                                    padding: const EdgeInsets.only(bottom: 8.0),
+                                    child: TransactionCard(e),
+                                  ))
                               .toList(),
                         );
                       } else {
