@@ -65,12 +65,14 @@ class _MyWalletPageState extends State<MyWalletPage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
+      floatingActionButton: FloatingActionButton(
           onPressed: () {
             Get.toNamed('/topUpPage', arguments: widget.user);
           },
-          label:
-              Text("Top Up", style: themeFont.copyWith(color: Colors.white))),
+          child: Icon(
+            MaterialCommunityIcons.plus,
+            color: Colors.white,
+          )),
     );
   }
 }

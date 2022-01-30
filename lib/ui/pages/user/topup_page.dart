@@ -20,6 +20,53 @@ class _TopUpPageState extends State<TopUpPage> {
   int amount = 0;
   User user = Get.arguments;
 
+  void showAlertDialog(User user, int amount) {
+    AlertDialog alertDialog = AlertDialog(
+      title: Text("Anda yakin?",
+          style: themeFont.copyWith(fontWeight: FontWeight.w500)),
+      content: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Expanded(
+            child: Container(
+              height: 46,
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(10)),
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      primary: Colors.grey, onPrimary: Colors.white),
+                  onPressed: () => Get.back(),
+                  child: Text(
+                    "Cancel",
+                  )),
+            ),
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          Expanded(
+            child: Container(
+              height: 46,
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(10)),
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      primary: mainColor, onPrimary: Colors.white),
+                  onPressed: () {
+                    Get.toNamed('/topUpSuccesPage', arguments: [user, amount]);
+                  },
+                  child: Text(
+                    "Yakin!",
+                  )),
+            ),
+          )
+        ],
+      ),
+    );
+
+    showDialog(context: context, builder: (context) => alertDialog);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -136,32 +183,17 @@ class _TopUpPageState extends State<TopUpPage> {
                 SizedBox(height: 100),
                 Center(
                   child: Container(
-                    height: 45,
+                    height: 46,
                     child: ElevatedButton(
                         style:
                             ElevatedButton.styleFrom(onPrimary: Colors.white),
-                        onPressed: () {
-                          Fluttertoast.showToast(
-                              msg: "Tahan untuk konfirmasi topup",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
-                              timeInSecForIosWeb: 1,
-                              backgroundColor: Colors.black,
-                              textColor: Colors.white,
-                              fontSize: 16.0);
-                        },
-                        onLongPress: () {
-                          //TODO: Lengkapi data
-                          UserServices.saveTransaction(GoTourTransaction(
-                              userID: user.id,
-                              picturePath: "",
-                              title: "Top Up",
-                              amount: amount,
-                              desc: "",
-                              time: DateTime.now()));
-                        },
+                        onPressed: (amount <= 0)
+                            ? null
+                            : () {
+                                showAlertDialog(user, amount);
+                              },
                         child: Text(
-                          "Tahan untuk Topup",
+                          "Topup",
                           style: themeFont.copyWith(
                               color: Colors.white, fontSize: 16),
                         )),

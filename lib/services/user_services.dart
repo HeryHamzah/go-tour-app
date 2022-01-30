@@ -95,7 +95,8 @@ class UserServices {
         "email": user.email,
         "name": user.name,
         "hp": user.hp,
-        "image": user.profilePicture
+        "image": user.profilePicture,
+        "balance": user.balance.toString()
       });
 
       // await AuthServices.updateEmailFirebase(user.email);

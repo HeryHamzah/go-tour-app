@@ -38,3 +38,4 @@ part 'user/mytrip_page.dart';
 part 'user/booking_page.dart';
 part 'user/my_wallet_page.dart';
 part 'user/topup_page.dart';
+part 'user/topup_succes_page.dart';
