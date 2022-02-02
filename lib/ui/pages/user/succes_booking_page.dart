@@ -1,15 +1,15 @@
 part of '../pages.dart';
 
-class SuccesReservationPage extends StatelessWidget {
+class SuccesBookingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var data = Get.arguments;
-    User user = data[0];
-    int amount = data[1];
+    Ticket ticket = data[0];
+    String userID = data[1];
     return Scaffold(
       backgroundColor: backColor,
       body: FutureBuilder(
-          future: processingTopUp(context, user, amount),
+          future: processingTransaction(context, ticket, userID),
           builder: (_, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               return Column(
@@ -20,16 +20,16 @@ class SuccesReservationPage extends StatelessWidget {
                       width: 180,
                       height: 180,
                       margin: EdgeInsets.only(bottom: 70),
-                      child: SvgPicture.asset("assets/topup.svg",
+                      child: SvgPicture.asset("assets/traveling.svg",
                           fit: BoxFit.contain),
                     ),
                   ),
                   Text(
-                    "Yasssssh!",
+                    "Horeeeeee!",
                     style: themeFont.copyWith(fontSize: 20),
                   ),
                   SizedBox(height: 20),
-                  Text("Anda telah berhasil\nmelakukan Top Up",
+                  Text("Anda telah berhasil\nmelakukan pembelian tiket",
                       textAlign: TextAlign.center,
                       style: themeFont.copyWith(
                           fontSize: 16, fontWeight: FontWeight.w300)),
@@ -45,10 +45,10 @@ class SuccesReservationPage extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16))),
                         onPressed: () {
-                          Get.offAllNamed("/MyWalletPage");
+                          //TODO: navigasi ke tiketku
                         },
                         child: Text(
-                          "Dompetku",
+                          "Tiketku",
                           style: themeFont.copyWith(
                               fontSize: 16, color: Colors.white),
                         )),
@@ -78,16 +78,17 @@ class SuccesReservationPage extends StatelessWidget {
     );
   }
 
-  Future<void> processingTopUp(
-      BuildContext context, User user, int amount) async {
-    context.bloc<UserBloc>().add(TopUp(amount));
-    //TODO: Lengkapi data
-    UserServices.saveTransaction(GoTourTransaction(
-        userID: user.id,
-        picturePath: "",
-        title: "Top Up",
-        amount: amount,
-        desc: "",
+  Future<void> processingTransaction(
+      BuildContext context, Ticket ticket, String userID) async {
+    context.bloc<UserBloc>().add(Purchase(ticket.totalPrice));
+
+    await UserServices.saveticket(ticket, userID);
+    await UserServices.saveTransaction(GoTourTransaction(
+        userID: userID,
+        picturePath: ticket.destination.images[0],
+        title: ticket.destination.name,
+        amount: ticket.totalPrice,
+        desc: ticket.destination.location,
         time: DateTime.now()));
   }
 }

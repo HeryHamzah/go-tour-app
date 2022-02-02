@@ -209,4 +209,20 @@ class UserServices {
       return null;
     }
   }
+
+  static Future<void> saveticket(Ticket ticket, String userID) async {
+    try {
+      await http.post(BaseUrl.saveTicket, body: {
+        "id_user": userID,
+        "id_destination": ticket.destination.id,
+        "name": ticket.name,
+        "destination_name": ticket.destination.name,
+        "total_ticket": ticket.totalTicket.toString(),
+        "time": ticket.time.millisecondsSinceEpoch.toString(),
+        "total_price": ticket.totalPrice.toString()
+      });
+    } catch (e) {
+      print("Error save ticket: " + e.toString());
+    }
+  }
 }

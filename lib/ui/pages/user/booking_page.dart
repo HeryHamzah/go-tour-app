@@ -10,6 +10,7 @@ class BookingPage extends StatefulWidget {
 class _BookingPageState extends State<BookingPage> {
   Destination destination = Get.arguments;
   DatePickerController _dateTimeController = DatePickerController();
+  DateTime bookingTime = DateTime.now();
   int totalTicket = 0;
   int price = 0;
   @override
@@ -57,6 +58,9 @@ class _BookingPageState extends State<BookingPage> {
                             selectionColor: mainColor,
                             daysCount: 30,
                             locale: "id_ID",
+                            onDateChange: (dateTime) {
+                              bookingTime = dateTime;
+                            },
                           )
                         ],
                       ),
@@ -209,7 +213,7 @@ class _BookingPageState extends State<BookingPage> {
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: themeFont.copyWith(
-                                  color: mainColor,
+                                  color: Colors.black,
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -244,7 +248,7 @@ class _BookingPageState extends State<BookingPage> {
                               overflow: TextOverflow.ellipsis,
                               style: themeFont.copyWith(
                                   color: (user.balance >= totalPrice)
-                                      ? Color((0XFF567DF4))
+                                      ? mainColor
                                       : Colors.red,
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold),
@@ -252,6 +256,42 @@ class _BookingPageState extends State<BookingPage> {
                           ),
                         ],
                       ),
+                      SizedBox(
+                        height: 100,
+                      ),
+                      Center(
+                        child: Container(
+                          width: 250,
+                          height: 46,
+                          child: ElevatedButton(
+                              onPressed: user.balance >= totalPrice
+                                  ? () => Get.offAndToNamed(
+                                          "/succesBookingPage",
+                                          arguments: [
+                                            Ticket(
+                                              destination: destination,
+                                              time: bookingTime,
+                                              name: user.name,
+                                              totalTicket: totalTicket,
+                                              totalPrice: totalPrice,
+                                            ),
+                                            user.id
+                                          ])
+                                  : () => Get.offAndToNamed("/topUpPage",
+                                      arguments: user),
+                              style: ElevatedButton.styleFrom(
+                                  primary: user.balance >= totalPrice
+                                      ? mainColor
+                                      : Colors.red),
+                              child: Text(
+                                user.balance >= totalPrice
+                                    ? "Pesan Sekarang"
+                                    : "Top Up Dompetku",
+                                style: themeFont.copyWith(
+                                    color: Colors.white, fontSize: 16),
+                              )),
+                        ),
+                      )
                     ],
                   )
                 ],
