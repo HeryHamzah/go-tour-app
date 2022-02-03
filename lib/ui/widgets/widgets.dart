@@ -5,6 +5,7 @@ import 'package:travel_tourguide_app/shared/shared.dart';
 import 'package:travel_tourguide_app/models/models.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:travel_tourguide_app/extensions/extensions.dart';
 
 part 'location_card.dart';
 part 'destination_card.dart';

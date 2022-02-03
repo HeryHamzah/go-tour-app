@@ -24,6 +24,7 @@ class TransactionCard extends StatelessWidget {
                     fit: BoxFit.cover)),
           ),
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 transaction.title,
@@ -35,7 +36,7 @@ class TransactionCard extends StatelessWidget {
                     color: (transaction.amount > 0) ? mainColor : Colors.red,
                     fontWeight: FontWeight.bold),
               ),
-              Text(transaction.desc)
+              Text(transaction.time.dayAndDate)
             ],
           ),
         ],

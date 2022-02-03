@@ -3,3 +3,4 @@ import 'package:travel_tourguide_app/models/models.dart';
 import 'package:travel_tourguide_app/services/services.dart';
 
 part 'firebase_user_extensions.dart';
+part 'date_time_extensions.dart';

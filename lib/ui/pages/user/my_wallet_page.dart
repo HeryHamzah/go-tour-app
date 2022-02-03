@@ -47,15 +47,7 @@ class _MyWalletPageState extends State<MyWalletPage> {
                           if (snapshot.hasData) {
                             List<GoTourTransaction> transactions =
                                 snapshot.data;
-                            return Column(
-                              children: transactions
-                                  .map((e) => Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 8.0),
-                                        child: TransactionCard(e),
-                                      ))
-                                  .toList(),
-                            );
+                            return generateTransactionList(transactions);
                           } else {
                             return SpinKitFadingCircle(
                               color: mainColor,
@@ -77,6 +69,19 @@ class _MyWalletPageState extends State<MyWalletPage> {
               )),
         );
       },
+    );
+  }
+
+  Column generateTransactionList(List<GoTourTransaction> transactions) {
+    transactions.sort((b, a) => a.time.compareTo(b.time));
+
+    return Column(
+      children: transactions
+          .map((e) => Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: TransactionCard(e),
+              ))
+          .toList(),
     );
   }
 }

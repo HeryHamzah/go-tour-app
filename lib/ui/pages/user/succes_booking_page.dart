@@ -59,7 +59,7 @@ class SuccesBookingPage extends StatelessWidget {
                       Text("Beli tiket lain? "),
                       InkWell(
                         onTap: () {
-                          Get.offAllNamed("/home");
+                          Get.toNamed("/home");
                         },
                         child: Text("Kembali ke Home",
                             style: themeFont.copyWith(color: mainColor)),
@@ -87,7 +87,7 @@ class SuccesBookingPage extends StatelessWidget {
         userID: userID,
         picturePath: ticket.destination.images[0],
         title: ticket.destination.name,
-        amount: ticket.totalPrice,
+        amount: -ticket.totalPrice,
         desc: ticket.destination.location,
         time: DateTime.now()));
   }
