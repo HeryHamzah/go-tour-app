@@ -264,21 +264,23 @@ class _BookingPageState extends State<BookingPage> {
                           width: 250,
                           height: 46,
                           child: ElevatedButton(
-                              onPressed: user.balance >= totalPrice
-                                  ? () => Get.offAndToNamed(
-                                          "/succesBookingPage",
-                                          arguments: [
-                                            Ticket(
-                                              destination: destination,
-                                              time: bookingTime,
-                                              name: user.name,
-                                              totalTicket: totalTicket,
-                                              totalPrice: totalPrice,
-                                            ),
-                                            user.id
-                                          ])
-                                  : () => Get.offAndToNamed("/topUpPage",
-                                      arguments: user),
+                              onPressed: totalTicket <= 0
+                                  ? null
+                                  : user.balance >= totalPrice
+                                      ? () => Get.offAndToNamed(
+                                              "/succesBookingPage",
+                                              arguments: [
+                                                Ticket(
+                                                  destination: destination,
+                                                  time: bookingTime,
+                                                  name: user.name,
+                                                  totalTicket: totalTicket,
+                                                  totalPrice: totalPrice,
+                                                ),
+                                                user.id
+                                              ])
+                                      : () => Get.offAndToNamed("/topUpPage",
+                                          arguments: user),
                               style: ElevatedButton.styleFrom(
                                   primary: user.balance >= totalPrice
                                       ? mainColor

@@ -225,4 +225,20 @@ class UserServices {
       print("Error save ticket: " + e.toString());
     }
   }
+
+  static Future<List<Ticket>> getTickets(
+      String userID, Destination destination) async {
+    try {
+      final response =
+          await http.post(BaseUrl.getTickets, body: {"id_user": userID});
+      final data = jsonDecode(response.body);
+
+      return (data as List)
+          .map((e) => Ticket.fromJson(e, destination))
+          .toList();
+    } catch (e) {
+      print("Error get tickets: " + e.toString());
+      return null;
+    }
+  }
 }

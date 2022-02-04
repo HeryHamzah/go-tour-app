@@ -14,6 +14,15 @@ class Ticket extends Equatable {
       this.totalTicket,
       this.totalPrice});
 
+  factory Ticket.fromJson(Map<String, dynamic> json, Destination destination) =>
+      Ticket(
+          destination: destination,
+          name: json["name"],
+          totalTicket: int.tryParse(json["total_ticket"]),
+          totalPrice: json["total_price"],
+          time:
+              DateTime.fromMillisecondsSinceEpoch(int.tryParse(json["time"])));
+
   @override
   List<Object> get props => [destination, time, name, totalTicket, totalPrice];
 }
