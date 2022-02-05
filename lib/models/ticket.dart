@@ -19,7 +19,7 @@ class Ticket extends Equatable {
           destination: destination,
           name: json["name"],
           totalTicket: int.tryParse(json["total_ticket"]),
-          totalPrice: json["total_price"],
+          totalPrice: int.tryParse(json["total_price"]),
           time:
               DateTime.fromMillisecondsSinceEpoch(int.tryParse(json["time"])));
 

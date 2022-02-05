@@ -226,16 +226,26 @@ class UserServices {
     }
   }
 
-  static Future<List<Ticket>> getTickets(
-      String userID, Destination destination) async {
+  static Future<List<Ticket>> getTickets(String userID) async {
     try {
       final response =
           await http.post(BaseUrl.getTickets, body: {"id_user": userID});
       final data = jsonDecode(response.body);
 
-      return (data as List)
-          .map((e) => Ticket.fromJson(e, destination))
-          .toList();
+      List<Ticket> tickets = [];
+
+      for (var dt in data) {
+        Destination destination =
+            await GeneralServices.getDetailDestination(dt['id_destination']);
+
+        tickets.add(Ticket.fromJson(dt, destination));
+      }
+
+      return tickets;
+
+      // return (data as List)
+      //     .map((e) => Ticket.fromJson(e, destination))
+      //     .toList();
     } catch (e) {
       print("Error get tickets: " + e.toString());
       return null;

@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(create: (_) => UserBloc()),
           BlocProvider(create: (_) => NavdrawerBloc()),
+          BlocProvider(create: (_) => TicketBloc())
         ],
         child: GetMaterialApp(
           initialRoute: '/',
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
             GetPage(name: '/splash', page: () => SplashPage()),
             GetPage(name: '/signIn', page: () => SignInPage()),
             GetPage(name: '/signUp', page: () => SignUpPage()),
-            GetPage(name: '/home', page: () => HomePage()),
+            GetPage(name: '/home', page: () => MainPage()),
             GetPage(name: '/destinations', page: () => DestinationsPage()),
             GetPage(
                 name: '/destinationDetail',

@@ -81,8 +81,9 @@ class SuccesBookingPage extends StatelessWidget {
   Future<void> processingTransaction(
       BuildContext context, Ticket ticket, String userID) async {
     context.bloc<UserBloc>().add(Purchase(ticket.totalPrice));
+    context.bloc<TicketBloc>().add(BuyTicket(userID, ticket));
 
-    await UserServices.saveticket(ticket, userID);
+    // await UserServices.saveticket(ticket, userID);
     await UserServices.saveTransaction(GoTourTransaction(
         userID: userID,
         picturePath: ticket.destination.images[0],
