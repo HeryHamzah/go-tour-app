@@ -45,7 +45,7 @@ class SuccesBookingPage extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16))),
                         onPressed: () {
-                          //TODO: navigasi ke tiketku
+                          Get.offAllNamed('/activity');
                         },
                         child: Text(
                           "Tiketku",
@@ -59,7 +59,7 @@ class SuccesBookingPage extends StatelessWidget {
                       Text("Beli tiket lain? "),
                       InkWell(
                         onTap: () {
-                          Get.toNamed("/home");
+                          Get.offAllNamed("/home");
                         },
                         child: Text("Kembali ke Home",
                             style: themeFont.copyWith(color: mainColor)),

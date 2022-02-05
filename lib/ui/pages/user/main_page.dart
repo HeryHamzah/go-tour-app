@@ -10,12 +10,13 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int bottomNavBarIndex;
-  PageController controller = PageController();
+  PageController pageController = PageController();
 
   @override
   void initState() {
     super.initState();
     bottomNavBarIndex = widget.bottomNavBarIndex;
+    pageController = PageController(initialPage: bottomNavBarIndex);
   }
 
   @override
@@ -24,11 +25,12 @@ class _MainPageState extends State<MainPage> {
       body: Stack(
         children: [
           PageView(
-            controller: controller,
+            controller: pageController,
             onPageChanged: (index) {
               setState(() {
                 bottomNavBarIndex = index;
               });
+              pageController.jumpToPage(bottomNavBarIndex);
             },
             children: [HomePage(), ActivityPage()],
           ),
@@ -53,7 +55,7 @@ class _MainPageState extends State<MainPage> {
                     setState(() {
                       bottomNavBarIndex = index;
                     });
-                    controller.jumpToPage(index);
+                    pageController.jumpToPage(index);
                   },
                   items: [
                     BottomNavigationBarItem(

@@ -10,7 +10,8 @@ class BookingPage extends StatefulWidget {
 class _BookingPageState extends State<BookingPage> {
   Destination destination = Get.arguments;
   DatePickerController _dateTimeController = DatePickerController();
-  DateTime bookingTime = DateTime.now();
+  DateTime bookingTime = DateTime(
+      DateTime.now().year, DateTime.now().month, DateTime.now().day + 1);
   int totalTicket = 0;
   int price = 0;
   @override
@@ -52,8 +53,10 @@ class _BookingPageState extends State<BookingPage> {
                       Column(
                         children: [
                           DatePicker(
-                            DateTime.now(),
-                            initialSelectedDate: DateTime.now(),
+                            DateTime(DateTime.now().year, DateTime.now().month,
+                                DateTime.now().day + 1),
+                            initialSelectedDate: DateTime(DateTime.now().year,
+                                DateTime.now().month, DateTime.now().day + 1),
                             controller: _dateTimeController,
                             selectionColor: mainColor,
                             daysCount: 30,

@@ -34,7 +34,16 @@ class MyApp extends StatelessWidget {
             GetPage(name: '/splash', page: () => SplashPage()),
             GetPage(name: '/signIn', page: () => SignInPage()),
             GetPage(name: '/signUp', page: () => SignUpPage()),
-            GetPage(name: '/home', page: () => MainPage()),
+            GetPage(
+              name: '/home',
+              page: () => MainPage(
+                bottomNavBarIndex: 0,
+              ),
+            ),
+            GetPage(
+              name: '/activity',
+              page: () => MainPage(bottomNavBarIndex: 1),
+            ),
             GetPage(name: '/destinations', page: () => DestinationsPage()),
             GetPage(
                 name: '/destinationDetail',
@@ -42,8 +51,10 @@ class MyApp extends StatelessWidget {
             GetPage(name: '/bookingPage', page: () => BookingPage()),
             GetPage(name: '/topUpPage', page: () => TopUpPage()),
             GetPage(name: '/topUpSuccesPage', page: () => SuccesTopUpPage()),
-            GetPage(name: '/MyWalletPage', page: () => MyWalletPage()),
-            GetPage(name: '/succesBookingPage', page: () => SuccesBookingPage())
+            GetPage(name: '/myWalletPage', page: () => MyWalletPage()),
+            GetPage(
+                name: '/succesBookingPage', page: () => SuccesBookingPage()),
+            GetPage(name: '/ticketDetailPage', page: () => TicketDetailPage())
           ],
           debugShowCheckedModeBanner: false,
           title: 'Go Tour',

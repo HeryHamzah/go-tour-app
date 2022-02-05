@@ -33,23 +33,7 @@ class ActivityPage extends StatelessWidget {
             ],
           ),
         ),
-        body:
-            // FutureBuilder(
-            //     future: UserServices.getTickets("V7sf6pkHiEduQ6jaKyXtHHxkfr73"),
-            //     builder: (context, snapshot) {
-            //       List<Ticket> tickets = snapshot.data;
-            //       return TabBarView(
-            //         children: [
-            //           ListView(
-            //               children: tickets
-            //                   .map((e) => Text(e.destination.name))
-            //                   .toList()),
-            //           ListView(
-            //               children: tickets.map((e) => Text(e.name)).toList()),
-            //         ],
-            //       );
-            //     })
-            BlocBuilder<TicketBloc, TicketState>(builder: (_, ticketState) {
+        body: BlocBuilder<TicketBloc, TicketState>(builder: (_, ticketState) {
           List<Ticket> newestTicket = ticketState.tickets
               .where(
                 (ticket) => ticket.time.isAfter(
@@ -60,7 +44,7 @@ class ActivityPage extends StatelessWidget {
           newestTicket.sort((a, b) => a.time.compareTo(b.time));
           List<Ticket> oldestTicket = ticketState.tickets
               .where(
-                (ticket) => ticket.time.isBefore(
+                (ticket) => !ticket.time.isAfter(
                   DateTime.now(),
                 ),
               )
@@ -70,17 +54,45 @@ class ActivityPage extends StatelessWidget {
           return TabBarView(children: [
             ListView(
               children: newestTicket.length == 0
-                  ? [Text("Belum ada Data")]
-                  : newestTicket.map((e) => Text(e.destination.name)).toList(),
+                  ? [emptyTicket()]
+                  : newestTicket
+                      .map((e) => Container(
+                          margin: EdgeInsets.only(
+                              top: (e == newestTicket.first) ? 20 : 0,
+                              left: defaultMargin,
+                              right: defaultMargin,
+                              bottom: 20),
+                          child: TicketCard(
+                            ticket: e,
+                            onTap: () =>
+                                Get.toNamed('/ticketDetailPage', arguments: e),
+                          )))
+                      .toList(),
             ),
             ListView(
               children: oldestTicket.length == 0
-                  ? [Text("Belum ada Data")]
-                  : newestTicket.map((e) => Text(e.destination.name)).toList(),
+                  ? [emptyTicket()]
+                  : oldestTicket
+                      .map((e) => TicketCard(
+                            ticket: e,
+                            onTap: () =>
+                                Get.toNamed('/ticketDetailPage', arguments: e),
+                          ))
+                      .toList(),
             )
           ]);
         }),
       ),
+    );
+  }
+
+  Column emptyTicket() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.asset("assets/no_data.png"),
+        Text("Belum Ada Tiket"),
+      ],
     );
   }
 }

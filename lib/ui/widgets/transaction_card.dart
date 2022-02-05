@@ -23,21 +23,33 @@ class TransactionCard extends StatelessWidget {
                         : AssetImage("assets/topup_cover.png"),
                     fit: BoxFit.cover)),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                transaction.title,
-                style: themeFont.copyWith(fontSize: 16),
-              ),
-              Text(
-                transaction.amount.toString(),
-                style: themeFont.copyWith(
-                    color: (transaction.amount > 0) ? mainColor : Colors.red,
-                    fontWeight: FontWeight.bold),
-              ),
-              Text(transaction.time.dayAndDate)
-            ],
+          SizedBox(
+            width:
+                MediaQuery.of(context).size.width - 2 * defaultMargin - 75 - 20,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  transaction.title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: themeFont.copyWith(fontSize: 16),
+                ),
+                SizedBox(
+                  height: 2,
+                ),
+                Text(
+                  transaction.amount.toString(),
+                  style: themeFont.copyWith(
+                      color: (transaction.amount > 0) ? mainColor : Colors.red,
+                      fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 2,
+                ),
+                Text(transaction.time.dayAndDate)
+              ],
+            ),
           ),
         ],
       ),

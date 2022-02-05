@@ -41,3 +41,4 @@ part 'user/my_wallet_page.dart';
 part 'user/topup_page.dart';
 part 'user/topup_succes_page.dart';
 part 'user/succes_booking_page.dart';
+part 'user/ticket_detail_page.dart';

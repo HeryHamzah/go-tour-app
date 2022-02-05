@@ -45,7 +45,7 @@ class SuccesTopUpPage extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16))),
                         onPressed: () {
-                          Get.offAllNamed("/MyWalletPage");
+                          Get.offAllNamed("/myWalletPage");
                         },
                         child: Text(
                           "Dompetku",
