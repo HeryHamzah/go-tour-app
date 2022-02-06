@@ -61,7 +61,7 @@ class _MainPageState extends State<MainPage> {
                     BottomNavigationBarItem(
                         icon: Icon(FontAwesomeIcons.home), label: "Home"),
                     BottomNavigationBarItem(
-                        icon: Icon(FontAwesomeIcons.list), label: "Activity")
+                        icon: Icon(FontAwesomeIcons.list), label: "Aktivitas")
                   ],
                 ),
               ),

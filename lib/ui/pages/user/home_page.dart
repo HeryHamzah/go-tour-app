@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.only(
                     top: 20, bottom: 10, left: defaultMargin),
                 child: Text(
-                  "Best Destinations",
+                  "Pilihan Destination",
                   style: themeFont.copyWith(fontSize: 18),
                 ),
               ),
@@ -134,7 +134,7 @@ class _HomePageState extends State<HomePage> {
                                   focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide.none),
                                   prefixIcon: Icon(Icons.search),
-                                  hintText: "City, places etc.",
+                                  hintText: "Destinasi",
                                   hintStyle: themeFont.copyWith(
                                       color: Colors.grey, letterSpacing: 1.5),
                                   filled: true,

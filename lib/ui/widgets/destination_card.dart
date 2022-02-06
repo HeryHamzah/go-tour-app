@@ -59,8 +59,8 @@ class _DestinationCardState extends State<DestinationCard> {
 
                             Fluttertoast.showToast(
                                 msg: (favorites.contains(widget.destination.id))
-                                    ? "Remove from Favorites"
-                                    : "Add to Favorites",
+                                    ? "Hapus dari favoritku"
+                                    : "Tambah ke favoritku",
                                 toastLength: Toast.LENGTH_SHORT,
                                 gravity: ToastGravity.CENTER,
                                 timeInSecForIosWeb: 1,

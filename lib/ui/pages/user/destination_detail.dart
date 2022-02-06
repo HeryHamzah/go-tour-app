@@ -108,8 +108,8 @@ class _DestinationDetailPageState extends State<DestinationDetailPage> {
                                     Fluttertoast.showToast(
                                         msg:
                                             (favorites.contains(destination.id))
-                                                ? "Remove from Favorites"
-                                                : "Add to Favorites",
+                                                ? "Hapus dari Favoritku"
+                                                : "Tambah ke Favoritku",
                                         toastLength: Toast.LENGTH_SHORT,
                                         gravity: ToastGravity.CENTER,
                                         timeInSecForIosWeb: 1,
@@ -161,7 +161,7 @@ class _DestinationDetailPageState extends State<DestinationDetailPage> {
                     SizedBox(height: 10),
                     Align(
                       alignment: Alignment.topLeft,
-                      child: Text("About",
+                      child: Text("Tentang",
                           style: themeFont.copyWith(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
@@ -193,7 +193,7 @@ class _DestinationDetailPageState extends State<DestinationDetailPage> {
                               color: mainColor),
                         ),
                         Text(
-                          "/person",
+                          "/orang",
                           style: themeFont.copyWith(
                               fontSize: 16, color: Colors.grey),
                         ),
@@ -207,7 +207,7 @@ class _DestinationDetailPageState extends State<DestinationDetailPage> {
                                       borderRadius: BorderRadius.circular(8))),
                               onPressed: () => Get.toNamed('/bookingPage',
                                   arguments: destination),
-                              child: Text("Book",
+                              child: Text("Reservasi",
                                   style: themeFont.copyWith(
                                       color: Colors.white, fontSize: 16))),
                         )

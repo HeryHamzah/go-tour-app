@@ -44,7 +44,7 @@ class ActivityPage extends StatelessWidget {
           newestTicket.sort((a, b) => a.time.compareTo(b.time));
           List<Ticket> oldestTicket = ticketState.tickets
               .where(
-                (ticket) => !ticket.time.isAfter(
+                (ticket) => ticket.time.isBefore(
                   DateTime.now(),
                 ),
               )

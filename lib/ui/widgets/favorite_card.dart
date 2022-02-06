@@ -57,7 +57,7 @@ class _FavoriteCardState extends State<FavoriteCard> {
                         color: mainColor),
                   ),
                   Text(
-                    "/person",
+                    "/orang",
                     style: themeFont.copyWith(fontSize: 16, color: Colors.grey),
                   ),
                 ],

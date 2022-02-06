@@ -37,7 +37,7 @@ class _TopUpPageState extends State<TopUpPage> {
                       primary: Colors.grey, onPrimary: Colors.white),
                   onPressed: () => Get.back(),
                   child: Text(
-                    "Cancel",
+                    "Batal",
                   )),
             ),
           ),

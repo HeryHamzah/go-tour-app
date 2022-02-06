@@ -105,9 +105,9 @@ class _SignInPageState extends State<SignInPage> {
                 ),
                 Row(
                   children: [
-                    Text("Forgot password?  "),
+                    Text("Lupa password?  "),
                     Text(
-                      "Reset password",
+                      "Reset",
                       style: themeFont.copyWith(color: mainColor),
                     )
                   ],
@@ -161,7 +161,7 @@ class _SignInPageState extends State<SignInPage> {
                 ),
                 Row(
                   children: [
-                    Text("Start fresh now?  "),
+                    Text("Belum punya akun?  "),
                     InkWell(
                       onTap: () {
                         Get.toNamed('/signUp');

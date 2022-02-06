@@ -176,7 +176,7 @@ class _DrawerPageState extends State<DrawerPage> {
                 color: Colors.white,
               ),
               title: Text(
-                'Favorites',
+                'Favoritku',
                 style: themeFont.copyWith(color: Colors.white),
               ),
               onTap: () {
@@ -195,7 +195,7 @@ class _DrawerPageState extends State<DrawerPage> {
                 color: Colors.white,
               ),
               title: Text(
-                'MyTrip',
+                'Tripku',
                 style: themeFont.copyWith(color: Colors.white),
               ),
               onTap: () {
@@ -215,7 +215,7 @@ class _DrawerPageState extends State<DrawerPage> {
                   size: 30,
                 ),
                 title: Text(
-                  'Settings',
+                  'Pengaturan',
                   style: themeFont.copyWith(color: Colors.white),
                 ),
                 onTap: () {}),
@@ -231,7 +231,7 @@ class _DrawerPageState extends State<DrawerPage> {
                   size: 30,
                 ),
                 title: Text(
-                  'About Us',
+                  'Tentang kami',
                   style: themeFont.copyWith(color: Colors.white),
                 ),
                 onTap: () {}),
@@ -255,7 +255,7 @@ class _DrawerPageState extends State<DrawerPage> {
                   context.bloc<NavdrawerBloc>().add(ChangePage(1));
                 },
                 child: Text(
-                  "Logout",
+                  "Keluar",
                   style: themeFont.copyWith(fontSize: 18, color: Colors.white),
                 ))
           ],

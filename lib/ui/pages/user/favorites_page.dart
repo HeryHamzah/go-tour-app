@@ -14,7 +14,7 @@ class _FavoritePageState extends State<FavoritePage> {
           leading: GestureDetector(
               onTap: () => ZoomDrawer.of(context).open(),
               child: Icon(MaterialCommunityIcons.menu)),
-          title: Text("Favorites"),
+          title: Text("Favoritku"),
         ),
         body: BlocBuilder<UserBloc, UserState>(
           builder: (context, userState) {
@@ -54,7 +54,7 @@ class _FavoritePageState extends State<FavoritePage> {
                                                         SlidableDrawerActionPane(),
                                                     secondaryActions: <Widget>[
                                                       IconSlideAction(
-                                                        caption: ' \nTo MyTrip',
+                                                        caption: ' \nKe Tripku',
                                                         color: Colors.blue,
                                                         icon: FontAwesomeIcons
                                                             .plane,
@@ -90,7 +90,7 @@ class _FavoritePageState extends State<FavoritePage> {
                                                         },
                                                       ),
                                                       IconSlideAction(
-                                                        caption: ' \nDelete',
+                                                        caption: ' \nHapus',
                                                         color: Colors.red,
                                                         icon: Icons.delete,
                                                         onTap: () {

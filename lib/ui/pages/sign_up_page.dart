@@ -26,7 +26,7 @@ class _SignUpPageState extends State<SignUpPage> {
             height: MediaQuery.of(context).size.height / 6,
             child: Column(
               children: [
-                Text("Profile Picture",
+                Text("Foto User",
                     style: TextStyle(fontSize: 18, color: Colors.white)),
                 SizedBox(
                   height: 10,
@@ -46,8 +46,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           SizedBox(
                             height: 5,
                           ),
-                          Text("Gallery",
-                              style: TextStyle(color: Colors.white)),
+                          Text("Galeri", style: TextStyle(color: Colors.white)),
                         ],
                       ),
                     ),
@@ -69,7 +68,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           SizedBox(
                             height: 5,
                           ),
-                          Text("Camera", style: TextStyle(color: Colors.white))
+                          Text("Kamera", style: TextStyle(color: Colors.white))
                         ],
                       ),
                     )
@@ -175,7 +174,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 TextField(
                   controller: nameController,
                   decoration: InputDecoration(
-                      hintText: "Name",
+                      hintText: "Nama",
                       filled: true,
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
@@ -212,7 +211,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   controller: retypePasswordController,
                   obscureText: obscureRetypePassword,
                   decoration: InputDecoration(
-                      hintText: "Retype Password",
+                      hintText: "Konfirmasi Password",
                       filled: true,
                       fillColor: Colors.white,
                       suffixIcon: IconButton(
@@ -244,17 +243,17 @@ class _SignUpPageState extends State<SignUpPage> {
                                   passwordController.text.trim() == "" ||
                                   retypePasswordController.text.trim() == "") {
                                 showSnackBar(
-                                    context, "Complete the form first!");
+                                    context, "Lengkapi form terlebih dahulu!");
                               } else if (!(EmailValidator.validate(
                                   emailController.text))) {
-                                showSnackBar(context, "Wrong email form");
+                                showSnackBar(context, "Tipe email salah");
                               } else if (passwordController.text.length < 6) {
                                 showSnackBar(context,
-                                    "Password is a minimum of six character length");
+                                    "Panjang password minimal 6 karakter");
                               } else if (passwordController.text !=
                                   retypePasswordController.text) {
                                 showSnackBar(
-                                    context, "Confirm password is incorrect");
+                                    context, "Konfirmasi password salah");
                               } else {
                                 setState(() {
                                   signUpProcess = true;
@@ -291,7 +290,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 Row(
                   children: [
-                    Text("Already member? "),
+                    Text("Sudah punya akun? "),
                     InkWell(
                       onTap: () {
                         Get.toNamed('/signIn');

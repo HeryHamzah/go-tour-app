@@ -54,7 +54,7 @@ class _ProfilePageState extends State<ProfilePage> {
             height: MediaQuery.of(context).size.height / 6,
             child: Column(
               children: [
-                Text("Profile Picture",
+                Text("Profil User",
                     style: TextStyle(fontSize: 18, color: Colors.white)),
                 SizedBox(
                   height: 10,
@@ -74,8 +74,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           SizedBox(
                             height: 5,
                           ),
-                          Text("Gallery",
-                              style: TextStyle(color: Colors.white)),
+                          Text("Galeri", style: TextStyle(color: Colors.white)),
                         ],
                       ),
                     ),
@@ -97,7 +96,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           SizedBox(
                             height: 5,
                           ),
-                          Text("Camera", style: TextStyle(color: Colors.white))
+                          Text("Kamera", style: TextStyle(color: Colors.white))
                         ],
                       ),
                     )
@@ -125,7 +124,7 @@ class _ProfilePageState extends State<ProfilePage> {
             onPressed: () => ZoomDrawer.of(context).open(),
           ),
           title: Text(
-            "My Profile",
+            "Profil User",
             style: themeFont,
           ),
         ),
@@ -174,15 +173,13 @@ class _ProfilePageState extends State<ProfilePage> {
                                 profilePicturePath = "";
                                 profilePictureFile = null;
                               }
+
                               setState(() {
-                                setState(() {
-                                  isEdited = profilePicturePath !=
-                                          widget.user.profilePicture ||
-                                      nameController.text.trim() !=
-                                          widget.user.name ||
-                                      hpController.text.trim() !=
-                                          widget.user.hp;
-                                });
+                                isEdited = profilePicturePath !=
+                                        widget.user.profilePicture ||
+                                    nameController.text.trim() !=
+                                        widget.user.name ||
+                                    hpController.text.trim() != widget.user.hp;
                               });
                             },
                             child: Container(
@@ -221,7 +218,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   Align(
                     alignment: Alignment.topLeft,
                     child: Text(
-                      "Full Name:",
+                      "Nama Lengkap:",
                       style: themeFont.copyWith(fontSize: 14),
                     ),
                   ),
@@ -234,7 +231,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       controller: nameController,
                       validator: (val) {
                         if (val.trim().isEmpty) {
-                          return "Please enter your name";
+                          return "Masukkan nama Anda";
                         }
                         return null;
                       },
@@ -290,7 +287,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   Align(
                     alignment: Alignment.topLeft,
                     child: Text(
-                      "Phone Number:",
+                      "Hp:",
                       style: themeFont.copyWith(fontSize: 14),
                     ),
                   ),
@@ -300,6 +297,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   Container(
                     height: 50,
                     child: TextFormField(
+                      keyboardType: TextInputType.phone,
                       controller: hpController,
                       onChanged: (hp) {
                         setState(() {
@@ -328,7 +326,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               }
                             : null,
                         child: Text(
-                          "Save",
+                          "Simpan",
                           style: themeFont.copyWith(
                               letterSpacing: 2,
                               color: Colors.white,

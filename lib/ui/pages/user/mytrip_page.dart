@@ -10,7 +10,7 @@ class MyTripPage extends StatelessWidget {
               ZoomDrawer.of(context).open();
             },
             icon: Icon(MaterialCommunityIcons.menu)),
-        title: Text("My Trip"),
+        title: Text("Tripku"),
       ),
       body: BlocBuilder<UserBloc, UserState>(builder: (context, userState) {
         User user = (userState as UserLoaded).user;

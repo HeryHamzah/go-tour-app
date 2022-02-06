@@ -38,7 +38,7 @@ class BestDestinationsCard extends StatelessWidget {
                         20 -
                         10,
                     child: Text(
-                      "Phinisi",
+                      "Pinisi",
                       style: themeFont.copyWith(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
