@@ -1,6 +1,7 @@
 part of 'models.dart';
 
 class Ticket extends Equatable {
+  final String bookingCode;
   final Destination destination;
   final DateTime time;
   final String name;
@@ -8,7 +9,8 @@ class Ticket extends Equatable {
   final int totalPrice;
 
   Ticket(
-      {this.destination,
+      {this.bookingCode,
+      this.destination,
       this.time,
       this.name,
       this.totalTicket,
@@ -16,6 +18,7 @@ class Ticket extends Equatable {
 
   factory Ticket.fromJson(Map<String, dynamic> json, Destination destination) =>
       Ticket(
+          bookingCode: json["booking_code"],
           destination: destination,
           name: json["name"],
           totalTicket: int.tryParse(json["total_ticket"]),
@@ -24,5 +27,6 @@ class Ticket extends Equatable {
               DateTime.fromMillisecondsSinceEpoch(int.tryParse(json["time"])));
 
   @override
-  List<Object> get props => [destination, time, name, totalTicket, totalPrice];
+  List<Object> get props =>
+      [bookingCode, destination, time, name, totalTicket, totalPrice];
 }

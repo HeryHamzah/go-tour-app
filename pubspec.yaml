@@ -43,7 +43,9 @@ dependencies:
   image_picker: ^0.6.4
   intl: ^0.16.0
   provider: ^4.0.4
+  qr_flutter: ^3.2.0
   sliding_up_panel: ^1.0.2
+  ticketview: ^1.0.0
 
 dev_dependencies:
   flutter_test:

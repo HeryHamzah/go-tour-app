@@ -22,6 +22,9 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:travel_tourguide_app/ui/widgets/widgets.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:path/path.dart' as path;
+import 'package:ticketview/ticketview.dart';
+import 'package:travel_tourguide_app/extensions/extensions.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 part 'sign_up_page.dart';
 part 'splash_page.dart';

@@ -18,16 +18,19 @@ class TicketCard extends StatelessWidget {
         height: 90,
         child: Row(
           children: [
-            Container(
-              width: 75,
-              height: 90,
-              margin: EdgeInsets.only(right: 20),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  image: DecorationImage(
-                      image: NetworkImage(
-                          BaseUrl.getAssets + ticket.destination.images[0]),
-                      fit: BoxFit.cover)),
+            Hero(
+              tag: ticket.bookingCode,
+              child: Container(
+                width: 75,
+                height: 90,
+                margin: EdgeInsets.only(right: 20),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    image: DecorationImage(
+                        image: NetworkImage(
+                            BaseUrl.getAssets + ticket.destination.images[0]),
+                        fit: BoxFit.cover)),
+              ),
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width -

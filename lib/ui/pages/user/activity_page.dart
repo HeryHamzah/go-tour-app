@@ -73,10 +73,17 @@ class ActivityPage extends StatelessWidget {
               children: oldestTicket.length == 0
                   ? [emptyTicket()]
                   : oldestTicket
-                      .map((e) => TicketCard(
-                            ticket: e,
-                            onTap: () =>
-                                Get.toNamed('/ticketDetailPage', arguments: e),
+                      .map((e) => Container(
+                            margin: EdgeInsets.only(
+                                top: (e == newestTicket.first) ? 20 : 0,
+                                left: defaultMargin,
+                                right: defaultMargin,
+                                bottom: 20),
+                            child: TicketCard(
+                              ticket: e,
+                              onTap: () => Get.toNamed('/ticketDetailPage',
+                                  arguments: e),
+                            ),
                           ))
                       .toList(),
             )
