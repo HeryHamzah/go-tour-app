@@ -11,10 +11,17 @@ class _FavoritePageState extends State<FavoritePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          centerTitle: true,
           leading: GestureDetector(
               onTap: () => ZoomDrawer.of(context).open(),
-              child: Icon(MaterialCommunityIcons.menu)),
-          title: Text("Favoritku"),
+              child: Icon(
+                MaterialCommunityIcons.menu,
+                color: backColor,
+              )),
+          title: Text(
+            "Favoritku",
+            style: themeFont.copyWith(color: backColor),
+          ),
         ),
         body: BlocBuilder<UserBloc, UserState>(
           builder: (context, userState) {

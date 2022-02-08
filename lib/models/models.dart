@@ -5,3 +5,4 @@ part 'location.dart';
 part 'destination.dart';
 part 'ticket.dart';
 part 'transaction.dart';
+part 'tour_guide.dart';

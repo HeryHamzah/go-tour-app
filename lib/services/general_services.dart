@@ -27,4 +27,16 @@ class GeneralServices {
 
     return Destination.fromJson(user);
   }
+
+  static Future<List<TourGuide>> getTourGuides() async {
+    try {
+      final response = await http.get(BaseUrl.getTourGuides);
+      final data = json.decode(response.body);
+
+      return (data as List).map((e) => TourGuide.fromJon(e)).toList();
+    } catch (e) {
+      print("Error get Tour Guides : " + e.toString());
+      return null;
+    }
+  }
 }

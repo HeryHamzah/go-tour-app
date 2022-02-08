@@ -16,3 +16,5 @@ part 'wallet_card.dart';
 part 'transaction_card.dart';
 part 'template_topup_card.dart';
 part 'ticket_card.dart';
+part 'tourguide_card.dart';
+part 'checkbox_destination_card.dart';

@@ -54,7 +54,10 @@ class MyApp extends StatelessWidget {
             GetPage(name: '/myWalletPage', page: () => MyWalletPage()),
             GetPage(
                 name: '/succesBookingPage', page: () => SuccesBookingPage()),
-            GetPage(name: '/ticketDetailPage', page: () => TicketDetailPage())
+            GetPage(name: '/ticketDetailPage', page: () => TicketDetailPage()),
+            GetPage(
+                name: '/tourGuideDetailPage',
+                page: () => TourGuideDetailPage()),
           ],
           debugShowCheckedModeBanner: false,
           title: 'Go Tour',

@@ -20,4 +20,6 @@ class BaseUrl {
   static String saveTransaction = dbUrl + "user_API/save_transaction.php";
   static String saveTicket = dbUrl + "user_API/save_ticket.php";
   static String getTickets = dbUrl + "user_API/get_tickets.php";
+  static String getTourGuides = dbUrl + "user_API/get_tourguides.php";
+  static String getTourGuideImages = dbUrl + "images/tourguide_upload/";
 }

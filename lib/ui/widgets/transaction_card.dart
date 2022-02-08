@@ -39,7 +39,9 @@ class TransactionCard extends StatelessWidget {
                   height: 2,
                 ),
                 Text(
-                  transaction.amount.toString(),
+                  NumberFormat.currency(
+                          locale: 'id_ID', decimalDigits: 0, symbol: '')
+                      .format(transaction.amount),
                   style: themeFont.copyWith(
                       color: (transaction.amount > 0) ? mainColor : Colors.red,
                       fontWeight: FontWeight.bold),
