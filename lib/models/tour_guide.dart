@@ -6,6 +6,7 @@ class TourGuide extends Equatable {
   final String email;
   final String profilePicture;
   final String hp;
+  final String locationID;
   final String location;
   final double rating;
   final int balance;
@@ -16,6 +17,7 @@ class TourGuide extends Equatable {
       this.email,
       this.profilePicture,
       this.hp,
+      this.locationID,
       this.location,
       this.rating = 0,
       this.balance});
@@ -26,9 +28,20 @@ class TourGuide extends Equatable {
       email: json['email'],
       profilePicture: json['image'],
       hp: json['hp'],
+      locationID: json['id_location'],
       location: json['location_name'],
       balance: int.tryParse(json['balance']));
+
   @override
-  List<Object> get props =>
-      [tourGuideID, name, email, profilePicture, hp, location, rating, balance];
+  List<Object> get props => [
+        tourGuideID,
+        name,
+        email,
+        profilePicture,
+        hp,
+        locationID,
+        location,
+        rating,
+        balance
+      ];
 }

@@ -1,24 +1,10 @@
 part of 'widgets.dart';
 
 class CheckBoxDestinationCard extends StatefulWidget {
-  final Function onChange;
-  final bool isChecked;
-  final double size;
-  final double iconSize;
-  final Color selectedColor;
-  final Color selectedIconColor;
-  final Color borderColor;
-  final Icon checkIcon;
+  final Destination destination;
+  final bool isSelected;
 
-  CheckBoxDestinationCard(
-      {this.isChecked,
-      this.onChange,
-      this.size,
-      this.iconSize,
-      this.selectedColor,
-      this.selectedIconColor,
-      this.borderColor,
-      this.checkIcon});
+  CheckBoxDestinationCard({this.destination, this.isSelected = false});
 
   @override
   State<CheckBoxDestinationCard> createState() =>
@@ -26,45 +12,49 @@ class CheckBoxDestinationCard extends StatefulWidget {
 }
 
 class _CheckBoxDestinationCardState extends State<CheckBoxDestinationCard> {
-  bool _isSelected = false;
-
-  @override
-  void initState() {
-    _isSelected = widget.isChecked ?? false;
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          _isSelected = !_isSelected;
-          widget.onChange(_isSelected);
-        });
-      },
-      child: AnimatedContainer(
-        margin: EdgeInsets.all(4),
-        duration: Duration(milliseconds: 500),
-        curve: Curves.fastLinearToSlowEaseIn,
-        decoration: BoxDecoration(
-            color: _isSelected
-                ? widget.selectedColor ?? Colors.blue
-                : Colors.transparent,
-            borderRadius: BorderRadius.circular(3.0),
-            border: Border.all(
-              color: widget.borderColor ?? Colors.black,
-              width: 1.5,
-            )),
-        width: widget.size ?? 18,
-        height: widget.size ?? 18,
-        child: _isSelected
-            ? Icon(
-                Icons.check,
-                color: widget.selectedIconColor ?? Colors.white,
-                size: widget.iconSize ?? 14,
-              )
-            : null,
+    return Container(
+      width: 150,
+      height: 150,
+      child: Stack(
+        children: [
+          Container(
+            width: 150,
+            height: 150,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: NetworkImage(
+                      BaseUrl.getAssets + widget.destination.images[0]),
+                  fit: BoxFit.cover),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              height: 150,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment(0, 1),
+                    end: Alignment(0, 0.1),
+                    colors: [backColor, backColor.withOpacity(0)]),
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(widget.destination.name),
+                  Text(widget.destination.price)
+                ],
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

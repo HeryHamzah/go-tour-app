@@ -111,9 +111,50 @@ class _TourGuideDetailPageState extends State<TourGuideDetailPage> {
                               SizedBox(
                                 height: 16,
                               ),
-                              Wrap(
-                                children: [CheckBoxDestinationCard()],
-                              )
+                              FutureBuilder(
+                                  future: GeneralServices.getDestinations(
+                                      tourGuide.locationID),
+                                  builder: (context, snapshot) {
+                                    List<Destination> destinations =
+                                        snapshot.data;
+
+                                    return Container(
+                                      height: 150,
+                                      child: ListView(
+                                        scrollDirection: Axis.horizontal,
+                                        children: destinations
+                                            .map((e) => Container(
+                                                  margin: EdgeInsets.only(
+                                                      left:
+                                                          destinations.first ==
+                                                                  e
+                                                              ? 0
+                                                              : 16),
+                                                  child:
+                                                      CheckBoxDestinationCard(
+                                                    destination: e,
+                                                  ),
+                                                ))
+                                            .toList(),
+                                      ),
+                                    );
+
+                                    // return Wrap(
+                                    //   spacing: 24,
+                                    //   runSpacing: 16,
+                                    //   children: destinations
+                                    //       .map((e) => CheckBoxDestinationCard(
+                                    //             width: (MediaQuery.of(context)
+                                    //                         .size
+                                    //                         .width -
+                                    //                     2 * defaultMargin -
+                                    //                     24) /
+                                    //                 2,
+                                    //             destination: e,
+                                    //           ))
+                                    //       .toList(),
+                                    // );
+                                  })
                             ]),
                       )
                     ],
