@@ -46,3 +46,4 @@ part 'user/topup_succes_page.dart';
 part 'user/succes_booking_page.dart';
 part 'user/ticket_detail_page.dart';
 part 'user/tourguide_detail_page.dart';
+part 'user/tourguide_booking_page.dart';

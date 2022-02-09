@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:travel_tourguide_app/bloc/blocs.dart';
 import 'package:travel_tourguide_app/shared/shared.dart';
@@ -17,4 +18,4 @@ part 'transaction_card.dart';
 part 'template_topup_card.dart';
 part 'ticket_card.dart';
 part 'tourguide_card.dart';
-part 'checkbox_destination_card.dart';
+part 'destination_choice_card.dart';

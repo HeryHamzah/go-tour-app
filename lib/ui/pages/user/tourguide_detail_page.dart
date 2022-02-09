@@ -7,6 +7,7 @@ class TourGuideDetailPage extends StatefulWidget {
 
 class _TourGuideDetailPageState extends State<TourGuideDetailPage> {
   TourGuide tourGuide = Get.arguments;
+  List<Destination> destinationChoices = [];
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,6 @@ class _TourGuideDetailPageState extends State<TourGuideDetailPage> {
                   width: double.infinity,
                   height: (MediaQuery.of(context).size.height / 2) + 100,
                   decoration: BoxDecoration(
-                      color: Colors.amber,
                       image: DecorationImage(
                           image: NetworkImage(BaseUrl.getTourGuideImages +
                               tourGuide.profilePicture),
@@ -106,7 +106,7 @@ class _TourGuideDetailPageState extends State<TourGuideDetailPage> {
                                 ],
                               ),
                               SizedBox(height: 20),
-                              Text("Cakupan destinasi",
+                              Text("Pilih destinasi",
                                   style: themeFont.copyWith(fontSize: 16)),
                               SizedBox(
                                 height: 16,
@@ -115,50 +115,87 @@ class _TourGuideDetailPageState extends State<TourGuideDetailPage> {
                                   future: GeneralServices.getDestinations(
                                       tourGuide.locationID),
                                   builder: (context, snapshot) {
-                                    List<Destination> destinations =
-                                        snapshot.data;
+                                    if (snapshot.hasData) {
+                                      List<Destination> destinations =
+                                          snapshot.data;
 
-                                    return Container(
-                                      height: 150,
-                                      child: ListView(
-                                        scrollDirection: Axis.horizontal,
-                                        children: destinations
-                                            .map((e) => Container(
-                                                  margin: EdgeInsets.only(
-                                                      left:
-                                                          destinations.first ==
-                                                                  e
-                                                              ? 0
-                                                              : 16),
-                                                  child:
-                                                      CheckBoxDestinationCard(
-                                                    destination: e,
-                                                  ),
-                                                ))
-                                            .toList(),
-                                      ),
-                                    );
+                                      return Container(
+                                        height: 150,
+                                        child: ListView(
+                                          scrollDirection: Axis.horizontal,
+                                          children: destinations
+                                              .map((e) => Container(
+                                                    margin: EdgeInsets.only(
+                                                        left: destinations
+                                                                    .first ==
+                                                                e
+                                                            ? 0
+                                                            : 16),
+                                                    child: DestinationChoice(
+                                                      destination: e,
+                                                      isSelected:
+                                                          destinationChoices
+                                                              .contains(e),
+                                                      onTap: () => Get.toNamed(
+                                                          '/destinationDetail',
+                                                          arguments: e),
+                                                      onIconTap: () {
+                                                        if (destinationChoices
+                                                            .contains(e)) {
+                                                          destinationChoices
+                                                              .remove(e);
+                                                        } else {
+                                                          destinationChoices
+                                                              .add(e);
+                                                        }
 
-                                    // return Wrap(
-                                    //   spacing: 24,
-                                    //   runSpacing: 16,
-                                    //   children: destinations
-                                    //       .map((e) => CheckBoxDestinationCard(
-                                    //             width: (MediaQuery.of(context)
-                                    //                         .size
-                                    //                         .width -
-                                    //                     2 * defaultMargin -
-                                    //                     24) /
-                                    //                 2,
-                                    //             destination: e,
-                                    //           ))
-                                    //       .toList(),
-                                    // );
-                                  })
+                                                        setState(() {});
+                                                      },
+                                                    ),
+                                                  ))
+                                              .toList(),
+                                        ),
+                                      );
+                                    } else {
+                                      return SpinKitFadingCircle(
+                                        color: mainColor,
+                                      );
+                                    }
+                                  }),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Container(
+                                width: double.infinity,
+                                height: 46,
+                                child: ElevatedButton(
+                                  onPressed: (destinationChoices.length == 0)
+                                      ? null
+                                      : () {
+                                          Get.toNamed('/tourGuideBookingPage');
+                                        },
+                                  child: Text(
+                                    "Buat Trip dengan Tour Guide",
+                                    style: themeFont.copyWith(color: backColor),
+                                  ),
+                                ),
+                              )
                             ]),
                       )
                     ],
                   ),
+                ),
+              ),
+
+              //NOTE: ICON BACK
+              GestureDetector(
+                onTap: () => Get.back(),
+                child: Container(
+                  padding: EdgeInsets.all(5),
+                  margin: EdgeInsets.only(top: 20, left: defaultMargin),
+                  decoration: BoxDecoration(
+                      color: backColor, borderRadius: BorderRadius.circular(5)),
+                  child: Icon(Icons.arrow_back_ios_new),
                 ),
               ),
             ],
