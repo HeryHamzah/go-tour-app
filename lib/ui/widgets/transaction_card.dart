@@ -13,7 +13,7 @@ class TransactionCard extends StatelessWidget {
           Container(
             width: 75,
             height: 90,
-            margin: EdgeInsets.only(right: 20),
+            margin: EdgeInsets.only(right: 16),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
                 image: DecorationImage(
@@ -25,7 +25,7 @@ class TransactionCard extends StatelessWidget {
           ),
           SizedBox(
             width:
-                MediaQuery.of(context).size.width - 2 * defaultMargin - 75 - 20,
+                MediaQuery.of(context).size.width - 2 * defaultMargin - 75 - 16,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

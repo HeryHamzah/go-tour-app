@@ -41,15 +41,15 @@ class ActivityPage extends StatelessWidget {
                 ),
               )
               .toList();
-          newestTicket.sort((a, b) => a.time.compareTo(b.time));
+          newestTicket.sort((a, b) => b.time.compareTo(a.time));
           List<Ticket> oldestTicket = ticketState.tickets
               .where(
-                (ticket) => ticket.time.isBefore(
+                (ticket) => !ticket.time.isAfter(
                   DateTime.now(),
                 ),
               )
               .toList();
-          oldestTicket.sort((a, b) => a.time.compareTo(b.time));
+          oldestTicket.sort((a, b) => b.time.compareTo(a.time));
 
           return TabBarView(children: [
             ListView(

@@ -7,7 +7,7 @@ class TourGuideDetailPage extends StatefulWidget {
 
 class _TourGuideDetailPageState extends State<TourGuideDetailPage> {
   TourGuide tourGuide = Get.arguments;
-  List<Destination> destinationChoices = [];
+  List<Destination> destinations = [];
 
   @override
   Widget build(BuildContext context) {
@@ -116,8 +116,7 @@ class _TourGuideDetailPageState extends State<TourGuideDetailPage> {
                                       tourGuide.locationID),
                                   builder: (context, snapshot) {
                                     if (snapshot.hasData) {
-                                      List<Destination> destinations =
-                                          snapshot.data;
+                                      destinations = snapshot.data;
 
                                       return Container(
                                         height: 150,
@@ -133,24 +132,9 @@ class _TourGuideDetailPageState extends State<TourGuideDetailPage> {
                                                             : 16),
                                                     child: DestinationChoice(
                                                       destination: e,
-                                                      isSelected:
-                                                          destinationChoices
-                                                              .contains(e),
                                                       onTap: () => Get.toNamed(
                                                           '/destinationDetail',
                                                           arguments: e),
-                                                      onIconTap: () {
-                                                        if (destinationChoices
-                                                            .contains(e)) {
-                                                          destinationChoices
-                                                              .remove(e);
-                                                        } else {
-                                                          destinationChoices
-                                                              .add(e);
-                                                        }
-
-                                                        setState(() {});
-                                                      },
                                                     ),
                                                   ))
                                               .toList(),
@@ -169,11 +153,10 @@ class _TourGuideDetailPageState extends State<TourGuideDetailPage> {
                                 width: double.infinity,
                                 height: 46,
                                 child: ElevatedButton(
-                                  onPressed: (destinationChoices.length == 0)
-                                      ? null
-                                      : () {
-                                          Get.toNamed('/tourGuideBookingPage');
-                                        },
+                                  onPressed: () {
+                                    Get.toNamed('/tourGuideBookingPage',
+                                        arguments: [tourGuide, destinations]);
+                                  },
                                   child: Text(
                                     "Buat Trip dengan Tour Guide",
                                     style: themeFont.copyWith(color: backColor),
