@@ -7,7 +7,10 @@ class TourGuideDetailPage extends StatefulWidget {
 
 class _TourGuideDetailPageState extends State<TourGuideDetailPage> {
   TourGuide tourGuide = Get.arguments;
-  List<Destination> destinations = [];
+  List<Destination> destinationChoices = [];
+  DatePickerController _dateTimeController = DatePickerController();
+  DateTime bookingTime = DateTime(
+      DateTime.now().year, DateTime.now().month, DateTime.now().day + 1);
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +119,8 @@ class _TourGuideDetailPageState extends State<TourGuideDetailPage> {
                                       tourGuide.locationID),
                                   builder: (context, snapshot) {
                                     if (snapshot.hasData) {
-                                      destinations = snapshot.data;
+                                      List<Destination> destinations =
+                                          snapshot.data;
 
                                       return Container(
                                         height: 150,
@@ -131,11 +135,24 @@ class _TourGuideDetailPageState extends State<TourGuideDetailPage> {
                                                             ? 0
                                                             : 16),
                                                     child: DestinationChoice(
-                                                      destination: e,
-                                                      onTap: () => Get.toNamed(
-                                                          '/destinationDetail',
-                                                          arguments: e),
-                                                    ),
+                                                        destination: e,
+                                                        onTap: () => Get.toNamed(
+                                                            '/destinationDetail',
+                                                            arguments: e),
+                                                        isSelected:
+                                                            destinationChoices
+                                                                .contains(e),
+                                                        onIconTap: () {
+                                                          if (destinationChoices
+                                                              .contains(e)) {
+                                                            destinationChoices
+                                                                .remove(e);
+                                                          } else {
+                                                            destinationChoices
+                                                                .add(e);
+                                                          }
+                                                          setState(() {});
+                                                        }),
                                                   ))
                                               .toList(),
                                         ),
@@ -149,14 +166,48 @@ class _TourGuideDetailPageState extends State<TourGuideDetailPage> {
                               SizedBox(
                                 height: 20,
                               ),
+                              Text("Pilih Tanggal",
+                                  style: themeFont.copyWith(fontSize: 16)),
+                              SizedBox(
+                                height: 16,
+                              ),
+                              Column(
+                                children: [
+                                  DatePicker(
+                                    DateTime(
+                                        DateTime.now().year,
+                                        DateTime.now().month,
+                                        DateTime.now().day + 1),
+                                    initialSelectedDate: DateTime(
+                                        DateTime.now().year,
+                                        DateTime.now().month,
+                                        DateTime.now().day + 1),
+                                    controller: _dateTimeController,
+                                    selectionColor: mainColor,
+                                    daysCount: 10,
+                                    locale: "id_ID",
+                                    onDateChange: (dateTime) {
+                                      bookingTime = dateTime;
+                                    },
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: 30,
+                              ),
                               Container(
                                 width: double.infinity,
                                 height: 46,
                                 child: ElevatedButton(
-                                  onPressed: () {
-                                    Get.toNamed('/tourGuideBookingPage',
-                                        arguments: [tourGuide, destinations]);
-                                  },
+                                  onPressed: (destinationChoices.length <= 0)
+                                      ? null
+                                      : () {
+                                          Get.toNamed('/tourGuideBookingPage',
+                                              arguments: [
+                                                tourGuide,
+                                                destinationChoices
+                                              ]);
+                                        },
                                   child: Text(
                                     "Buat Trip dengan Tour Guide",
                                     style: themeFont.copyWith(color: backColor),

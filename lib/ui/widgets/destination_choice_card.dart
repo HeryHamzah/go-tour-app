@@ -2,9 +2,12 @@ part of 'widgets.dart';
 
 class DestinationChoice extends StatefulWidget {
   final Destination destination;
+  final bool isSelected;
   final Function onTap;
+  final Function onIconTap;
 
-  DestinationChoice({this.destination, this.onTap});
+  DestinationChoice(
+      {this.destination, this.isSelected = false, this.onTap, this.onIconTap});
 
   @override
   State<DestinationChoice> createState() => _DestinationChoiceState();
@@ -38,6 +41,21 @@ class _DestinationChoiceState extends State<DestinationChoice> {
                     image: NetworkImage(
                         BaseUrl.getAssets + widget.destination.images[0]),
                     fit: BoxFit.cover),
+              ),
+              child: Align(
+                alignment: Alignment.topRight,
+                child: GestureDetector(
+                  onTap: () {
+                    if (widget.onIconTap != null) {
+                      widget.onIconTap();
+                    }
+                  },
+                  child: Icon(
+                    FontAwesomeIcons.plane,
+                    size: 20,
+                    color: (widget.isSelected) ? mainColor : Colors.white,
+                  ),
+                ),
               ),
             ),
             Container(

@@ -7,7 +7,20 @@ class TourGuideBookingPage extends StatefulWidget {
 
 class _TourGuideBookingPageState extends State<TourGuideBookingPage> {
   TourGuide tourGuide = Get.arguments[0];
-  List<Destination> destinations = Get.arguments[1];
+  List<Destination> destinationChoices = Get.arguments[1];
+  bool isChecked = false;
+
+  String destinationChoicesInString = "";
+
+  @override
+  void initState() {
+    super.initState();
+    for (var dest in destinationChoices) {
+      destinationChoicesInString +=
+          dest.name + (dest == destinationChoices.last ? "" : ", ");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,15 +93,38 @@ class _TourGuideBookingPageState extends State<TourGuideBookingPage> {
                   SizedBox(
                     height: 20,
                   ),
-                  Column(
-                      children: destinations
-                          .map((e) => CheckboxListTile(
-                                contentPadding: EdgeInsets.all(0),
-                                value: false,
-                                onChanged: (onChanged) {},
-                                title: Text(e.name),
-                              ))
-                          .toList())
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Destinasi",
+                        style: themeFont.copyWith(
+                          fontSize: 16,
+                        ),
+                      ),
+                      SizedBox(
+                          width: MediaQuery.of(context).size.width / 2,
+                          child: Text(destinationChoicesInString,
+                              style: themeFont.copyWith(fontSize: 16)))
+                    ],
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Tanggal",
+                        style: themeFont.copyWith(
+                          fontSize: 16,
+                        ),
+                      ),
+                      SizedBox(
+                          width: MediaQuery.of(context).size.width / 2,
+                          child:
+                              Text('', style: themeFont.copyWith(fontSize: 16)))
+                    ],
+                  )
                 ],
               ),
             )
