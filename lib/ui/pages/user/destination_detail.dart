@@ -157,7 +157,7 @@ class _DestinationDetailPageState extends State<DestinationDetailPage> {
                     SizedBox(
                       height: 5,
                     ),
-                    Rating(8.9),
+                    Rating(rating: destination.rating),
                     SizedBox(height: 10),
                     Align(
                       alignment: Alignment.topLeft,

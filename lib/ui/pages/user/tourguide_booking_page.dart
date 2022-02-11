@@ -77,7 +77,7 @@ class _TourGuideBookingPageState extends State<TourGuideBookingPage> {
                             SizedBox(
                               height: 5,
                             ),
-                            Rating(7.9)
+                            Rating(rating: 7.9)
                           ],
                         ),
                       )

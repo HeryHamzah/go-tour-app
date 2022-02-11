@@ -23,9 +23,9 @@ class GeneralServices {
     final response = await http.post(BaseUrl.getDetailDestination,
         body: {"id_destination": idDestination});
     final data = jsonDecode(response.body);
-    final user = data['result'] as Map<String, dynamic>;
+    final destination = data['result'] as Map<String, dynamic>;
 
-    return Destination.fromJson(user);
+    return Destination.fromJson(destination);
   }
 
   static Future<List<TourGuide>> getTourGuides() async {

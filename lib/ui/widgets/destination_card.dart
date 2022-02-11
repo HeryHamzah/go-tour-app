@@ -94,7 +94,7 @@ class _DestinationCardState extends State<DestinationCard> {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Rating(widget.destination.rating),
+                      Rating(rating: widget.destination.rating),
                       Spacer(),
                       SizedBox(
                           width: (MediaQuery.of(context).size.width -

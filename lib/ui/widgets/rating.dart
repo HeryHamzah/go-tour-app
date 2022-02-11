@@ -3,7 +3,7 @@ part of 'widgets.dart';
 class Rating extends StatelessWidget {
   final double rating;
 
-  Rating(this.rating);
+  Rating({this.rating = 0});
   @override
   Widget build(BuildContext context) {
     List<Widget> stars = [];
