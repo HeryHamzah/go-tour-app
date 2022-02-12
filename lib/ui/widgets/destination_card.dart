@@ -102,7 +102,7 @@ class _DestinationCardState extends State<DestinationCard> {
                                   20) /
                               2,
                           child: Text(
-                            "(200 Reviews)",
+                            "(${widget.destination.numberOfReviews} Reviews)",
                             style: themeFont.copyWith(color: Colors.grey),
                             textAlign: TextAlign.end,
                           ))

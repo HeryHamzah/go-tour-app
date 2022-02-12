@@ -8,6 +8,7 @@ class Destination extends Equatable {
   final String location;
   final List<String> images;
   final double rating;
+  final String numberOfReviews;
 
   Destination(
       {this.id,
@@ -16,7 +17,8 @@ class Destination extends Equatable {
       this.about,
       this.location,
       this.images,
-      this.rating});
+      this.rating = 0.0,
+      this.numberOfReviews});
 
   factory Destination.fromJson(Map<String, dynamic> json) => Destination(
       id: json['id_destination'],
@@ -25,8 +27,9 @@ class Destination extends Equatable {
       about: json['about'],
       location: json['location'],
       images: (json['images'] as String).split(","),
-      rating: double.tryParse(json['rating'] ?? 0));
+      rating: double.tryParse(json['rating']),
+      numberOfReviews: json['number_of_reviews']);
 
   @override
-  List<Object> get props => [id, name, price, about, location, images];
+  List<Object> get props => [id, name, price, about, location, images, rating];
 }
