@@ -75,7 +75,7 @@ class ActivityPage extends StatelessWidget {
                   : oldestTicket
                       .map((e) => Container(
                             margin: EdgeInsets.only(
-                                top: (e == newestTicket.first) ? 20 : 0,
+                                top: (e == oldestTicket.first) ? 20 : 0,
                                 left: defaultMargin,
                                 right: defaultMargin,
                                 bottom: 20),

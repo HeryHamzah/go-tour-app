@@ -168,19 +168,19 @@ class UserServices {
     return favorites;
   }
 
-  static Future<List<Destination>> getMyTrips(String userID) async {
-    DocumentSnapshot snapshots = await _userCollection.doc(userID).get();
+  // static Future<List<Destination>> getMyTrips(String userID) async {
+  //   DocumentSnapshot snapshots = await _userCollection.doc(userID).get();
 
-    List<Destination> myTrips = [];
+  //   List<Destination> myTrips = [];
 
-    for (var snapshot in snapshots.data()['myTrips']) {
-      Destination destination =
-          await GeneralServices.getDetailDestination(snapshot);
+  //   for (var snapshot in snapshots.data()['myTrips']) {
+  //     Destination destination =
+  //         await GeneralServices.getDetailDestination(snapshot);
 
-      myTrips.add(destination);
-    }
-    return myTrips;
-  }
+  //     myTrips.add(destination);
+  //   }
+  //   return myTrips;
+  // }
 
   static Future<void> saveTransaction(GoTourTransaction transaction) async {
     try {
@@ -242,10 +242,6 @@ class UserServices {
       }
 
       return tickets;
-
-      // return (data as List)
-      //     .map((e) => Ticket.fromJson(e, destination))
-      //     .toList();
     } catch (e) {
       print("Error get tickets: " + e.toString());
       return null;

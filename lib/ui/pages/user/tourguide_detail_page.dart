@@ -85,7 +85,7 @@ class _TourGuideDetailPageState extends State<TourGuideDetailPage> {
                                         height: 5,
                                       ),
                                       Text(
-                                        "0",
+                                        tourGuide.numberOfReviews,
                                         style: themeFont.copyWith(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 16),
@@ -99,7 +99,14 @@ class _TourGuideDetailPageState extends State<TourGuideDetailPage> {
                                         height: 5,
                                       ),
                                       Text(
-                                        "0.0",
+                                        tourGuide.rating.toString().substring(
+                                            0,
+                                            tourGuide.rating.toString().length <
+                                                    4
+                                                ? tourGuide.rating
+                                                    .toString()
+                                                    .length
+                                                : 4),
                                         style: themeFont.copyWith(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 16),
@@ -205,7 +212,8 @@ class _TourGuideDetailPageState extends State<TourGuideDetailPage> {
                                           Get.toNamed('/tourGuideBookingPage',
                                               arguments: [
                                                 tourGuide,
-                                                destinationChoices
+                                                destinationChoices,
+                                                bookingTime
                                               ]);
                                         },
                                   child: Text(

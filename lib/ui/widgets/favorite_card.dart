@@ -44,7 +44,7 @@ class _FavoriteCardState extends State<FavoriteCard> {
                         fontSize: 16, fontWeight: FontWeight.w600),
                     overflow: TextOverflow.ellipsis),
               ),
-              Rating(rating: 8.9),
+              Rating(rating: widget.destination.rating),
               Row(
                 children: [
                   Text(
