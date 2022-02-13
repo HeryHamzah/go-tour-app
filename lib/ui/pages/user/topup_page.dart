@@ -71,11 +71,14 @@ class _TopUpPageState extends State<TopUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
         centerTitle: true,
         leading: GestureDetector(
-            onTap: () => Get.back(), child: Icon(Icons.arrow_back_ios_new)),
-        title: Text("Top Up"),
+            onTap: () => Get.back(),
+            child: Icon(
+              Icons.arrow_back_ios_new,
+              color: backColor,
+            )),
+        title: Text("Top Up", style: themeFont.copyWith(color: backColor)),
       ),
       body: Container(
         margin: EdgeInsets.fromLTRB(defaultMargin, 20, defaultMargin, 0),

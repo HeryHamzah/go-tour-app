@@ -282,7 +282,7 @@ class _BookingPageState extends State<BookingPage> {
                                                 ),
                                                 user.id
                                               ])
-                                      : () => Get.offAndToNamed("/topUpPage",
+                                      : () => Get.toNamed("/topUpPage",
                                           arguments: user),
                               style: ElevatedButton.styleFrom(
                                   primary: user.balance >= totalPrice

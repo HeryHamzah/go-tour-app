@@ -15,6 +15,53 @@ class _TourGuideBookingPageState extends State<TourGuideBookingPage> {
   int ticketPrice = 0;
   int totalPrice = 0;
 
+  // void showConfirmAlertDialog(User user) {
+  //   AlertDialog alertDialog = AlertDialog(
+  //     title: Text("Anda yakin?",
+  //         style: themeFont.copyWith(fontWeight: FontWeight.w500)),
+  //     content: Row(
+  //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //       children: [
+  //         Expanded(
+  //           child: Container(
+  //             height: 46,
+  //             decoration:
+  //                 BoxDecoration(borderRadius: BorderRadius.circular(10)),
+  //             child: ElevatedButton(
+  //                 style: ElevatedButton.styleFrom(
+  //                     primary: Colors.grey, onPrimary: Colors.white),
+  //                 onPressed: () => Get.back(),
+  //                 child: Text(
+  //                   "Batal",
+  //                 )),
+  //           ),
+  //         ),
+  //         SizedBox(
+  //           width: 10,
+  //         ),
+  //         Expanded(
+  //           child: Container(
+  //             height: 46,
+  //             decoration:
+  //                 BoxDecoration(borderRadius: BorderRadius.circular(10)),
+  //             child: ElevatedButton(
+  //                 style: ElevatedButton.styleFrom(
+  //                     primary: mainColor, onPrimary: Colors.white),
+  //                 onPressed: () {
+  //                   Get.toNamed('/topUpSuccesPage', arguments: [user]);
+  //                 },
+  //                 child: Text(
+  //                   "Yakin!",
+  //                 )),
+  //           ),
+  //         )
+  //       ],
+  //     ),
+  //   );
+
+  //   showDialog(context: context, builder: (context) => alertDialog);
+  // }
+
   @override
   void initState() {
     super.initState();
@@ -227,7 +274,6 @@ class _TourGuideBookingPageState extends State<TourGuideBookingPage> {
                       ),
                       Divider(
                         color: Colors.grey,
-                        height: 2,
                       ),
                       SizedBox(
                         height: 20,
@@ -267,7 +313,20 @@ class _TourGuideBookingPageState extends State<TourGuideBookingPage> {
                           width: 250,
                           height: 46,
                           child: ElevatedButton(
-                              onPressed: () {}, child: Text("Reservasi")),
+                              style: ElevatedButton.styleFrom(
+                                  primary: user.balance >= totalPrice
+                                      ? mainColor
+                                      : Colors.red),
+                              onPressed: user.balance >= totalPrice
+                                  ? () {}
+                                  : () => Get.toNamed('/topUpPage',
+                                      arguments: user),
+                              child: Text(
+                                user.balance >= totalPrice
+                                    ? "Reservasi"
+                                    : "Top Up Dompetku",
+                                style: themeFont.copyWith(color: backColor),
+                              )),
                         ),
                       )
                     ],
