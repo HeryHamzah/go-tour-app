@@ -15,52 +15,53 @@ class _TourGuideBookingPageState extends State<TourGuideBookingPage> {
   int ticketPrice = 0;
   int totalPrice = 0;
 
-  // void showConfirmAlertDialog(User user) {
-  //   AlertDialog alertDialog = AlertDialog(
-  //     title: Text("Anda yakin?",
-  //         style: themeFont.copyWith(fontWeight: FontWeight.w500)),
-  //     content: Row(
-  //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //       children: [
-  //         Expanded(
-  //           child: Container(
-  //             height: 46,
-  //             decoration:
-  //                 BoxDecoration(borderRadius: BorderRadius.circular(10)),
-  //             child: ElevatedButton(
-  //                 style: ElevatedButton.styleFrom(
-  //                     primary: Colors.grey, onPrimary: Colors.white),
-  //                 onPressed: () => Get.back(),
-  //                 child: Text(
-  //                   "Batal",
-  //                 )),
-  //           ),
-  //         ),
-  //         SizedBox(
-  //           width: 10,
-  //         ),
-  //         Expanded(
-  //           child: Container(
-  //             height: 46,
-  //             decoration:
-  //                 BoxDecoration(borderRadius: BorderRadius.circular(10)),
-  //             child: ElevatedButton(
-  //                 style: ElevatedButton.styleFrom(
-  //                     primary: mainColor, onPrimary: Colors.white),
-  //                 onPressed: () {
-  //                   Get.toNamed('/topUpSuccesPage', arguments: [user]);
-  //                 },
-  //                 child: Text(
-  //                   "Yakin!",
-  //                 )),
-  //           ),
-  //         )
-  //       ],
-  //     ),
-  //   );
+  void showConfirmAlertDialog(User user, TourGuideTicket tourGuideTicket) {
+    AlertDialog alertDialog = AlertDialog(
+      title: Text("Lanjut reservasi?",
+          style: themeFont.copyWith(fontWeight: FontWeight.w500)),
+      content: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Expanded(
+            child: Container(
+              height: 46,
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(10)),
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      primary: Colors.grey, onPrimary: Colors.white),
+                  onPressed: () => Get.back(),
+                  child: Text(
+                    "Batal",
+                  )),
+            ),
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          Expanded(
+            child: Container(
+              height: 46,
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(10)),
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      primary: mainColor, onPrimary: Colors.white),
+                  onPressed: () {
+                    Get.toNamed('/successTourGuideReservation',
+                        arguments: [tourGuideTicket, user]);
+                  },
+                  child: Text(
+                    "Konfirmasi",
+                  )),
+            ),
+          )
+        ],
+      ),
+    );
 
-  //   showDialog(context: context, builder: (context) => alertDialog);
-  // }
+    showDialog(context: context, builder: (context) => alertDialog);
+  }
 
   @override
   void initState() {
@@ -318,7 +319,20 @@ class _TourGuideBookingPageState extends State<TourGuideBookingPage> {
                                       ? mainColor
                                       : Colors.red),
                               onPressed: user.balance >= totalPrice
-                                  ? () {}
+                                  ? () {
+                                      showConfirmAlertDialog(
+                                          user,
+                                          TourGuideTicket(
+                                              dateTime: bookingTime,
+                                              userName: user.name,
+                                              tourGuideID:
+                                                  tourGuide.tourGuideID,
+                                              tourGuideName: tourGuide.name,
+                                              destinations:
+                                                  destinationChoicesInString,
+                                              totalPrice: totalPrice,
+                                              image: tourGuide.profilePicture));
+                                    }
                                   : () => Get.toNamed('/topUpPage',
                                       arguments: user),
                               child: Text(

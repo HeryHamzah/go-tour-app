@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:travel_tourguide_app/bloc/blocs.dart';
+import 'package:travel_tourguide_app/bloc/tourguide_ticket_bloc.dart';
 import 'package:travel_tourguide_app/services/services.dart';
 import 'package:travel_tourguide_app/shared/shared.dart';
 import 'package:travel_tourguide_app/ui/pages/pages.dart';
@@ -25,7 +26,8 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(create: (_) => UserBloc()),
           BlocProvider(create: (_) => NavdrawerBloc()),
-          BlocProvider(create: (_) => TicketBloc())
+          BlocProvider(create: (_) => TicketBloc()),
+          BlocProvider(create: (_) => TourguideTicketBloc())
         ],
         child: GetMaterialApp(
           initialRoute: '/',
@@ -60,7 +62,10 @@ class MyApp extends StatelessWidget {
                 page: () => TourGuideDetailPage()),
             GetPage(
                 name: '/tourGuideBookingPage',
-                page: () => TourGuideBookingPage())
+                page: () => TourGuideBookingPage()),
+            GetPage(
+                name: '/successTourGuideReservation',
+                page: () => SuccesTourGuideReservation())
           ],
           debugShowCheckedModeBanner: false,
           title: 'Go Tour',

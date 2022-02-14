@@ -22,4 +22,8 @@ class BaseUrl {
   static String getTickets = dbUrl + "user_API/get_tickets.php";
   static String getTourGuides = dbUrl + "user_API/get_tourguides.php";
   static String getTourGuideImages = dbUrl + "images/tourguide_upload/";
+  static String saveTourGuideTicket =
+      dbUrl + "user_API/save_tourguide_ticket.php";
+  static String getTourGuideTickets =
+      dbUrl + "user_API/get_tourguide_tickets.php";
 }

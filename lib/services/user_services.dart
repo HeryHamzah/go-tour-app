@@ -115,46 +115,7 @@ class UserServices {
     }
   }
 
-  // static Future<void> addToFavorites(
-  //     String idUser, String idDestination) async {
-  //   try {
-  //     final response = await http.post(BaseUrl.addToFavorites,
-  //         body: {"id_user": idUser, "id_destination": idDestination});
-  //     final data = jsonDecode(response.body);
-  //     // int value = data["value"];
-  //     String message = data["message"];
-  //     print(message);
-  //   } catch (e) {
-  //     print("Error Add to Favorites: $e");
-  //   }
-  // }
-
-  // static Future<void> removeFromFavorites(
-  //     String idUser, String idDestination) async {
-  //   try {
-  //     final response = await http.post(BaseUrl.removeFromFavorites,
-  //         body: {"id_destination": idDestination, "id_user": idUser});
-  //     final data = jsonDecode(response.body);
-  //     // int value = data["value"];
-  //     String message = data["message"];
-  //     print(message);
-  //   } catch (e) {
-  //     print("Error Remove from Favorites: $e");
-  //   }
-  // }
-
   static Future<List<Destination>> getFavorites(String userID) async {
-    // try {
-    //   final response =
-    //       await http.post(BaseUrl.getFavorites, body: {"id_user": idUser});
-    //   final data = jsonDecode(response.body);
-
-    //   return (data as List).map((e) => Destination.fromJson(e)).toList();
-    // } catch (e) {
-    //   print("Error Get Favorites: $e");
-    //   return null;
-    // }
-
     DocumentSnapshot snapshots = await _userCollection.doc(userID).get();
 
     List<Destination> favorites = [];
@@ -167,20 +128,6 @@ class UserServices {
     }
     return favorites;
   }
-
-  // static Future<List<Destination>> getMyTrips(String userID) async {
-  //   DocumentSnapshot snapshots = await _userCollection.doc(userID).get();
-
-  //   List<Destination> myTrips = [];
-
-  //   for (var snapshot in snapshots.data()['myTrips']) {
-  //     Destination destination =
-  //         await GeneralServices.getDetailDestination(snapshot);
-
-  //     myTrips.add(destination);
-  //   }
-  //   return myTrips;
-  // }
 
   static Future<void> saveTransaction(GoTourTransaction transaction) async {
     try {
@@ -244,6 +191,38 @@ class UserServices {
       return tickets;
     } catch (e) {
       print("Error get tickets: " + e.toString());
+      return null;
+    }
+  }
+
+  static Future<void> saveTourGuideTicket(
+      TourGuideTicket tourGuideTicket, User user) async {
+    try {
+      await http.post(BaseUrl.saveTourGuideTicket, body: {
+        "id_user": user.id,
+        "id_tourguide": tourGuideTicket.tourGuideID,
+        "user_name": user.name,
+        "tourguide_name": tourGuideTicket.tourGuideName,
+        "date_time": tourGuideTicket.dateTime.millisecondsSinceEpoch.toString(),
+        "destinations": tourGuideTicket.destinations,
+        "total_price": tourGuideTicket.totalPrice.toString(),
+        "picture_path": tourGuideTicket.image
+      });
+    } catch (e) {
+      print("Error save Tour Guide ticket: " + e.toString());
+    }
+  }
+
+  static Future<List<TourGuideTicket>> getTourGuideTickets(
+      String userID) async {
+    try {
+      final response = await http
+          .post(BaseUrl.getTourGuideTickets, body: {"id_user": userID});
+      final data = jsonDecode(response.body);
+
+      return (data as List).map((e) => TourGuideTicket.fromJson(e)).toList();
+    } catch (e) {
+      print("Error get transactions: " + e.toString());
       return null;
     }
   }
