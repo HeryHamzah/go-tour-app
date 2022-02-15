@@ -50,7 +50,7 @@ buildMainScreen({int idPage, User user}) {
     case 3:
       return FavoritePage();
     case 4:
-      return MyTripPage();
+      return TourGuidePage();
     case 5:
       return MyWalletPage();
   }

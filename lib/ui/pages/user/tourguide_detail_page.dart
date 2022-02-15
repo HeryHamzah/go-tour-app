@@ -122,8 +122,9 @@ class _TourGuideDetailPageState extends State<TourGuideDetailPage> {
                                 height: 16,
                               ),
                               FutureBuilder(
-                                  future: GeneralServices.getDestinations(
-                                      tourGuide.locationID),
+                                  future:
+                                      GeneralServices.getDestinationsbyLocation(
+                                          tourGuide.locationID),
                                   builder: (context, snapshot) {
                                     if (snapshot.hasData) {
                                       List<Destination> destinations =

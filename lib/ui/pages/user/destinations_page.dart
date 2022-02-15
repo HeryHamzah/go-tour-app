@@ -23,7 +23,7 @@ class DestinationsPage extends StatelessWidget {
         ),
       ),
       body: FutureBuilder<List<Destination>>(
-        future: GeneralServices.getDestinations(location.id),
+        future: GeneralServices.getDestinationsbyLocation(location.id),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             return DestinationsList(snapshot.data);

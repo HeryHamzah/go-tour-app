@@ -1,6 +1,8 @@
 part of "models.dart";
 
 class GoTourTransaction extends Equatable {
+  //NOTE: A for Topup, B for ticket transaction, C for Tour Guide Reservation
+  final String transactionID;
   final String userID;
   final String picturePath;
   final String title;
@@ -9,7 +11,8 @@ class GoTourTransaction extends Equatable {
   final DateTime time;
 
   GoTourTransaction(
-      {this.userID,
+      {this.transactionID,
+      this.userID,
       this.picturePath,
       this.title,
       this.amount,
@@ -18,6 +21,7 @@ class GoTourTransaction extends Equatable {
 
   factory GoTourTransaction.fromJson(Map<String, dynamic> json) =>
       GoTourTransaction(
+          transactionID: json["id_transaction"],
           userID: json["id_user"],
           picturePath: json["picture_path"],
           title: json["title"],
@@ -26,5 +30,6 @@ class GoTourTransaction extends Equatable {
           time:
               DateTime.fromMillisecondsSinceEpoch(int.tryParse(json["time"])));
   @override
-  List<Object> get props => [userID, picturePath, title, amount, desc, time];
+  List<Object> get props =>
+      [transactionID, userID, picturePath, title, amount, desc, time];
 }

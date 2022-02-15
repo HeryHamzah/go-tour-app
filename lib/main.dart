@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:travel_tourguide_app/bloc/blocs.dart';
-import 'package:travel_tourguide_app/bloc/tourguide_ticket_bloc.dart';
 import 'package:travel_tourguide_app/services/services.dart';
 import 'package:travel_tourguide_app/shared/shared.dart';
 import 'package:travel_tourguide_app/ui/pages/pages.dart';

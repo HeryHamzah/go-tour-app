@@ -7,10 +7,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   PanelController panelController = PanelController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backColor,
       body: SlidingUpPanel(
+        color: backColor,
         controller: panelController,
         minHeight: MediaQuery.of(context).size.height / 2,
         maxHeight: MediaQuery.of(context).size.height * 0.8,
@@ -48,22 +51,22 @@ class _HomePageState extends State<HomePage> {
                   future: GeneralServices.getLocations(),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      List<Location> location = snapshot.data;
+                      List<Location> locations = snapshot.data;
                       return Container(
                         height: 150,
                         child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: location.length,
+                            itemCount: locations.length,
                             itemBuilder: (context, index) => Padding(
                                   padding: EdgeInsets.only(
                                       left: (index == 0) ? defaultMargin : 0,
-                                      right: (index == location.length - 1)
+                                      right: (index == locations.length - 1)
                                           ? defaultMargin
                                           : 16),
                                   child: GestureDetector(
                                       onTap: () => Get.toNamed('/destinations',
-                                          arguments: location[index]),
-                                      child: LocationCard(location[index])),
+                                          arguments: locations[index]),
+                                      child: LocationCard(locations[index])),
                                 )),
                       );
                     } else {
@@ -74,25 +77,38 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.only(
                     top: 20, bottom: 10, left: defaultMargin),
                 child: Text(
-                  "Pilihan Destination",
+                  "Destinasi Favorit",
                   style: themeFont.copyWith(fontSize: 18),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: defaultMargin, right: defaultMargin, bottom: 10),
-                child: BestDestinationsCard(),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: defaultMargin, right: defaultMargin, bottom: 10),
-                child: BestDestinationsCard(),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: defaultMargin, right: defaultMargin, bottom: 10),
-                child: BestDestinationsCard(),
-              ),
+              FutureBuilder(
+                  future: GeneralServices.getAllDestinations(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      List<Destination> destinations = snapshot.data;
+                      return Container(
+                          // height: 500,
+                          // color: Colors.amber,
+                          child: Column(
+                        children: destinations
+                            .map((e) => Padding(
+                                  padding: EdgeInsets.only(
+                                      top: e == destinations.first ? 0 : 20,
+                                      left: defaultMargin,
+                                      right: defaultMargin),
+                                  child: GestureDetector(
+                                      onTap: () => Get.toNamed(
+                                          '/destinationDetail',
+                                          arguments: e),
+                                      child: BestDestinationCard(e)),
+                                ))
+                            .take(3)
+                            .toList(),
+                      ));
+                    } else {
+                      return SpinKitFadingCircle(color: mainColor, size: 50);
+                    }
+                  }),
               SizedBox(
                 height: 100,
               )
@@ -127,18 +143,26 @@ class _HomePageState extends State<HomePage> {
                       Expanded(
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8),
-                          child: Container(
-                            height: 45,
-                            child: TextField(
-                              decoration: InputDecoration(
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide.none),
-                                  prefixIcon: Icon(Icons.search),
-                                  hintText: "Destinasi",
-                                  hintStyle: themeFont.copyWith(
-                                      color: Colors.grey, letterSpacing: 1.5),
-                                  filled: true,
-                                  fillColor: Colors.white),
+                          child: GestureDetector(
+                            onTap: () {
+                              showSearch(
+                                  context: context,
+                                  delegate: SearchDestination());
+                            },
+                            child: Container(
+                              height: 45,
+                              child: TextField(
+                                readOnly: true,
+                                decoration: InputDecoration(
+                                    focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide.none),
+                                    prefixIcon: Icon(Icons.search),
+                                    hintText: "Destinasi",
+                                    hintStyle: themeFont.copyWith(
+                                        color: Colors.grey, letterSpacing: 1.5),
+                                    filled: true,
+                                    fillColor: Colors.white),
+                              ),
                             ),
                           ),
                         ),

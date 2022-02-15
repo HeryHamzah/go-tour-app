@@ -274,6 +274,9 @@ class _BookingPageState extends State<BookingPage> {
                                               "/succesBookingPage",
                                               arguments: [
                                                 Ticket(
+                                                  bookingCode:
+                                                      randomAlphaNumeric(10)
+                                                          .toUpperCase(),
                                                   destination: destination,
                                                   time: bookingTime,
                                                   name: user.name,

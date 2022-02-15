@@ -85,6 +85,7 @@ class SuccesBookingPage extends StatelessWidget {
 
     // await UserServices.saveticket(ticket, userID);
     await UserServices.saveTransaction(GoTourTransaction(
+        transactionID: "B${randomNumeric(10)}",
         userID: userID,
         picturePath: ticket.destination.images[0],
         title: ticket.destination.name,

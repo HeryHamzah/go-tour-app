@@ -11,6 +11,9 @@ class Wrapper extends StatelessWidget {
       print("LOGIN");
       context.bloc<UserBloc>().add(LoadUser(firebaseUser.uid));
       context.bloc<TicketBloc>().add(GetTickets(firebaseUser.uid));
+      context
+          .bloc<TourguideTicketBloc>()
+          .add(GetTourGuideTicket(firebaseUser.uid));
 
       return MainDrawer();
     }

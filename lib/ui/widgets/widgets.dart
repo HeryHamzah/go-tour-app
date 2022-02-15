@@ -12,7 +12,7 @@ part 'location_card.dart';
 part 'destination_card.dart';
 part 'rating.dart';
 part 'favorite_card.dart';
-part 'best_destinations_card.dart';
+part 'best_destination_card.dart';
 part 'wallet_card.dart';
 part 'transaction_card.dart';
 part 'template_topup_card.dart';

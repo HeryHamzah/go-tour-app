@@ -10,7 +10,8 @@ class BaseUrl {
   static String getUserImages = dbUrl + "images/user_upload/";
   static String uploadUserImage = dbUrl + "user_API/upload_user_image.php";
   static String userUpdate = dbUrl + "user_API/user_update.php";
-  static String getDestinations = dbUrl + "user_API/get_destinations.php";
+  static String getDestinationsbyLocation =
+      dbUrl + "user_API/get_destinations.php";
   static String getDetailDestination =
       dbUrl + "user_API/get_detail_destination.php";
   static String addToFavorites = dbUrl + "user_API/add_to_favorites.php";
@@ -26,4 +27,6 @@ class BaseUrl {
       dbUrl + "user_API/save_tourguide_ticket.php";
   static String getTourGuideTickets =
       dbUrl + "user_API/get_tourguide_tickets.php";
+  static String getAllDestinations =
+      dbUrl + "user_API/get_all_destinations.php";
 }

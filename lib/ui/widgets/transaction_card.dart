@@ -17,10 +17,13 @@ class TransactionCard extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
                 image: DecorationImage(
-                    image: (transaction.picturePath != "")
+                    image: (transaction.transactionID.contains("B"))
                         ? NetworkImage(
                             BaseUrl.getAssets + transaction.picturePath)
-                        : AssetImage("assets/topup_cover.png"),
+                        : transaction.transactionID.contains("A")
+                            ? AssetImage("assets/topup_cover.png")
+                            : NetworkImage(BaseUrl.getTourGuideImages +
+                                transaction.picturePath),
                     fit: BoxFit.cover)),
           ),
           SizedBox(

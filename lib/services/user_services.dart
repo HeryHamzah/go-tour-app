@@ -132,6 +132,7 @@ class UserServices {
   static Future<void> saveTransaction(GoTourTransaction transaction) async {
     try {
       await http.post(BaseUrl.saveTransaction, body: {
+        "id_transaction": transaction.transactionID,
         "id_user": transaction.userID,
         "title": transaction.title,
         "picture_path": transaction.picturePath,
@@ -160,6 +161,7 @@ class UserServices {
   static Future<void> saveticket(Ticket ticket, String userID) async {
     try {
       await http.post(BaseUrl.saveTicket, body: {
+        "booking_code": ticket.bookingCode,
         "id_user": userID,
         "id_destination": ticket.destination.id,
         "name": ticket.name,

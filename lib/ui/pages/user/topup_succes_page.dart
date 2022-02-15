@@ -81,8 +81,9 @@ class SuccesTopUpPage extends StatelessWidget {
   Future<void> processingTopUp(
       BuildContext context, User user, int amount) async {
     context.bloc<UserBloc>().add(TopUp(amount));
-    //TODO: Lengkapi data
+
     UserServices.saveTransaction(GoTourTransaction(
+        transactionID: "A${randomNumeric(10)}",
         userID: user.id,
         picturePath: "",
         title: "Top Up",

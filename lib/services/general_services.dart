@@ -11,9 +11,10 @@ class GeneralServices {
         .toList();
   }
 
-  static Future<List<Destination>> getDestinations(String idLocation) async {
-    final response = await http
-        .post(BaseUrl.getDestinations, body: {"id_location": idLocation});
+  static Future<List<Destination>> getDestinationsbyLocation(
+      String idLocation) async {
+    final response = await http.post(BaseUrl.getDestinationsbyLocation,
+        body: {"id_location": idLocation});
     final data = json.decode(response.body);
 
     return (data as List).map((e) => Destination.fromJson(e)).toList();
@@ -36,6 +37,18 @@ class GeneralServices {
       return (data as List).map((e) => TourGuide.fromJon(e)).toList();
     } catch (e) {
       print("Error get Tour Guides : " + e.toString());
+      return null;
+    }
+  }
+
+  static Future<List<Destination>> getAllDestinations() async {
+    try {
+      final response = await http.get(BaseUrl.getAllDestinations);
+      final data = json.decode(response.body);
+
+      return (data as List).map((e) => Destination.fromJson(e)).toList();
+    } catch (e) {
+      print("Error get All Destinations : " + e.toString());
       return null;
     }
   }

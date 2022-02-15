@@ -41,7 +41,8 @@ class ActivityPage extends StatelessWidget {
                 ),
               )
               .toList();
-          newestTicket.sort((a, b) => b.time.compareTo(a.time));
+          newestTicket.sort((a, b) => a.time.compareTo(b.time));
+
           List<Ticket> oldestTicket = ticketState.tickets
               .where(
                 (ticket) => !ticket.time.isAfter(
@@ -49,7 +50,7 @@ class ActivityPage extends StatelessWidget {
                 ),
               )
               .toList();
-          oldestTicket.sort((a, b) => b.time.compareTo(a.time));
+          oldestTicket.sort((a, b) => a.time.compareTo(b.time));
 
           return TabBarView(children: [
             ListView(
@@ -61,7 +62,7 @@ class ActivityPage extends StatelessWidget {
                               top: (e == newestTicket.first) ? 20 : 0,
                               left: defaultMargin,
                               right: defaultMargin,
-                              bottom: 20),
+                              bottom: (e == newestTicket.last) ? 100 : 20),
                           child: TicketCard(
                             ticket: e,
                             onTap: () =>
@@ -78,7 +79,7 @@ class ActivityPage extends StatelessWidget {
                                 top: (e == oldestTicket.first) ? 20 : 0,
                                 left: defaultMargin,
                                 right: defaultMargin,
-                                bottom: 20),
+                                bottom: (e == oldestTicket.last) ? 100 : 20),
                             child: TicketCard(
                               ticket: e,
                               onTap: () => Get.toNamed('/ticketDetailPage',
