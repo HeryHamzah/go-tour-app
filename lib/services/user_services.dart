@@ -201,6 +201,7 @@ class UserServices {
       TourGuideTicket tourGuideTicket, User user) async {
     try {
       await http.post(BaseUrl.saveTourGuideTicket, body: {
+        "booking_code": tourGuideTicket.bookingCode,
         "id_user": user.id,
         "id_tourguide": tourGuideTicket.tourGuideID,
         "user_name": user.name,

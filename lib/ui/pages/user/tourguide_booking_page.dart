@@ -323,6 +323,9 @@ class _TourGuideBookingPageState extends State<TourGuideBookingPage> {
                                       showConfirmAlertDialog(
                                           user,
                                           TourGuideTicket(
+                                              bookingCode:
+                                                  randomAlphaNumeric(10)
+                                                      .toUpperCase(),
                                               dateTime: bookingTime,
                                               userName: user.name,
                                               tourGuideID:

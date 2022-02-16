@@ -151,17 +151,19 @@ class _HomePageState extends State<HomePage> {
                             },
                             child: Container(
                               height: 45,
-                              child: TextField(
-                                readOnly: true,
-                                decoration: InputDecoration(
-                                    focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide.none),
-                                    prefixIcon: Icon(Icons.search),
-                                    hintText: "Destinasi",
-                                    hintStyle: themeFont.copyWith(
-                                        color: Colors.grey, letterSpacing: 1.5),
-                                    filled: true,
-                                    fillColor: Colors.white),
+                              child: AbsorbPointer(
+                                child: TextField(
+                                  decoration: InputDecoration(
+                                      focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide.none),
+                                      prefixIcon: Icon(Icons.search),
+                                      hintText: "Destinasi",
+                                      hintStyle: themeFont.copyWith(
+                                          color: Colors.grey,
+                                          letterSpacing: 1.5),
+                                      filled: true,
+                                      fillColor: Colors.white),
+                                ),
                               ),
                             ),
                           ),

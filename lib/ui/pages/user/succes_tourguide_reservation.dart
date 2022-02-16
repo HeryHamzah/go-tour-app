@@ -45,7 +45,7 @@ class SuccesTourGuideReservation extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16))),
                         onPressed: () {
-                          // Get.offAllNamed('/activity');
+                          Get.offAllNamed('/activity');
                         },
                         child: Text(
                           "Tiketku",
