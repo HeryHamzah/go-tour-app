@@ -29,4 +29,8 @@ class BaseUrl {
       dbUrl + "user_API/get_tourguide_tickets.php";
   static String getAllDestinations =
       dbUrl + "user_API/get_all_destinations.php";
+  static String getTourGuideReviews =
+      dbUrl + "user_API/get_tourguide_reviews.php";
+  static String getDestinationReviews =
+      dbUrl + "user_API/get_destination_reviews.php";
 }

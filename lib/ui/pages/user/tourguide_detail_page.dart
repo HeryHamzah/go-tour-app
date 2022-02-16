@@ -64,54 +64,50 @@ class _TourGuideDetailPageState extends State<TourGuideDetailPage> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
-                                  Column(
-                                    children: [
-                                      Text("Diselesaikan"),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        "0",
-                                        style: themeFont.copyWith(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16),
-                                      )
-                                    ],
+                                  InkWell(
+                                    onTap: () => Get.toNamed('/reviewPage',
+                                        arguments: tourGuide),
+                                    child: Column(
+                                      children: [
+                                        Text("Ulasan"),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          tourGuide.numberOfReviews,
+                                          style: themeFont.copyWith(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16),
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                  Column(
-                                    children: [
-                                      Text("Ulasan"),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        tourGuide.numberOfReviews,
-                                        style: themeFont.copyWith(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16),
-                                      )
-                                    ],
-                                  ),
-                                  Column(
-                                    children: [
-                                      Text("Rating"),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        tourGuide.rating.toString().substring(
-                                            0,
-                                            tourGuide.rating.toString().length <
-                                                    4
-                                                ? tourGuide.rating
-                                                    .toString()
-                                                    .length
-                                                : 4),
-                                        style: themeFont.copyWith(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16),
-                                      )
-                                    ],
+                                  InkWell(
+                                    onTap: () => Get.toNamed('/reviewPage',
+                                        arguments: [null, tourGuide]),
+                                    child: Column(
+                                      children: [
+                                        Text("Rating"),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          tourGuide.rating.toString().substring(
+                                              0,
+                                              tourGuide.rating
+                                                          .toString()
+                                                          .length <
+                                                      4
+                                                  ? tourGuide.rating
+                                                      .toString()
+                                                      .length
+                                                  : 4),
+                                          style: themeFont.copyWith(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),

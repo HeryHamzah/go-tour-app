@@ -52,4 +52,31 @@ class GeneralServices {
       return null;
     }
   }
+
+  static Future<List<Review>> getTourGuideReviews(String tourGuideID) async {
+    try {
+      final response = await http.post(BaseUrl.getTourGuideReviews,
+          body: {"id_tourguide": tourGuideID});
+      final data = json.decode(response.body);
+
+      return (data as List).map((e) => Review.fromJson(e)).toList();
+    } catch (e) {
+      print("Error get Tour Guide Reviews : " + e.toString());
+      return null;
+    }
+  }
+
+  static Future<List<Review>> getDestinationReviews(
+      String destinationID) async {
+    try {
+      final response = await http.post(BaseUrl.getDestinationReviews,
+          body: {"id_destination": destinationID});
+      final data = json.decode(response.body);
+
+      return (data as List).map((e) => Review.fromJson(e)).toList();
+    } catch (e) {
+      print("Error get Destination Reviews : " + e.toString());
+      return null;
+    }
+  }
 }

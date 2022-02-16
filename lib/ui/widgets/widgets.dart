@@ -20,3 +20,4 @@ part 'ticket_card.dart';
 part 'tourguide_card.dart';
 part 'destination_choice_card.dart';
 part 'tourguide_ticket_card.dart';
+part 'review_card.dart';
