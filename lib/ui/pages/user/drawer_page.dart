@@ -53,6 +53,8 @@ buildMainScreen({int idPage, User user}) {
       return TourGuidePage();
     case 5:
       return MyWalletPage();
+    case 6:
+      return GuidePage();
   }
 }
 
@@ -210,15 +212,18 @@ class _DrawerPageState extends State<DrawerPage> {
                 ListTile(
                     contentPadding: EdgeInsets.all(0),
                     leading: Icon(
-                      Icons.settings_sharp,
+                      Icons.book_sharp,
                       color: Colors.white,
                       size: 30,
                     ),
                     title: Text(
-                      'Pengaturan',
+                      'Panduan Aplikasi',
                       style: themeFont.copyWith(color: Colors.white),
                     ),
-                    onTap: () {}),
+                    onTap: () {
+                      context.bloc<NavdrawerBloc>().add(ChangePage(6));
+                      ZoomDrawer.of(context).close();
+                    }),
                 Divider(
                   thickness: 1,
                   color: Colors.white,
@@ -231,7 +236,7 @@ class _DrawerPageState extends State<DrawerPage> {
                       size: 30,
                     ),
                     title: Text(
-                      'Tentang kami',
+                      'Tentang Saya',
                       style: themeFont.copyWith(color: Colors.white),
                     ),
                     onTap: () {}),

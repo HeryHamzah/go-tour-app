@@ -66,7 +66,7 @@ class _TourGuideDetailPageState extends State<TourGuideDetailPage> {
                                 children: [
                                   InkWell(
                                     onTap: () => Get.toNamed('/reviewPage',
-                                        arguments: tourGuide),
+                                        arguments: [null, tourGuide]),
                                     child: Column(
                                       children: [
                                         Text("Ulasan"),

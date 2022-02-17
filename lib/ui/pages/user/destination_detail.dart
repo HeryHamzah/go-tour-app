@@ -157,7 +157,19 @@ class _DestinationDetailPageState extends State<DestinationDetailPage> {
                     SizedBox(
                       height: 5,
                     ),
-                    Rating(rating: destination.rating),
+                    InkWell(
+                      onTap: () => Get.toNamed('/reviewPage',
+                          arguments: [destination, null]),
+                      child: Row(
+                        children: [
+                          Rating(rating: destination.rating),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text("(${destination.numberOfReviews})")
+                        ],
+                      ),
+                    ),
                     SizedBox(height: 10),
                     Align(
                       alignment: Alignment.topLeft,

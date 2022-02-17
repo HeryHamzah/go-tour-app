@@ -16,7 +16,7 @@ class ReviewPage extends StatelessWidget {
             onTap: () => Get.back(),
             child: Icon(Icons.arrow_back_ios_new),
           ),
-          title: Text(tourGuide.name)),
+          title: Text(destination == null ? tourGuide.name : destination.name)),
       body: FutureBuilder(
           future: (destination == null)
               ? GeneralServices.getTourGuideReviews(tourGuide.tourGuideID)

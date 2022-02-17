@@ -161,7 +161,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         Align(
                           alignment: Alignment.bottomRight,
                           child: GestureDetector(
-                            onTap: () {
+                            onTap: () async {
                               if (profilePicturePath == "" &&
                                   profilePictureFile == null) {
                                 showModalPhoto();
