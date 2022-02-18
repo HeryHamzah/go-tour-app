@@ -1,5 +1,6 @@
 part of '../pages.dart';
 
+//TODO: Perbaiki logika foto profil
 class ProfilePage extends StatefulWidget {
   final User user;
 

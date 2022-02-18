@@ -14,6 +14,55 @@ class _BookingPageState extends State<BookingPage> {
       DateTime.now().year, DateTime.now().month, DateTime.now().day + 1);
   int totalTicket = 0;
   int price = 0;
+
+  void showConfirmAlertDialog(String userID, Ticket ticket) {
+    AlertDialog alertDialog = AlertDialog(
+      title: Text("Lanjut pembelian?",
+          style: themeFont.copyWith(fontWeight: FontWeight.w500)),
+      content: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Expanded(
+            child: Container(
+              height: 46,
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(10)),
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      primary: Colors.grey, onPrimary: Colors.white),
+                  onPressed: () => Get.back(),
+                  child: Text(
+                    "Batal",
+                  )),
+            ),
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          Expanded(
+            child: Container(
+              height: 46,
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(10)),
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      primary: mainColor, onPrimary: Colors.white),
+                  onPressed: () {
+                    Get.toNamed('/succesBookingPage',
+                        arguments: [ticket, userID]);
+                  },
+                  child: Text(
+                    "Konfirmasi",
+                  )),
+            ),
+          )
+        ],
+      ),
+    );
+
+    showDialog(context: context, builder: (context) => alertDialog);
+  }
+
   @override
   Widget build(BuildContext context) {
     int totalPrice = price + totalTicket * 500;
@@ -270,21 +319,32 @@ class _BookingPageState extends State<BookingPage> {
                               onPressed: totalTicket <= 0
                                   ? null
                                   : user.balance >= totalPrice
-                                      ? () => Get.offAndToNamed(
-                                              "/succesBookingPage",
-                                              arguments: [
-                                                Ticket(
-                                                  bookingCode:
-                                                      randomAlphaNumeric(10)
-                                                          .toUpperCase(),
-                                                  destination: destination,
-                                                  time: bookingTime,
-                                                  name: user.name,
-                                                  totalTicket: totalTicket,
-                                                  totalPrice: totalPrice,
-                                                ),
-                                                user.id
-                                              ])
+                                      ? () => showConfirmAlertDialog(
+                                          user.id,
+                                          Ticket(
+                                            bookingCode: randomAlphaNumeric(10)
+                                                .toUpperCase(),
+                                            destination: destination,
+                                            time: bookingTime,
+                                            name: user.name,
+                                            totalTicket: totalTicket,
+                                            totalPrice: totalPrice,
+                                          ))
+                                      // Get.offAndToNamed(
+                                      //         "/succesBookingPage",
+                                      //         arguments: [
+                                      //           Ticket(
+                                      //             bookingCode:
+                                      //                 randomAlphaNumeric(10)
+                                      //                     .toUpperCase(),
+                                      //             destination: destination,
+                                      //             time: bookingTime,
+                                      //             name: user.name,
+                                      //             totalTicket: totalTicket,
+                                      //             totalPrice: totalPrice,
+                                      //           ),
+                                      //           user.id
+                                      //         ])
                                       : () => Get.toNamed("/topUpPage",
                                           arguments: user),
                               style: ElevatedButton.styleFrom(

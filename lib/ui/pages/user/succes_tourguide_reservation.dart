@@ -20,7 +20,7 @@ class SuccesTourGuideReservation extends StatelessWidget {
                       width: 180,
                       height: 180,
                       margin: EdgeInsets.only(bottom: 70),
-                      child: SvgPicture.asset("assets/traveling.svg",
+                      child: SvgPicture.asset("assets/tourguide.svg",
                           fit: BoxFit.contain),
                     ),
                   ),

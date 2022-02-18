@@ -22,7 +22,7 @@ class _MainDrawerState extends State<MainDrawer> {
                   controller: drawerController,
                   menuScreen: DrawerPage(),
                   mainScreen:
-                      buildMainScreen(idPage: drawerState.idPage, user: user),
+                      buildMainScreen(pageID: drawerState.idPage, user: user),
                   borderRadius: 24.0,
                   angle: 0.0,
                   showShadow: true,
@@ -41,8 +41,8 @@ class _MainDrawerState extends State<MainDrawer> {
   }
 }
 
-buildMainScreen({int idPage, User user}) {
-  switch (idPage) {
+buildMainScreen({int pageID, User user}) {
+  switch (pageID) {
     case 1:
       return MainPage();
     case 2:
@@ -54,7 +54,7 @@ buildMainScreen({int idPage, User user}) {
     case 5:
       return MyWalletPage();
     case 6:
-      return GuidePage();
+      return AppGuidePage();
   }
 }
 

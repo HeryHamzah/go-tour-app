@@ -1,6 +1,6 @@
 part of '../pages.dart';
 
-class GuidePage extends StatelessWidget {
+class AppGuidePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

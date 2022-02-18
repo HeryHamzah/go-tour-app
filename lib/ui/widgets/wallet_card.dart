@@ -70,15 +70,18 @@ class WalletCard extends StatelessWidget {
                         fontSize: 16,
                         fontWeight: FontWeight.w500),
                   ),
-                  //TODO: edit panjang nominal (overflow)
-                  Text(
-                    NumberFormat.currency(
-                            locale: "id_ID", decimalDigits: 0, symbol: "Rp")
-                        .format(user.balance),
-                    style: themeFont.copyWith(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 2,
+                    child: Text(
+                      NumberFormat.currency(
+                              locale: "id_ID", decimalDigits: 0, symbol: "Rp")
+                          .format(user.balance),
+                      maxLines: 2,
+                      style: themeFont.copyWith(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
+                    ),
                   )
                 ],
               )

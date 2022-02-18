@@ -25,7 +25,7 @@ class TourGuideTicketDetailPage extends StatelessWidget {
               borderRadius: 6,
               drawDivider: true,
               drawTriangle: false,
-              trianglePos: .77,
+              trianglePos: .74,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
