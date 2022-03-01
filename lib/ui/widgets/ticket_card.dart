@@ -55,7 +55,7 @@ class TicketCard extends StatelessWidget {
                   ),
                   SizedBox(height: 2),
                   Text(
-                    ticket.destination.location,
+                    ticket.destination.locationName,
                     style: themeFont.copyWith(fontSize: 14),
                   )
                 ],

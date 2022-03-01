@@ -27,8 +27,8 @@ class TourGuideTicketCard extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
                     image: DecorationImage(
-                        image: NetworkImage(
-                            BaseUrl.getTourGuideImages + tourGuideTicket.image),
+                        image: NetworkImage(BaseUrl.getTourGuideImages +
+                            tourGuideTicket.tourGuide.profilePicture),
                         fit: BoxFit.cover)),
               ),
             ),
@@ -42,7 +42,7 @@ class TourGuideTicketCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    tourGuideTicket.tourGuideName,
+                    tourGuideTicket.tourGuide.name,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: themeFont.copyWith(

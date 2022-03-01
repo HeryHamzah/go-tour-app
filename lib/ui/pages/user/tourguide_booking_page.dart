@@ -15,7 +15,7 @@ class _TourGuideBookingPageState extends State<TourGuideBookingPage> {
   int ticketPrice = 0;
   int totalPrice = 0;
 
-  void showConfirmAlertDialog(User user, TourGuideTicket tourGuideTicket) {
+  void showConfirmAlertDialog(TourGuideTicket tourGuideTicket) {
     AlertDialog alertDialog = AlertDialog(
       title: Text("Lanjut reservasi?",
           style: themeFont.copyWith(fontWeight: FontWeight.w500)),
@@ -49,7 +49,7 @@ class _TourGuideBookingPageState extends State<TourGuideBookingPage> {
                       primary: mainColor, onPrimary: Colors.white),
                   onPressed: () {
                     Get.toNamed('/successTourGuideReservation',
-                        arguments: [tourGuideTicket, user]);
+                        arguments: tourGuideTicket);
                   },
                   child: Text(
                     "Konfirmasi",
@@ -320,21 +320,17 @@ class _TourGuideBookingPageState extends State<TourGuideBookingPage> {
                                       : Colors.red),
                               onPressed: user.balance >= totalPrice
                                   ? () {
-                                      showConfirmAlertDialog(
-                                          user,
-                                          TourGuideTicket(
-                                              bookingCode:
-                                                  randomAlphaNumeric(10)
-                                                      .toUpperCase(),
-                                              dateTime: bookingTime,
-                                              userName: user.name,
-                                              tourGuideID:
-                                                  tourGuide.tourGuideID,
-                                              tourGuideName: tourGuide.name,
-                                              destinations:
-                                                  destinationChoicesInString,
-                                              totalPrice: totalPrice,
-                                              image: tourGuide.profilePicture));
+                                      showConfirmAlertDialog(TourGuideTicket(
+                                        bookingCode: randomAlphaNumeric(10)
+                                            .toUpperCase(),
+                                        dateTime: bookingTime,
+                                        userID: user.id,
+                                        userName: user.name,
+                                        tourGuide: tourGuide,
+                                        destinations:
+                                            destinationChoicesInString,
+                                        totalPrice: totalPrice,
+                                      ));
                                     }
                                   : () => Get.toNamed('/topUpPage',
                                       arguments: user),

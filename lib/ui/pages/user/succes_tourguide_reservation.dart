@@ -3,13 +3,12 @@ part of '../pages.dart';
 class SuccesTourGuideReservation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var data = Get.arguments;
-    TourGuideTicket tourGuideTicket = data[0];
-    User user = data[1];
+    TourGuideTicket tourGuideTicket = Get.arguments;
+
     return Scaffold(
       backgroundColor: backColor,
       body: FutureBuilder(
-          future: processingTransaction(context, tourGuideTicket, user),
+          future: processingTransaction(context, tourGuideTicket),
           builder: (_, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               return Column(
@@ -79,17 +78,17 @@ class SuccesTourGuideReservation extends StatelessWidget {
   }
 
   Future<void> processingTransaction(
-      BuildContext context, TourGuideTicket tourGuideTicket, User user) async {
+      BuildContext context, TourGuideTicket tourGuideTicket) async {
     context.bloc<UserBloc>().add(Purchase(tourGuideTicket.totalPrice));
     context
         .bloc<TourguideTicketBloc>()
-        .add(BuyTourGuideTicket(tourGuideTicket, user));
+        .add(BuyTourGuideTicket(tourGuideTicket));
 
     await UserServices.saveTransaction(GoTourTransaction(
         transactionID: "C${randomNumeric(10)}",
-        userID: user.id,
-        picturePath: tourGuideTicket.image,
-        title: tourGuideTicket.tourGuideName,
+        userID: tourGuideTicket.userID,
+        picturePath: tourGuideTicket.tourGuide.profilePicture,
+        title: tourGuideTicket.tourGuide.name,
         amount: -tourGuideTicket.totalPrice,
         desc: tourGuideTicket.destinations,
         time: DateTime.now()));

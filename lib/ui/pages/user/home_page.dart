@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 10, left: defaultMargin),
+                padding: const EdgeInsets.only(left: defaultMargin),
                 child: Text(
                   "EXPLORE",
                   style: themeFont.copyWith(fontSize: 18),
@@ -54,14 +54,18 @@ class _HomePageState extends State<HomePage> {
                       List<Location> locations = snapshot.data;
                       return Container(
                         height: 150,
+                        margin: EdgeInsets.only(
+                            left: defaultMargin,
+                            right: defaultMargin,
+                            bottom: 20,
+                            top: 10),
                         child: ListView.builder(
                             scrollDirection: Axis.horizontal,
                             itemCount: locations.length,
                             itemBuilder: (context, index) => Padding(
                                   padding: EdgeInsets.only(
-                                      left: (index == 0) ? defaultMargin : 0,
                                       right: (index == locations.length - 1)
-                                          ? defaultMargin
+                                          ? 0
                                           : 16),
                                   child: GestureDetector(
                                       onTap: () => Get.toNamed('/destinations',
@@ -74,15 +78,14 @@ class _HomePageState extends State<HomePage> {
                     }
                   }),
               Padding(
-                padding: const EdgeInsets.only(
-                    top: 20, bottom: 10, left: defaultMargin),
+                padding: const EdgeInsets.only(bottom: 10, left: defaultMargin),
                 child: Text(
                   "Destinasi Favorit",
                   style: themeFont.copyWith(fontSize: 18),
                 ),
               ),
               FutureBuilder(
-                  future: GeneralServices.getAllDestinations(),
+                  future: GeneralServices.getDestinations(),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       List<Destination> destinations = snapshot.data;

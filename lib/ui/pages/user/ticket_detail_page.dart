@@ -76,7 +76,8 @@ class TicketDetailPage extends StatelessWidget {
                         SizedBox(
                           width: MediaQuery.of(context).size.width * 0.4,
                           child: Text(
-                            ticket.destination.location + ", Sulawesi Selatan",
+                            ticket.destination.locationName +
+                                ", Sulawesi Selatan",
                             style: themeFont.copyWith(
                                 color: Colors.black,
                                 fontSize: 16,
@@ -192,7 +193,7 @@ class TicketDetailPage extends StatelessWidget {
                                   fontWeight: FontWeight.w400),
                             ),
                             Text(
-                              ticket.name,
+                              ticket.userName,
                               style: themeFont.copyWith(
                                   color: Colors.black, fontSize: 16),
                             ),

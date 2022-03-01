@@ -11,6 +11,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:random_string/random_string.dart';
+import 'package:rating_dialog/rating_dialog.dart';
 import 'package:travel_tourguide_app/bloc/blocs.dart';
 import 'package:travel_tourguide_app/services/services.dart';
 import 'package:travel_tourguide_app/shared/shared.dart';

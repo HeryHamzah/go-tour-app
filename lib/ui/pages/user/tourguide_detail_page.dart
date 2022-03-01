@@ -64,23 +64,19 @@ class _TourGuideDetailPageState extends State<TourGuideDetailPage> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
-                                  InkWell(
-                                    onTap: () => Get.toNamed('/reviewPage',
-                                        arguments: [null, tourGuide]),
-                                    child: Column(
-                                      children: [
-                                        Text("Ulasan"),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        Text(
-                                          tourGuide.numberOfReviews,
-                                          style: themeFont.copyWith(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 16),
-                                        )
-                                      ],
-                                    ),
+                                  Column(
+                                    children: [
+                                      Text("Total Trip"),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        tourGuide.numberOfTrips,
+                                        style: themeFont.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16),
+                                      )
+                                    ],
                                   ),
                                   InkWell(
                                     onTap: () => Get.toNamed('/reviewPage',
@@ -92,16 +88,7 @@ class _TourGuideDetailPageState extends State<TourGuideDetailPage> {
                                           height: 5,
                                         ),
                                         Text(
-                                          tourGuide.rating.toString().substring(
-                                              0,
-                                              tourGuide.rating
-                                                          .toString()
-                                                          .length <
-                                                      4
-                                                  ? tourGuide.rating
-                                                      .toString()
-                                                      .length
-                                                  : 4),
+                                          "${tourGuide.rating.toString().substring(0, tourGuide.rating.toString().length < 4 ? tourGuide.rating.toString().length : 4)} (${tourGuide.numberOfReviews})",
                                           style: themeFont.copyWith(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 16),
@@ -118,13 +105,13 @@ class _TourGuideDetailPageState extends State<TourGuideDetailPage> {
                                 height: 16,
                               ),
                               FutureBuilder(
-                                  future:
-                                      GeneralServices.getDestinationsbyLocation(
-                                          tourGuide.locationID),
+                                  future: GeneralServices.getDestinations(),
                                   builder: (context, snapshot) {
                                     if (snapshot.hasData) {
-                                      List<Destination> destinations =
-                                          snapshot.data;
+                                      Iterable<Destination> destinations =
+                                          snapshot.data.where((destination) =>
+                                              destination.locationID ==
+                                              tourGuide.locationID);
 
                                       return Container(
                                         height: 150,

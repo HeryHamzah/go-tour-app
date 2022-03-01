@@ -8,52 +8,98 @@ class ReviewPage extends StatelessWidget {
     TourGuide tourGuide = data[1];
 
     return Scaffold(
-      appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          centerTitle: true,
-          leading: InkWell(
-            onTap: () => Get.back(),
-            child: Icon(Icons.arrow_back_ios_new),
-          ),
-          title: Text(destination == null ? tourGuide.name : destination.name)),
-      body: FutureBuilder(
-          future: (destination == null)
-              ? GeneralServices.getTourGuideReviews(tourGuide.tourGuideID)
-              : GeneralServices.getDestinationReviews(destination.id),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              List<Review> reviews = snapshot.data;
-              if (reviews.length > 0) {
-                return ListView(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.fromLTRB(
-                          defaultMargin, 20, defaultMargin, 20),
-                      child: Column(
-                        children: reviews
-                            .map((e) => Container(
-                                margin: EdgeInsets.only(bottom: 20),
-                                child: ReviewCard(e)))
-                            .toList(),
-                      ),
-                    )
-                  ],
-                );
-              } else {
-                return Center(
-                    child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset("assets/no_data.png"),
-                    Text("Belum Ada Ulasan"),
-                  ],
-                ));
-              }
-            } else {
-              return SpinKitFadingCircle(color: mainColor, size: 50);
-            }
-          }),
-    );
+        appBar: AppBar(
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            centerTitle: true,
+            leading: InkWell(
+              onTap: () => Get.back(),
+              child: Icon(Icons.arrow_back_ios_new),
+            ),
+            title:
+                Text(destination == null ? tourGuide.name : destination.name)),
+        body: BlocBuilder<TourguideTicketBloc, TourguideTicketState>(
+          builder: (context, tourGuideTicketState) {
+            Iterable<TourGuideTicket> tourGuideTickets = (tourGuide != null)
+                ? tourGuideTicketState.tourGuideTickets
+                    .where((tourGuideTicket) =>
+                        tourGuideTicket.tourGuide.tourGuideID ==
+                        tourGuide.tourGuideID)
+                    .where((tourGuideTicket) => tourGuideTicket.rating > 0)
+                : null;
+
+            return BlocBuilder<TicketBloc, TicketState>(
+              builder: (context, ticketState) {
+                Iterable<Ticket> tickets = (destination != null)
+                    ? ticketState.tickets
+                        .where(
+                            (ticket) => ticket.destination.id == destination.id)
+                        .where((ticket) => ticket.rating > 0)
+                    : null;
+
+                return (destination != null)
+                    ? generateListDestinationReview(tickets)
+                    : generateListTourGuideReview(tourGuideTickets);
+              },
+            );
+          },
+        ));
+  }
+
+  Widget generateListDestinationReview(Iterable<Ticket> tickets) {
+    if (tickets.length > 0) {
+      return ListView(
+        children: [
+          Container(
+            margin: EdgeInsets.fromLTRB(defaultMargin, 20, defaultMargin, 20),
+            child: Column(
+              children: tickets
+                  .map((e) => Container(
+                      margin: EdgeInsets.only(bottom: 20),
+                      child: ReviewCard(e, null)))
+                  .toList(),
+            ),
+          )
+        ],
+      );
+    } else {
+      return Center(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset("assets/no_data.png"),
+          Text("Belum Ada Ulasan"),
+        ],
+      ));
+    }
+  }
+
+  Widget generateListTourGuideReview(
+      Iterable<TourGuideTicket> tourGuideTickets) {
+    if (tourGuideTickets.length > 0) {
+      return ListView(
+        children: [
+          Container(
+            margin: EdgeInsets.fromLTRB(defaultMargin, 20, defaultMargin, 20),
+            child: Column(
+              children: tourGuideTickets
+                  .map((e) => Container(
+                      margin: EdgeInsets.only(bottom: 20),
+                      child: ReviewCard(null, e)))
+                  .toList(),
+            ),
+          )
+        ],
+      );
+    } else {
+      return Center(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset("assets/no_data.png"),
+          Text("Belum Ada Ulasan"),
+        ],
+      ));
+    }
   }
 }

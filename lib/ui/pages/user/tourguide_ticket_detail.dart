@@ -37,7 +37,7 @@ class TourGuideTicketDetailPage extends StatelessWidget {
                       decoration: BoxDecoration(
                           image: DecorationImage(
                               image: NetworkImage(BaseUrl.getTourGuideImages +
-                                  tourGuideTicket.image),
+                                  tourGuideTicket.tourGuide.profilePicture),
                               fit: BoxFit.cover)),
                     ),
                   ),
@@ -48,7 +48,7 @@ class TourGuideTicketDetailPage extends StatelessWidget {
                         width: MediaQuery.of(context).size.width -
                             4 * defaultMargin,
                         child: Text(
-                          tourGuideTicket.tourGuideName,
+                          tourGuideTicket.tourGuide.name,
                           style: themeFont.copyWith(
                               color: Colors.black, fontSize: 18),
                           maxLines: 2,

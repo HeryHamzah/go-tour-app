@@ -38,7 +38,7 @@ class _FavoriteCardState extends State<FavoriteCard> {
                     75 -
                     20,
                 child: Text(
-                    "${widget.destination.name}, ${widget.destination.location}",
+                    "${widget.destination.name}, ${widget.destination.locationName}",
                     maxLines: 2,
                     style: themeFont.copyWith(
                         fontSize: 16, fontWeight: FontWeight.w600),

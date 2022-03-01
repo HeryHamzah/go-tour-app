@@ -15,7 +15,7 @@ class TourguideTicketBloc
     TourguideTicketEvent event,
   ) async* {
     if (event is BuyTourGuideTicket) {
-      await UserServices.saveTourGuideTicket(event.tourGuideTicket, event.user);
+      await UserServices.saveTourGuideTicket(event.tourGuideTicket);
 
       List<TourGuideTicket> tourGuideTickets =
           state.tourGuideTickets + [event.tourGuideTicket];
@@ -23,8 +23,18 @@ class TourguideTicketBloc
       yield TourguideTicketState(tourGuideTickets);
     } else if (event is GetTourGuideTicket) {
       List<TourGuideTicket> tourGuideTickets =
-          await UserServices.getTourGuideTickets(event.userID);
+          await UserServices.getTourGuideTickets();
 
+      yield TourguideTicketState(tourGuideTickets);
+    } else if (event is ReviewTourGuideTicket) {
+      await UserServices.addTourGuideReview(event.tourGuideTicket.bookingCode,
+          event.tourGuideTicket.comment, event.tourGuideTicket.rating);
+
+      List<TourGuideTicket> tourGuideTickets = state.tourGuideTickets;
+      tourGuideTickets.removeWhere((tourGuideTicket) =>
+          tourGuideTicket.bookingCode == event.tourGuideTicket.bookingCode);
+
+      tourGuideTickets.add(event.tourGuideTicket);
       yield TourguideTicketState(tourGuideTickets);
     }
   }

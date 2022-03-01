@@ -7,4 +7,3 @@ part 'ticket.dart';
 part 'transaction.dart';
 part 'tour_guide.dart';
 part 'tourguide_ticket.dart';
-part 'review.dart';

@@ -158,14 +158,12 @@ class UserServices {
     }
   }
 
-  static Future<void> saveticket(Ticket ticket, String userID) async {
+  static Future<void> saveticket(Ticket ticket) async {
     try {
       await http.post(BaseUrl.saveTicket, body: {
         "booking_code": ticket.bookingCode,
-        "id_user": userID,
+        "id_user": ticket.userID,
         "id_destination": ticket.destination.id,
-        "name": ticket.name,
-        "destination_name": ticket.destination.name,
         "total_ticket": ticket.totalTicket.toString(),
         "time": ticket.time.millisecondsSinceEpoch.toString(),
         "total_price": ticket.totalPrice.toString()
@@ -175,11 +173,32 @@ class UserServices {
     }
   }
 
-  static Future<List<Ticket>> getTickets(String userID) async {
+  // static Future<List<Ticket>> getTickets(String userID) async {
+  //   try {
+  //     final response =
+  //         await http.post(BaseUrl.getTickets, body: {"id_user": userID});
+  //     final data = jsonDecode(response.body);
+
+  //     List<Ticket> tickets = [];
+
+  //     for (var dt in data) {
+  //       Destination destination =
+  //           await GeneralServices.getDetailDestination(dt['id_destination']);
+
+  //       tickets.add(Ticket.fromJson(dt, destination));
+  //     }
+
+  //     return tickets;
+  //   } catch (e) {
+  //     print("Error get tickets: " + e.toString());
+  //     return null;
+  //   }
+  // }
+
+  static Future<List<Ticket>> getTickets() async {
     try {
-      final response =
-          await http.post(BaseUrl.getTickets, body: {"id_user": userID});
-      final data = jsonDecode(response.body);
+      final response = await http.get(BaseUrl.getTickets);
+      final data = json.decode(response.body);
 
       List<Ticket> tickets = [];
 
@@ -198,35 +217,74 @@ class UserServices {
   }
 
   static Future<void> saveTourGuideTicket(
-      TourGuideTicket tourGuideTicket, User user) async {
+      TourGuideTicket tourGuideTicket) async {
     try {
       await http.post(BaseUrl.saveTourGuideTicket, body: {
         "booking_code": tourGuideTicket.bookingCode,
-        "id_user": user.id,
-        "id_tourguide": tourGuideTicket.tourGuideID,
-        "user_name": user.name,
-        "tourguide_name": tourGuideTicket.tourGuideName,
+        "id_user": tourGuideTicket.userID,
+        "id_tourguide": tourGuideTicket.tourGuide.tourGuideID,
         "date_time": tourGuideTicket.dateTime.millisecondsSinceEpoch.toString(),
         "destinations": tourGuideTicket.destinations,
         "total_price": tourGuideTicket.totalPrice.toString(),
-        "picture_path": tourGuideTicket.image
       });
     } catch (e) {
       print("Error save Tour Guide ticket: " + e.toString());
     }
   }
 
-  static Future<List<TourGuideTicket>> getTourGuideTickets(
-      String userID) async {
+  static Future<List<TourGuideTicket>> getTourGuideTickets() async {
     try {
-      final response = await http
-          .post(BaseUrl.getTourGuideTickets, body: {"id_user": userID});
-      final data = jsonDecode(response.body);
+      final response = await http.get(BaseUrl.getTourGuideTickets);
+      final data = json.decode(response.body);
 
       return (data as List).map((e) => TourGuideTicket.fromJson(e)).toList();
     } catch (e) {
-      print("Error get transactions: " + e.toString());
+      print("Error get Tour Guide Tickets: " + e.toString());
       return null;
+    }
+  }
+
+  // static Future<void> addDestinationReview(
+  //     Ticket ticket, String userID, String coment, double rating) async {
+  //   try {
+  //     final response = await http.post(BaseUrl.addDestinationReview, body: {
+  //       "booking_code": ticket.bookingCode,
+  //       "id_user": userID,
+  //       "id_destination": ticket.destination.id,
+  //       "coment": coment,
+  //       "rating": rating.toString()
+  //     });
+  //     final data = jsonDecode(response.body);
+  //     print(data['message']);
+  //   } catch (e) {
+  //     print("Error add Destination Review: " + e.toString());
+  //   }
+  // }
+
+  static Future<void> addDestinationReview(
+      String bookingCode, String comment, double rating) async {
+    try {
+      final response = await http.post(BaseUrl.addDestinationReview, body: {
+        "booking_code": bookingCode,
+        "comment": comment,
+        "rating": rating.toString()
+      });
+      final data = jsonDecode(response.body);
+      print(data['message']);
+    } catch (e) {
+      print("Error add Destination Review: " + e.toString());
+    }
+  }
+
+  static Future<void> addTourGuideReview(
+      String id, String comment, double rating) async {
+    try {
+      final response = await http.post(BaseUrl.addTourGuideReview,
+          body: {"id": id, "comment": comment, "rating": rating.toString()});
+      final data = jsonDecode(response.body);
+      print(data['message']);
+    } catch (e) {
+      print("Error add Tour Guide Review: " + e.toString());
     }
   }
 }

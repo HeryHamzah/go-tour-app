@@ -14,13 +14,24 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
     TicketEvent event,
   ) async* {
     if (event is BuyTicket) {
-      await UserServices.saveticket(event.ticket, event.userID);
+      await UserServices.saveticket(event.ticket);
 
       List<Ticket> tickets = state.tickets + [event.ticket];
 
       yield TicketState(tickets);
     } else if (event is GetTickets) {
-      List<Ticket> tickets = await UserServices.getTickets(event.userID);
+      List<Ticket> tickets = await UserServices.getTickets();
+      yield TicketState(tickets);
+    } else if (event is ReviewTicket) {
+      await UserServices.addDestinationReview(
+          event.ticket.bookingCode, event.ticket.comment, event.ticket.rating);
+
+      Ticket ticket = event.ticket;
+      List<Ticket> tickets = state.tickets;
+      tickets.removeWhere(
+          (ticket) => ticket.bookingCode == event.ticket.bookingCode);
+      tickets.add(ticket);
+
       yield TicketState(tickets);
     }
   }

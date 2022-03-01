@@ -3,13 +3,12 @@ part of '../pages.dart';
 class SuccesBookingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var data = Get.arguments;
-    Ticket ticket = data[0];
-    String userID = data[1];
+    Ticket ticket = Get.arguments;
+
     return Scaffold(
       backgroundColor: backColor,
       body: FutureBuilder(
-          future: processingTransaction(context, ticket, userID),
+          future: processingTransaction(context, ticket),
           builder: (_, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               return Column(
@@ -79,18 +78,18 @@ class SuccesBookingPage extends StatelessWidget {
   }
 
   Future<void> processingTransaction(
-      BuildContext context, Ticket ticket, String userID) async {
+      BuildContext context, Ticket ticket) async {
     context.bloc<UserBloc>().add(Purchase(ticket.totalPrice));
-    context.bloc<TicketBloc>().add(BuyTicket(userID, ticket));
+    context.bloc<TicketBloc>().add(BuyTicket(ticket));
 
     // await UserServices.saveticket(ticket, userID);
     await UserServices.saveTransaction(GoTourTransaction(
         transactionID: "B${randomNumeric(10)}",
-        userID: userID,
+        userID: ticket.userID,
         picturePath: ticket.destination.images[0],
         title: ticket.destination.name,
         amount: -ticket.totalPrice,
-        desc: ticket.destination.location,
+        desc: ticket.destination.locationName,
         time: DateTime.now()));
   }
 }

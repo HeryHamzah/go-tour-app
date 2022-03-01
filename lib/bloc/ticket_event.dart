@@ -6,19 +6,23 @@ abstract class TicketEvent extends Equatable {
 
 class BuyTicket extends TicketEvent {
   final Ticket ticket;
-  final String userID;
 
-  BuyTicket(this.userID, this.ticket);
+  BuyTicket(this.ticket);
 
   @override
-  List<Object> get props => [userID, ticket];
+  List<Object> get props => [ticket];
 }
 
 class GetTickets extends TicketEvent {
-  final String userID;
+  @override
+  List<Object> get props => [];
+}
 
-  GetTickets(this.userID);
+class ReviewTicket extends TicketEvent {
+  final Ticket ticket;
+
+  ReviewTicket(this.ticket);
 
   @override
-  List<Object> get props => [userID];
+  List<Object> get props => [ticket];
 }

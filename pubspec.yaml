@@ -45,6 +45,7 @@ dependencies:
   provider: ^4.0.4
   qr_flutter: ^3.2.0
   random_string: ^2.0.1
+  rating_dialog: ^2.0.3
   sliding_up_panel: ^1.0.2
   ticketview: ^1.0.0
 

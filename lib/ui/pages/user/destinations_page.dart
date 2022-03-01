@@ -23,10 +23,12 @@ class DestinationsPage extends StatelessWidget {
         ),
       ),
       body: FutureBuilder<List<Destination>>(
-        future: GeneralServices.getDestinationsbyLocation(location.id),
+        future: GeneralServices.getDestinations(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return DestinationsList(snapshot.data);
+            Iterable<Destination> destinations = snapshot.data
+                .where((destination) => destination.locationID == location.id);
+            return DestinationsList(destinations);
           } else {
             return SpinKitFadingCircle(color: mainColor, size: 50);
           }
@@ -37,25 +39,25 @@ class DestinationsPage extends StatelessWidget {
 }
 
 class DestinationsList extends StatelessWidget {
-  final List<Destination> destination;
+  final Iterable<Destination> destinations;
 
-  DestinationsList(this.destination);
+  DestinationsList(this.destinations);
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: destination.length,
+        itemCount: destinations.length,
         itemBuilder: (context, i) {
           return Container(
               margin: EdgeInsets.only(
                   left: defaultMargin,
                   right: defaultMargin,
                   top: (i == 0) ? 20 : 0,
-                  bottom: (i == destination.length - 1) ? 40 : 20),
+                  bottom: (i == destinations.length - 1) ? 40 : 20),
               child: DestinationCard(
-                destination: destination[i],
+                destination: destinations.elementAt(i),
                 onTap: () => Get.toNamed('/destinationDetail',
-                    arguments: destination[i]),
+                    arguments: destinations.elementAt(i)),
               ));
         });
   }

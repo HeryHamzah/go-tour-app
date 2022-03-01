@@ -15,7 +15,7 @@ class _BookingPageState extends State<BookingPage> {
   int totalTicket = 0;
   int price = 0;
 
-  void showConfirmAlertDialog(String userID, Ticket ticket) {
+  void showConfirmAlertDialog(Ticket ticket) {
     AlertDialog alertDialog = AlertDialog(
       title: Text("Lanjut pembelian?",
           style: themeFont.copyWith(fontWeight: FontWeight.w500)),
@@ -48,8 +48,7 @@ class _BookingPageState extends State<BookingPage> {
                   style: ElevatedButton.styleFrom(
                       primary: mainColor, onPrimary: Colors.white),
                   onPressed: () {
-                    Get.toNamed('/succesBookingPage',
-                        arguments: [ticket, userID]);
+                    Get.toNamed('/succesBookingPage', arguments: ticket);
                   },
                   child: Text(
                     "Konfirmasi",
@@ -319,14 +318,13 @@ class _BookingPageState extends State<BookingPage> {
                               onPressed: totalTicket <= 0
                                   ? null
                                   : user.balance >= totalPrice
-                                      ? () => showConfirmAlertDialog(
-                                          user.id,
-                                          Ticket(
+                                      ? () => showConfirmAlertDialog(Ticket(
                                             bookingCode: randomAlphaNumeric(10)
                                                 .toUpperCase(),
                                             destination: destination,
                                             time: bookingTime,
-                                            name: user.name,
+                                            userID: user.id,
+                                            userName: user.name,
                                             totalTicket: totalTicket,
                                             totalPrice: totalPrice,
                                           ))

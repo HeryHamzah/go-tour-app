@@ -6,19 +6,23 @@ abstract class TourguideTicketEvent extends Equatable {
 
 class BuyTourGuideTicket extends TourguideTicketEvent {
   final TourGuideTicket tourGuideTicket;
-  final User user;
 
-  BuyTourGuideTicket(this.tourGuideTicket, this.user);
+  BuyTourGuideTicket(this.tourGuideTicket);
 
   @override
-  List<Object> get props => [tourGuideTicket, user];
+  List<Object> get props => [tourGuideTicket];
 }
 
 class GetTourGuideTicket extends TourguideTicketEvent {
-  final String userID;
+  @override
+  List<Object> get props => [];
+}
 
-  GetTourGuideTicket(this.userID);
+class ReviewTourGuideTicket extends TourguideTicketEvent {
+  final TourGuideTicket tourGuideTicket;
+
+  ReviewTourGuideTicket(this.tourGuideTicket);
 
   @override
-  List<Object> get props => [userID];
+  List<Object> get props => [tourGuideTicket];
 }

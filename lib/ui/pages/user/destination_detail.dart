@@ -146,7 +146,7 @@ class _DestinationDetailPageState extends State<DestinationDetailPage> {
                       child: SizedBox(
                         width: size.width - 2 * defaultMargin,
                         child: Text(
-                          "${destination.name}, ${destination.location}",
+                          "${destination.name}, ${destination.locationName}",
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: themeFont.copyWith(

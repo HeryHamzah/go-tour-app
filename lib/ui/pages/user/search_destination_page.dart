@@ -29,7 +29,7 @@ class SearchDestination extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
     return FutureBuilder(
-        future: GeneralServices.getAllDestinations(),
+        future: GeneralServices.getDestinations(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             List<Destination> destinations =
