@@ -43,13 +43,17 @@ class _SignInPageState extends State<SignInPage> {
                 SizedBox(
                   height: 30,
                 ),
-                //TODO: ganti icon app
                 Center(
                   child: Container(
-                    width: 100,
-                    height: 100,
-                    color: mainColor,
-                  ),
+                      width: 100,
+                      height: 100,
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: mainColor,
+                      ),
+                      child: Image.asset("assets/logo_app.png",
+                          fit: BoxFit.contain)),
                 ),
                 SizedBox(
                   height: 30,
@@ -115,7 +119,6 @@ class _SignInPageState extends State<SignInPage> {
                 SizedBox(
                   height: 50,
                 ),
-
                 (signInProcess == false)
                     ? Container(
                         width: double.infinity,

@@ -59,6 +59,7 @@ class WalletCard extends StatelessWidget {
             ],
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,6 +85,11 @@ class WalletCard extends StatelessWidget {
                     ),
                   )
                 ],
+              ),
+              Image.asset(
+                'assets/logo_app.png',
+                width: 50,
+                height: 50,
               )
             ],
           )

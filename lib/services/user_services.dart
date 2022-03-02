@@ -5,11 +5,9 @@ class UserServices {
       FirebaseFirestore.instance.collection('users');
 
   static Future<void> regisUserFirebase(User user) async {
-    await _userCollection.doc(user.id).set({
-      'email': user.email,
-      'favorites': user.favorites,
-      'myTrips': user.myTrips
-    });
+    await _userCollection
+        .doc(user.id)
+        .set({'email': user.email, 'favorites': user.favorites});
   }
 
   static Future<void> regisUser(User user) async {
@@ -36,20 +34,14 @@ class UserServices {
       final data = jsonDecode(response.body);
       final user = data['result'] as Map<String, dynamic>;
 
-      return User(
-        id,
-        user['email'],
-        name: user['name'],
-        profilePicture: user['image'],
-        hp: user['hp'],
-        balance: int.tryParse(user['balance']),
-        favorites: (snapshot.data()['favorites'] as List)
-            .map((e) => e as String)
-            .toList(),
-        myTrips: (snapshot.data()['myTrips'] as List)
-            .map((e) => e as String)
-            .toList(),
-      );
+      return User(id, user['email'],
+          name: user['name'],
+          profilePicture: user['image'],
+          hp: user['hp'],
+          balance: int.tryParse(user['balance']),
+          favorites: (snapshot.data()['favorites'] as List)
+              .map((e) => e as String)
+              .toList());
     } catch (e) {
       debugPrint("Error Get User: " + e.toString());
       return null;
@@ -99,14 +91,10 @@ class UserServices {
         "balance": user.balance.toString()
       });
 
-      // await AuthServices.updateEmailFirebase(user.email);
-
       //UPDATE TO FIREBASE
-      await _userCollection.doc(user.id).set({
-        'email': user.email,
-        'favorites': user.favorites,
-        'myTrips': user.myTrips
-      });
+      await _userCollection
+          .doc(user.id)
+          .set({'email': user.email, 'favorites': user.favorites});
 
       return user;
     } catch (e) {
@@ -173,28 +161,6 @@ class UserServices {
     }
   }
 
-  // static Future<List<Ticket>> getTickets(String userID) async {
-  //   try {
-  //     final response =
-  //         await http.post(BaseUrl.getTickets, body: {"id_user": userID});
-  //     final data = jsonDecode(response.body);
-
-  //     List<Ticket> tickets = [];
-
-  //     for (var dt in data) {
-  //       Destination destination =
-  //           await GeneralServices.getDetailDestination(dt['id_destination']);
-
-  //       tickets.add(Ticket.fromJson(dt, destination));
-  //     }
-
-  //     return tickets;
-  //   } catch (e) {
-  //     print("Error get tickets: " + e.toString());
-  //     return null;
-  //   }
-  // }
-
   static Future<List<Ticket>> getTickets() async {
     try {
       final response = await http.get(BaseUrl.getTickets);
@@ -243,23 +209,6 @@ class UserServices {
       return null;
     }
   }
-
-  // static Future<void> addDestinationReview(
-  //     Ticket ticket, String userID, String coment, double rating) async {
-  //   try {
-  //     final response = await http.post(BaseUrl.addDestinationReview, body: {
-  //       "booking_code": ticket.bookingCode,
-  //       "id_user": userID,
-  //       "id_destination": ticket.destination.id,
-  //       "coment": coment,
-  //       "rating": rating.toString()
-  //     });
-  //     final data = jsonDecode(response.body);
-  //     print(data['message']);
-  //   } catch (e) {
-  //     print("Error add Destination Review: " + e.toString());
-  //   }
-  // }
 
   static Future<void> addDestinationReview(
       String bookingCode, String comment, double rating) async {

@@ -26,7 +26,7 @@ class ReviewPage extends StatelessWidget {
                         tourGuideTicket.tourGuide.tourGuideID ==
                         tourGuide.tourGuideID)
                     .where((tourGuideTicket) => tourGuideTicket.rating > 0)
-                : null;
+                : [];
 
             return BlocBuilder<TicketBloc, TicketState>(
               builder: (context, ticketState) {
@@ -35,71 +35,18 @@ class ReviewPage extends StatelessWidget {
                         .where(
                             (ticket) => ticket.destination.id == destination.id)
                         .where((ticket) => ticket.rating > 0)
-                    : null;
+                    : [];
 
                 return (destination != null)
-                    ? generateListDestinationReview(tickets)
-                    : generateListTourGuideReview(tourGuideTickets);
+                    ? ListReview(
+                        tickets: tickets,
+                        tourGuideTickets: null,
+                      )
+                    : ListReview(
+                        tickets: null, tourGuideTickets: tourGuideTickets);
               },
             );
           },
         ));
-  }
-
-  Widget generateListDestinationReview(Iterable<Ticket> tickets) {
-    if (tickets.length > 0) {
-      return ListView(
-        children: [
-          Container(
-            margin: EdgeInsets.fromLTRB(defaultMargin, 20, defaultMargin, 20),
-            child: Column(
-              children: tickets
-                  .map((e) => Container(
-                      margin: EdgeInsets.only(bottom: 20),
-                      child: ReviewCard(e, null)))
-                  .toList(),
-            ),
-          )
-        ],
-      );
-    } else {
-      return Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset("assets/no_data.png"),
-          Text("Belum Ada Ulasan"),
-        ],
-      ));
-    }
-  }
-
-  Widget generateListTourGuideReview(
-      Iterable<TourGuideTicket> tourGuideTickets) {
-    if (tourGuideTickets.length > 0) {
-      return ListView(
-        children: [
-          Container(
-            margin: EdgeInsets.fromLTRB(defaultMargin, 20, defaultMargin, 20),
-            child: Column(
-              children: tourGuideTickets
-                  .map((e) => Container(
-                      margin: EdgeInsets.only(bottom: 20),
-                      child: ReviewCard(null, e)))
-                  .toList(),
-            ),
-          )
-        ],
-      );
-    } else {
-      return Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset("assets/no_data.png"),
-          Text("Belum Ada Ulasan"),
-        ],
-      ));
-    }
   }
 }

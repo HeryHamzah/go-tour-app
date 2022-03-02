@@ -58,6 +58,7 @@ class TourGuideTicket extends Equatable {
               int.tryParse(json["date_time"])),
           userName: json['user_name'],
           tourGuide: TourGuide(
+              tourGuideID: json['id_tourguide'],
               name: json['tourguide_name'],
               profilePicture: json['tourguide_picture']),
           // tourGuideName: json['tourguide_name'],

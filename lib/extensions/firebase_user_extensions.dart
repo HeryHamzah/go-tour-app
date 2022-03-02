@@ -5,14 +5,9 @@ extension FirebaseUserExtensions on auth.User {
           {String name = "No Name",
           String hp = "",
           int balance = 0,
-          List<String> favorites = const [],
-          List<String> myTrips = const []}) =>
+          List<String> favorites = const []}) =>
       User(this.uid, this.email,
-          name: name,
-          hp: hp,
-          balance: balance,
-          favorites: favorites,
-          myTrips: myTrips);
+          name: name, hp: hp, balance: balance, favorites: favorites);
 
   Future<User> fromDatabase() async => await UserServices.getUser(this.uid);
 }
