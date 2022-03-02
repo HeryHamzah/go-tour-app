@@ -2,23 +2,19 @@ part of 'services.dart';
 
 class GeneralServices {
   static Future<List<Location>> getLocations() async {
-    final response = await http.get(BaseUrl.getLocations);
-    final data = json.decode(response.body);
+    try {
+      final response = await http.get(BaseUrl.getLocations);
+      final data = json.decode(response.body);
 
-    return (data as List)
-        .map((e) =>
-            Location(id: e['id_location'], name: e['name'], image: e['image']))
-        .toList();
+      return (data as List)
+          .map((e) => Location(
+              id: e['id_location'], name: e['name'], image: e['image']))
+          .toList();
+    } catch (e) {
+      print("Error get Locations: " + e.toString());
+      return null;
+    }
   }
-
-  // static Future<List<Destination>> getDestinationsbyLocation(
-  //     String idLocation) async {
-  //   final response = await http.post(BaseUrl.getDestinationsbyLocation,
-  //       body: {"id_location": idLocation});
-  //   final data = json.decode(response.body);
-
-  //   return (data as List).map((e) => Destination.fromJson(e)).toList();
-  // }
 
   static Future<Destination> getDetailDestination(String idDestination) async {
     try {
@@ -29,7 +25,7 @@ class GeneralServices {
 
       return Destination.fromJson(destination);
     } catch (e) {
-      print("Error get Detail Destinations: " + e.toString());
+      print("Error get Detail Destination: " + e.toString());
       return null;
     }
   }
@@ -57,31 +53,4 @@ class GeneralServices {
       return null;
     }
   }
-
-  // static Future<List<Review>> getTourGuideReviews(String tourGuideID) async {
-  //   try {
-  //     final response = await http.post(BaseUrl.getTourGuideReviews,
-  //         body: {"id_tourguide": tourGuideID});
-  //     final data = json.decode(response.body);
-
-  //     return (data as List).map((e) => Review.fromJson(e)).toList();
-  //   } catch (e) {
-  //     print("Error get Tour Guide Reviews : " + e.toString());
-  //     return null;
-  //   }
-  // }
-
-  // static Future<List<Review>> getDestinationReviews(
-  //     String destinationID) async {
-  //   try {
-  //     final response = await http.post(BaseUrl.getDestinationReviews,
-  //         body: {"id_destination": destinationID});
-  //     final data = json.decode(response.body);
-
-  //     return (data as List).map((e) => Review.fromJson(e)).toList();
-  //   } catch (e) {
-  //     print("Error get Destination Reviews : " + e.toString());
-  //     return null;
-  //   }
-  // }
 }

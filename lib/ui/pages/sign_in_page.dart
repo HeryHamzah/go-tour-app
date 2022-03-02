@@ -110,9 +110,12 @@ class _SignInPageState extends State<SignInPage> {
                 Row(
                   children: [
                     Text("Lupa password?  "),
-                    Text(
-                      "Reset",
-                      style: themeFont.copyWith(color: mainColor),
+                    InkWell(
+                      onTap: () => Get.toNamed('/resetPasswordPage'),
+                      child: Text(
+                        "Reset",
+                        style: themeFont.copyWith(color: mainColor),
+                      ),
                     )
                   ],
                 ),

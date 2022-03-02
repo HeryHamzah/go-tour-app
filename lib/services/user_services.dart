@@ -28,7 +28,7 @@ class UserServices {
     //Note: GET USER FROM FIREBASE
     DocumentSnapshot snapshot = await _userCollection.doc(id).get();
 
-    //Note: GET USER FROM DATABASE
+    //Note: GET USER FROM MYSQL DATABASE
     try {
       final response = await http.post(BaseUrl.getUser, body: {"id_user": id});
       final data = jsonDecode(response.body);
@@ -48,12 +48,12 @@ class UserServices {
     }
   }
 
-  static Future<void> uploadImage({File imageFile, String idUser}) async {
+  static Future<void> uploadImage({File imageFile, String userID}) async {
     try {
       var uri = Uri.parse(BaseUrl.uploadUserImage);
       var request = http.MultipartRequest("POST", uri);
 
-      request.fields['id_user'] = idUser;
+      request.fields['id_user'] = userID;
 
       var stream =
           http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
@@ -64,18 +64,10 @@ class UserServices {
       http.Response response =
           await http.Response.fromStream(await request.send());
       final data = jsonDecode(response.body);
-      int value = data["value"];
       String message = data["message"];
-      if (value == 1) {
-        print(message);
-        // return user.copyWith(profilePicture: path.basename(imageFile.path));
-      } else {
-        print(message);
-        // return user;
-      }
+      print(message);
     } catch (e) {
       print("Error upload image:" + e.toString());
-      // return user;
     }
   }
 
@@ -104,17 +96,22 @@ class UserServices {
   }
 
   static Future<List<Destination>> getFavorites(String userID) async {
-    DocumentSnapshot snapshots = await _userCollection.doc(userID).get();
+    try {
+      DocumentSnapshot snapshots = await _userCollection.doc(userID).get();
 
-    List<Destination> favorites = [];
+      List<Destination> favorites = [];
 
-    for (var snapshot in snapshots.data()['favorites']) {
-      Destination destination =
-          await GeneralServices.getDetailDestination(snapshot);
+      for (var snapshot in snapshots.data()['favorites']) {
+        Destination destination =
+            await GeneralServices.getDetailDestination(snapshot);
 
-      favorites.add(destination);
+        favorites.add(destination);
+      }
+      return favorites;
+    } catch (e) {
+      print("Error get favorites: " + e.toString());
+      return null;
     }
-    return favorites;
   }
 
   static Future<void> saveTransaction(GoTourTransaction transaction) async {

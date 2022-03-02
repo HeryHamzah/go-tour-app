@@ -31,7 +31,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       yield UserInitial();
     } else if (event is UploadProfileUser) {
       await UserServices.uploadImage(
-          imageFile: event.imageFile, idUser: event.idUser);
+          imageFile: event.imageFile, userID: event.idUser);
 
       User updatedUser = await UserServices.getUser(event.idUser);
 

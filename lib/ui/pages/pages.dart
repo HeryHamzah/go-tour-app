@@ -55,3 +55,5 @@ part 'user/search_destination_page.dart';
 part 'user/tourguide_ticket_detail.dart';
 part 'user/review_page.dart';
 part 'user/app_guide_page.dart';
+part 'user/map_screen.dart';
+part 'reset_password_page.dart';
