@@ -66,6 +66,26 @@ class _TourGuideDetailPageState extends State<TourGuideDetailPage> {
                                 children: [
                                   Column(
                                     children: [
+                                      Text("Biaya Trip"),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        NumberFormat.currency(
+                                                locale: 'id_ID',
+                                                decimalDigits: 0,
+                                                symbol: 'Rp')
+                                            .format(
+                                          tourGuide.cost,
+                                        ),
+                                        style: themeFont.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16),
+                                      )
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
                                       Text("Total Trip"),
                                       SizedBox(
                                         height: 5,
