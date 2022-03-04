@@ -69,7 +69,9 @@ class MyApp extends StatelessWidget {
                 name: '/tourGuideTicketDetailPage',
                 page: () => TourGuideTicketDetailPage()),
             GetPage(name: '/reviewPage', page: () => ReviewPage()),
-            GetPage(name: '/resetPasswordPage', page: () => ResetPasswordPage())
+            GetPage(
+                name: '/resetPasswordPage', page: () => ResetPasswordPage()),
+            GetPage(name: '/mapScreenPage', page: () => MapScreen())
           ],
           debugShowCheckedModeBanner: false,
           title: 'Go Tour',

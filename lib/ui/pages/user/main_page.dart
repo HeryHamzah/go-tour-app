@@ -78,9 +78,12 @@ class _MainPageState extends State<MainPage> {
                 height: 40,
                 decoration:
                     BoxDecoration(shape: BoxShape.circle, color: Colors.white),
-                child: Icon(
-                  FontAwesomeIcons.mapMarkerAlt,
-                  color: mainColor,
+                child: GestureDetector(
+                  onTap: () => Get.toNamed('/mapScreenPage'),
+                  child: Icon(
+                    FontAwesomeIcons.mapMarkerAlt,
+                    color: mainColor,
+                  ),
                 ),
               ),
             ),

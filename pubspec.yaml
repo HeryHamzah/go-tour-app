@@ -40,6 +40,7 @@ dependencies:
   font_awesome_flutter: ^9.1.0
   get: ^4.3.8
   google_fonts: ^1.1.0
+  google_maps_flutter: ^1.2.0
   image_picker: ^0.6.4
   intl: ^0.16.0
   provider: ^4.0.4
