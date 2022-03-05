@@ -18,13 +18,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   ) async* {
     if (event is LoadUser) {
       User user = await UserServices.getUser(event.id);
-      // List<Destination> destinations =
-      //     await UserServices.getFavorites(event.id);
-      // List<String> idDestinations = destinations.map((e) => e.id).toList();
-
-      // User newUser = user.copyWith(favorites: idDestinations);
-
-      // print(newUser.favorites);
 
       yield UserLoaded(user);
     } else if (event is SignOutUser) {
@@ -41,8 +34,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
       yield UserLoaded(user);
     } else if (event is AddToFavorites) {
-      // await UserServices.addToFavorites(event.idUser, event.idDestination);
-
       User updatedUser = (state as UserLoaded).user.copyWith(
           favorites:
               (state as UserLoaded).user.favorites + [event.idDestination]);
@@ -51,8 +42,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
       yield UserLoaded(updatedUser);
     } else if (event is RemoveFromFavorites) {
-      // await UserServices.removeFromFavorites(event.idUser, event.idDestination);
-
       List<String> idDestinations = (state as UserLoaded).user.favorites;
       idDestinations.remove(event.idDestination);
 

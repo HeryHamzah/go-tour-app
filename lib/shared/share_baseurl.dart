@@ -1,6 +1,6 @@
 part of 'shared.dart';
 
-String dbUrl = "http://10.0.2.2/gotour/";
+String dbUrl = "http://192.168.43.200/gotour/";
 
 class BaseUrl {
   static String regisUser = dbUrl + "user_API/user_signup.php";

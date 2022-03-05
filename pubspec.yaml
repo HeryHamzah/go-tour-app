@@ -38,6 +38,7 @@ dependencies:
   flutter_zoom_drawer: ^1.0.5
   fluttertoast: ^7.1.8
   font_awesome_flutter: ^9.1.0
+  geolocator: ^6.2.1
   get: ^4.3.8
   google_fonts: ^1.1.0
   google_maps_flutter: ^1.2.0
