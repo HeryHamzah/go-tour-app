@@ -10,21 +10,35 @@ class TransactionCard extends StatelessWidget {
     return Container(
       child: Row(
         children: [
-          Container(
-            width: 75,
-            height: 90,
-            margin: EdgeInsets.only(right: 16),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                image: DecorationImage(
-                    image: (transaction.transactionID.contains("B"))
-                        ? NetworkImage(
-                            BaseUrl.getAssets + transaction.picturePath)
-                        : transaction.transactionID.contains("A")
-                            ? AssetImage("assets/topup_cover.png")
-                            : NetworkImage(BaseUrl.getTourGuideImages +
-                                transaction.picturePath),
-                    fit: BoxFit.cover)),
+          Stack(
+            children: [
+              Container(
+                width: 75,
+                height: 90,
+                margin: EdgeInsets.only(right: 16),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    image: DecorationImage(
+                        image: AssetImage('assets/cache_portrait.png'),
+                        fit: BoxFit.cover)),
+              ),
+              Container(
+                width: 75,
+                height: 90,
+                margin: EdgeInsets.only(right: 16),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    image: DecorationImage(
+                        image: (transaction.transactionID.contains("B"))
+                            ? NetworkImage(
+                                BaseUrl.getAssets + transaction.picturePath)
+                            : transaction.transactionID.contains("A")
+                                ? AssetImage("assets/topup_cover.png")
+                                : NetworkImage(BaseUrl.getTourGuideImages +
+                                    transaction.picturePath),
+                        fit: BoxFit.cover)),
+              ),
+            ],
           ),
           SizedBox(
             width:

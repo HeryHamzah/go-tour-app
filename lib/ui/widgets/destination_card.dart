@@ -32,51 +32,67 @@ class _DestinationCardState extends State<DestinationCard> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Hero(
-                    tag: widget.destination.id,
-                    child: Container(
-                      height: 200,
-                      width: double.infinity,
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
+                  Stack(
+                    children: [
+                      Container(
+                        height: 200,
+                        width: double.infinity,
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(18),
                           image: DecorationImage(
-                              image: NetworkImage(BaseUrl.getAssets +
-                                  widget.destination.images[0]),
-                              fit: BoxFit.cover)),
-                      child: Align(
-                        alignment: Alignment.topRight,
-                        child: GestureDetector(
-                          onTap: () {
-                            (favorites.contains(widget.destination.id))
-                                ? context.bloc<UserBloc>().add(
-                                    RemoveFromFavorites(widget.destination.id))
-                                : context
-                                    .bloc<UserBloc>()
-                                    .add(AddToFavorites(widget.destination.id));
+                              image: AssetImage('assets/cache_landscape.png'),
+                              fit: BoxFit.cover),
+                        ),
+                      ),
+                      Hero(
+                        tag: widget.destination.id,
+                        child: Container(
+                          height: 200,
+                          width: double.infinity,
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(18),
+                              image: DecorationImage(
+                                  image: NetworkImage(BaseUrl.getAssets +
+                                      widget.destination.images[0]),
+                                  fit: BoxFit.cover)),
+                          child: Align(
+                            alignment: Alignment.topRight,
+                            child: GestureDetector(
+                              onTap: () {
+                                (favorites.contains(widget.destination.id))
+                                    ? context.bloc<UserBloc>().add(
+                                        RemoveFromFavorites(
+                                            widget.destination.id))
+                                    : context.bloc<UserBloc>().add(
+                                        AddToFavorites(widget.destination.id));
 
-                            setState(() {});
+                                setState(() {});
 
-                            Fluttertoast.showToast(
-                                msg: (favorites.contains(widget.destination.id))
-                                    ? "Hapus dari favoritku"
-                                    : "Tambah ke favoritku",
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.CENTER,
-                                timeInSecForIosWeb: 1,
-                                backgroundColor: Colors.black,
-                                textColor: Colors.white,
-                                fontSize: 16.0);
-                          },
-                          child: Icon(
-                            (favorites.contains(widget.destination.id))
-                                ? Icons.favorite
-                                : Icons.favorite_border,
-                            color: Colors.redAccent,
+                                Fluttertoast.showToast(
+                                    msg: (favorites
+                                            .contains(widget.destination.id))
+                                        ? "Hapus dari favoritku"
+                                        : "Tambah ke favoritku",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.CENTER,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.black,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0);
+                              },
+                              child: Icon(
+                                (favorites.contains(widget.destination.id))
+                                    ? Icons.favorite
+                                    : Icons.favorite_border,
+                                color: Colors.redAccent,
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
                   SizedBox(
                     height: 15,

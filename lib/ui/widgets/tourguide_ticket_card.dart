@@ -18,19 +18,33 @@ class TourGuideTicketCard extends StatelessWidget {
         height: 90,
         child: Row(
           children: [
-            Hero(
-              tag: tourGuideTicket.bookingCode,
-              child: Container(
-                width: 75,
-                height: 90,
-                margin: EdgeInsets.only(right: 20),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    image: DecorationImage(
-                        image: NetworkImage(BaseUrl.getTourGuideImages +
-                            tourGuideTicket.tourGuide.profilePicture),
-                        fit: BoxFit.cover)),
-              ),
+            Stack(
+              children: [
+                Container(
+                  width: 75,
+                  height: 90,
+                  margin: EdgeInsets.only(right: 20),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      image: DecorationImage(
+                          image: AssetImage('assets/cache_portrait.png'),
+                          fit: BoxFit.cover)),
+                ),
+                Hero(
+                  tag: tourGuideTicket.bookingCode,
+                  child: Container(
+                    width: 75,
+                    height: 90,
+                    margin: EdgeInsets.only(right: 20),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        image: DecorationImage(
+                            image: NetworkImage(BaseUrl.getTourGuideImages +
+                                tourGuideTicket.tourGuide.profilePicture),
+                            fit: BoxFit.cover)),
+                  ),
+                ),
+              ],
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width -

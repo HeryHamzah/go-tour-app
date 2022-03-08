@@ -105,7 +105,8 @@ class _MapScreenState extends State<MapScreen> {
           markerId: MarkerId("id-user"),
           position:
               LatLng(_currentPosition.latitude, _currentPosition.longitude),
-          // icon: destinationMarker,
+          icon:
+              BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
         ),
       );
       _googleMapController

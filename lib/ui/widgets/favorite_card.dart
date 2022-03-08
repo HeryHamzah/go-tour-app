@@ -16,17 +16,32 @@ class _FavoriteCardState extends State<FavoriteCard> {
       margin: EdgeInsets.symmetric(horizontal: defaultMargin),
       child: Row(
         children: [
-          Container(
-            width: 75,
-            height: 90,
-            margin: EdgeInsets.only(right: 20),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              image: DecorationImage(
-                  image: NetworkImage(
-                      BaseUrl.getAssets + widget.destination.images[0]),
-                  fit: BoxFit.cover),
-            ),
+          Stack(
+            children: [
+              Container(
+                width: 75,
+                height: 90,
+                margin: EdgeInsets.only(right: 20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  image: DecorationImage(
+                      image: AssetImage('assets/cache_portrait.png'),
+                      fit: BoxFit.cover),
+                ),
+              ),
+              Container(
+                width: 75,
+                height: 90,
+                margin: EdgeInsets.only(right: 20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  image: DecorationImage(
+                      image: NetworkImage(
+                          BaseUrl.getAssets + widget.destination.images[0]),
+                      fit: BoxFit.cover),
+                ),
+              ),
+            ],
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,

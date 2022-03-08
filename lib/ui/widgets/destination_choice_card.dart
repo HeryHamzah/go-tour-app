@@ -31,32 +31,49 @@ class _DestinationChoiceState extends State<DestinationChoice> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              width: 150,
-              height: 100,
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
-                image: DecorationImage(
-                    image: NetworkImage(
-                        BaseUrl.getAssets + widget.destination.images[0]),
-                    fit: BoxFit.cover),
-              ),
-              child: Align(
-                alignment: Alignment.topRight,
-                child: GestureDetector(
-                  onTap: () {
-                    if (widget.onIconTap != null) {
-                      widget.onIconTap();
-                    }
-                  },
-                  child: Icon(
-                    FontAwesomeIcons.plane,
-                    size: 20,
-                    color: (widget.isSelected) ? mainColor : Colors.white,
+            Stack(
+              children: [
+                Container(
+                  width: 150,
+                  height: 100,
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(10)),
+                    image: DecorationImage(
+                        image: AssetImage('assets/cache_portrait.png'),
+                        fit: BoxFit.cover),
                   ),
                 ),
-              ),
+                Container(
+                  width: 150,
+                  height: 100,
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(10)),
+                    image: DecorationImage(
+                        image: NetworkImage(
+                            BaseUrl.getAssets + widget.destination.images[0]),
+                        fit: BoxFit.cover),
+                  ),
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: GestureDetector(
+                      onTap: () {
+                        if (widget.onIconTap != null) {
+                          widget.onIconTap();
+                        }
+                      },
+                      child: Icon(
+                        FontAwesomeIcons.plane,
+                        size: 20,
+                        color: (widget.isSelected) ? mainColor : Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
             Container(
               padding: EdgeInsets.only(left: 5, top: 5, right: 5),

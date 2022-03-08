@@ -22,17 +22,29 @@ class TourGuideCard extends StatelessWidget {
           width: width,
           child: Column(
             children: [
-              Hero(
-                tag: tourGuide.tourGuideID,
-                child: Container(
-                  width: width,
-                  height: width,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: NetworkImage(BaseUrl.getTourGuideImages +
-                              tourGuide.profilePicture),
-                          fit: BoxFit.cover)),
-                ),
+              Stack(
+                children: [
+                  Container(
+                    width: width,
+                    height: width,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage('assets/cache_portrait.png'),
+                            fit: BoxFit.cover)),
+                  ),
+                  Hero(
+                    tag: tourGuide.tourGuideID,
+                    child: Container(
+                      width: width,
+                      height: width,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: NetworkImage(BaseUrl.getTourGuideImages +
+                                  tourGuide.profilePicture),
+                              fit: BoxFit.cover)),
+                    ),
+                  ),
+                ],
               ),
               Text(
                 tourGuide.name,

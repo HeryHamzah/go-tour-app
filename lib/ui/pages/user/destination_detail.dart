@@ -49,88 +49,103 @@ class _DestinationDetailPageState extends State<DestinationDetailPage> {
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(40),
-                      child: Container(
-                        width: size.width,
-                        height: 450,
-                        color: Colors.blue,
-                        child: Stack(
-                          children: [
-                            PageView(
-                              onPageChanged: (page) {
-                                setState(() {
-                                  _currentImage = page;
-                                });
-                              },
-                              children: destination.images
-                                  .map((e) => Hero(
-                                        tag: destination.id,
-                                        child: Container(
-                                          width: size.width,
-                                          height: 450,
+                      child: Stack(
+                        children: [
+                          Container(
+                              width: size.width,
+                              height: 450,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image:
+                                        AssetImage('assets/cache_portrait.png'),
+                                    fit: BoxFit.cover),
+                              )),
+                          Container(
+                            width: size.width,
+                            height: 450,
+                            // color: Colors.blue,
+                            child: Stack(
+                              children: [
+                                PageView(
+                                  onPageChanged: (page) {
+                                    setState(() {
+                                      _currentImage = page;
+                                    });
+                                  },
+                                  children: destination.images
+                                      .map((e) => Hero(
+                                            tag: destination.id,
+                                            child: Container(
+                                              width: size.width,
+                                              height: 450,
+                                              decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                      image: NetworkImage(
+                                                          BaseUrl.getAssets +
+                                                              e),
+                                                      fit: BoxFit.cover)),
+                                            ),
+                                          ))
+                                      .toList(),
+                                ),
+                                Positioned(
+                                    left: 20,
+                                    top: 20,
+                                    child: GestureDetector(
+                                      onTap: () => Get.back(),
+                                      child: Container(
+                                          padding: EdgeInsets.all(5),
                                           decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                  image: NetworkImage(
-                                                      BaseUrl.getAssets + e),
-                                                  fit: BoxFit.cover)),
-                                        ),
-                                      ))
-                                  .toList(),
-                            ),
-                            Positioned(
-                                left: 20,
-                                top: 20,
-                                child: GestureDetector(
-                                  onTap: () => Get.back(),
-                                  child: Container(
-                                      padding: EdgeInsets.all(5),
-                                      decoration: BoxDecoration(
-                                          color: backColor,
-                                          shape: BoxShape.circle),
-                                      child: Icon(
-                                        Icons.arrow_back,
-                                        color: mainColor,
-                                      )),
-                                )),
-                            Positioned(
-                                right: 20,
-                                top: 20,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    if (favorites.contains(destination.id)) {
-                                      context.bloc<UserBloc>().add(
-                                          RemoveFromFavorites(destination.id));
-                                    } else {
-                                      context
-                                          .bloc<UserBloc>()
-                                          .add(AddToFavorites(destination.id));
-                                    }
-                                    setState(() {});
-                                    Fluttertoast.showToast(
-                                        msg:
-                                            (favorites.contains(destination.id))
+                                              color: backColor,
+                                              shape: BoxShape.circle),
+                                          child: Icon(
+                                            Icons.arrow_back,
+                                            color: mainColor,
+                                          )),
+                                    )),
+                                Positioned(
+                                    right: 20,
+                                    top: 20,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        if (favorites
+                                            .contains(destination.id)) {
+                                          context.bloc<UserBloc>().add(
+                                              RemoveFromFavorites(
+                                                  destination.id));
+                                        } else {
+                                          context.bloc<UserBloc>().add(
+                                              AddToFavorites(destination.id));
+                                        }
+                                        setState(() {});
+                                        Fluttertoast.showToast(
+                                            msg: (favorites
+                                                    .contains(destination.id))
                                                 ? "Hapus dari Favoritku"
                                                 : "Tambah ke Favoritku",
-                                        toastLength: Toast.LENGTH_SHORT,
-                                        gravity: ToastGravity.CENTER,
-                                        timeInSecForIosWeb: 1,
-                                        backgroundColor: Colors.black,
-                                        textColor: Colors.white,
-                                        fontSize: 16.0);
-                                  },
-                                  child: Container(
-                                      padding: EdgeInsets.all(5),
-                                      decoration: BoxDecoration(
-                                          color: backColor,
-                                          shape: BoxShape.circle),
-                                      child: Icon(
-                                        (favorites.contains(destination.id))
-                                            ? Icons.favorite
-                                            : Icons.favorite_border,
-                                        color: Colors.pink,
-                                      )),
-                                )),
-                          ],
-                        ),
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.CENTER,
+                                            timeInSecForIosWeb: 1,
+                                            backgroundColor: Colors.black,
+                                            textColor: Colors.white,
+                                            fontSize: 16.0);
+                                      },
+                                      child: Container(
+                                          padding: EdgeInsets.all(5),
+                                          decoration: BoxDecoration(
+                                              color: backColor,
+                                              shape: BoxShape.circle),
+                                          child: Icon(
+                                            (favorites.contains(destination.id))
+                                                ? Icons.favorite
+                                                : Icons.favorite_border,
+                                            color: Colors.pink,
+                                          )),
+                                    )),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     Container(
