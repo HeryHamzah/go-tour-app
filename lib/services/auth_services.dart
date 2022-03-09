@@ -44,20 +44,6 @@ class AuthServices {
     await _auth.signOut();
   }
 
-  // static Future<void> updateEmailFirebase(String newEmail) async {
-  //   var user = _auth.currentUser;
-  //   user.updateEmail(newEmail);
-
-  //   auth.UserCredential authResult = await user.reauthenticateWithCredential(
-  //     auth.EmailAuthProvider.credential(
-  //       email: newEmail,
-  //       password: '123456',
-  //     ),
-  //   );
-
-  //   print(authResult.user.email);
-  // }
-
   static Stream<auth.User> get userStream => _auth.authStateChanges();
 }
 

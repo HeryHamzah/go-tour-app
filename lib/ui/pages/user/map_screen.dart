@@ -24,22 +24,6 @@ class _MapScreenState extends State<MapScreen> {
 
   GoogleMapController _googleMapController;
 
-  // Future<void> getCurrentLocation() async {
-  //   await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
-  //       .then((Position position) {
-  //     setState(() {
-  //       _currentPosition = position;
-  //     });
-  //     _googleMapController
-  //         .animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
-  //       target: LatLng(_currentPosition.latitude, _currentPosition.longitude),
-  //       zoom: 14,
-  //     )));
-  //   }).catchError((e) {
-  //     print("Error get Current Location: " + e.toString());
-  //   });
-  // }
-
   Future<void> getDestinations() async {
     destinations = await GeneralServices.getDestinations();
     for (var dest in destinations) {

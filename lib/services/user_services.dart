@@ -20,7 +20,7 @@ class UserServices {
         "balance": user.balance.toString()
       });
     } catch (e) {
-      print("Error : $e");
+      print("Error regis user: $e");
     }
   }
 
