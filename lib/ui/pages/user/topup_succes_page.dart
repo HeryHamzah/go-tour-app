@@ -46,6 +46,7 @@ class SuccesTopUpPage extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(16))),
                         onPressed: () {
                           Get.offAllNamed("/myWalletPage");
+                          // context.bloc<NavdrawerBloc>().add(ChangePage(5));
                         },
                         child: Text(
                           "Dompetku",
@@ -60,6 +61,7 @@ class SuccesTopUpPage extends StatelessWidget {
                       InkWell(
                         onTap: () {
                           Get.offAllNamed("/home");
+                          // context.bloc<NavdrawerBloc>().add(ChangePage(1));
                         },
                         child: Text("Kembali ke Home",
                             style: themeFont.copyWith(color: mainColor)),

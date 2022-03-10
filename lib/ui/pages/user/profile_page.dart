@@ -45,77 +45,85 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
-  void showModalPhoto() {
-    showModalBottomSheet(
-        context: context,
-        backgroundColor: mainColor,
-        builder: (context) {
-          return StatefulBuilder(
-              builder: (BuildContext context, StateSetter modalState) {
-            return Container(
-              padding: EdgeInsets.all(20),
-              height: MediaQuery.of(context).size.height / 6,
-              child: Column(
-                children: [
-                  Text("Foto Profil",
-                      style: TextStyle(fontSize: 18, color: Colors.white)),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      InkWell(
-                        onTap: () async {
-                          profilePictureFile = await galleryPhoto();
-                          modalState(() {});
-                          setState(() {});
+  // void showModalPhoto() {
+  //   showModalBottomSheet(
+  //       context: context,
+  //       backgroundColor: mainColor,
+  //       builder: (context) {
+  //         return StatefulBuilder(
+  //             builder: (BuildContext context, StateSetter modalState) {
+  //           return Container(
+  //             padding: EdgeInsets.all(20),
+  //             height: MediaQuery.of(context).size.height / 6,
+  //             child: Column(
+  //               children: [
+  //                 Text("Foto Profil",
+  //                     style: TextStyle(fontSize: 18, color: Colors.white)),
+  //                 SizedBox(
+  //                   height: 10,
+  //                 ),
+  //                 Row(
+  //                   mainAxisAlignment: MainAxisAlignment.center,
+  //                   children: [
+  //                     InkWell(
+  //                       onTap: () async {
+  //                         await galleryPhoto().then((value) {
+  //                           modalState(() {
+  //                             profilePictureFile = value;
+  //                           });
+  //                           setState(() {});
+  //                         });
+  //                         // modalState(() {});
 
-                          Get.back();
-                        },
-                        child: Column(
-                          children: [
-                            Icon(Icons.camera_alt, color: Colors.white),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text("Galeri",
-                                style: TextStyle(color: Colors.white)),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      InkWell(
-                        onTap: () async {
-                          profilePictureFile = await cameraPhoto();
-                          modalState(() {});
-                          setState(() {});
-                          Get.back();
-                        },
-                        child: Column(
-                          children: [
-                            Icon(
-                              Icons.camera,
-                              color: Colors.white,
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text("Kamera",
-                                style: TextStyle(color: Colors.white))
-                          ],
-                        ),
-                      )
-                    ],
-                  )
-                ],
-              ),
-            );
-          });
-        });
-  }
+  //                         Get.back();
+  //                       },
+  //                       child: Column(
+  //                         children: [
+  //                           Icon(Icons.camera_alt, color: Colors.white),
+  //                           SizedBox(
+  //                             height: 5,
+  //                           ),
+  //                           Text("Galeri",
+  //                               style: TextStyle(color: Colors.white)),
+  //                         ],
+  //                       ),
+  //                     ),
+  //                     SizedBox(
+  //                       width: 20,
+  //                     ),
+  //                     InkWell(
+  //                       onTap: () async {
+  //                         await cameraPhoto().then((value) {
+  //                           setState(() {
+  //                             profilePictureFile = value;
+  //                           });
+  //                         });
+  //                         modalState(() {});
+  //                         setState(() {});
+  //                         Get.back();
+  //                       },
+  //                       child: Column(
+  //                         children: [
+  //                           Icon(
+  //                             Icons.camera,
+  //                             color: Colors.white,
+  //                           ),
+  //                           SizedBox(
+  //                             height: 5,
+  //                           ),
+  //                           Text("Kamera",
+  //                               style: TextStyle(color: Colors.white))
+  //                         ],
+  //                       ),
+  //                     )
+  //                   ],
+  //                 )
+  //               ],
+  //             ),
+  //           );
+  //         });
+  //       });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -173,8 +181,8 @@ class _ProfilePageState extends State<ProfilePage> {
                             onTap: () async {
                               if (profilePicturePath == "" &&
                                   profilePictureFile == null) {
-                                showModalPhoto();
-                                // profilePictureFile = await galleryPhoto();
+                                // showModalPhoto();
+                                profilePictureFile = await galleryPhoto();
                                 if (profilePictureFile != null) {
                                   profilePicturePath =
                                       path.basename(profilePictureFile.path);

@@ -21,7 +21,7 @@ class TemplateTopUpCard extends StatelessWidget {
         width: width,
         padding: EdgeInsets.all(5),
         decoration: BoxDecoration(
-            color: (isSelected) ? Color(0XFF567DF4) : mainColor.withOpacity(.2),
+            color: (isSelected) ? mainColor : mainColor.withOpacity(.2),
             borderRadius: BorderRadius.circular(10)),
         child: Column(
           children: [
@@ -29,7 +29,7 @@ class TemplateTopUpCard extends StatelessWidget {
               "IDR",
               style: themeFont.copyWith(
                   fontSize: 16,
-                  color: (isSelected) ? Colors.white : Color(0XFF22215B)),
+                  color: (isSelected) ? backColor : Colors.blueGrey),
             ),
             SizedBox(
               height: 5,
@@ -41,7 +41,7 @@ class TemplateTopUpCard extends StatelessWidget {
               style: themeFont.copyWith(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
-                  color: (isSelected) ? Colors.white : Color(0XFF22215B)),
+                  color: (isSelected) ? backColor : Colors.blueGrey),
             )
           ],
         ),
