@@ -48,6 +48,7 @@ dependencies:
   qr_flutter: ^3.2.0
   random_string: ^2.0.1
   rating_dialog: ^2.0.3
+  shared_preferences: ^2.0.13
   sliding_up_panel: ^1.0.2
   ticketview: ^1.0.0
 

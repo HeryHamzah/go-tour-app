@@ -61,3 +61,4 @@ part 'user/app_guide_page.dart';
 part 'user/map_screen.dart';
 part 'reset_password_page.dart';
 part 'tour_guide/tourguide_home_page.dart';
+part 'tour_guide/tourguide_sign_in_page.dart';

@@ -36,3 +36,16 @@ void showSnackBar(BuildContext context, String text) {
   ScaffoldMessenger.of(context)
       .showSnackBar(SnackBar(backgroundColor: mainColor, content: Text(text)));
 }
+
+Future<void> saveData(int value, String id) async {
+  SharedPreferences pref = await SharedPreferences.getInstance();
+  pref.setInt("value", value);
+  pref.setString("id", id);
+}
+
+Future<void> getData() async {
+  SharedPreferences pref = await SharedPreferences.getInstance();
+  var value = pref.getInt("value");
+  tourGuideLoginStatus =
+      value == 1 ? TourGuideLoginStatus.signIn : TourGuideLoginStatus.notSignIn;
+}

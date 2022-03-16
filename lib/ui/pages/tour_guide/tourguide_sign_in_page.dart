@@ -1,11 +1,11 @@
-part of 'pages.dart';
+part of '../pages.dart';
 
-class SignInPage extends StatefulWidget {
+class TourGuideSignInPage extends StatefulWidget {
   @override
-  _SignInPageState createState() => _SignInPageState();
+  _TourGuideSignInPageState createState() => _TourGuideSignInPageState();
 }
 
-class _SignInPageState extends State<SignInPage> {
+class _TourGuideSignInPageState extends State<TourGuideSignInPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -37,7 +37,7 @@ class _SignInPageState extends State<SignInPage> {
                   height: 10,
                 ),
                 Text(
-                  "Sign In",
+                  "Sign In sebagai Tour Guide",
                   style: themeFont.copyWith(fontSize: 24),
                 ),
                 SizedBox(
@@ -105,21 +105,6 @@ class _SignInPageState extends State<SignInPage> {
                           borderRadius: BorderRadius.circular(8))),
                 ),
                 SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  children: [
-                    Text("Lupa password?  "),
-                    InkWell(
-                      onTap: () => Get.toNamed('/resetPasswordPage'),
-                      child: Text(
-                        "Reset",
-                        style: themeFont.copyWith(color: mainColor),
-                      ),
-                    )
-                  ],
-                ),
-                SizedBox(
                   height: 50,
                 ),
                 (signInProcess == false)
@@ -135,21 +120,20 @@ class _SignInPageState extends State<SignInPage> {
                                     setState(() {
                                       signInProcess = true;
                                     });
-                                    SignInSignUpResult result =
-                                        await AuthServices.signIn(
-                                            emailController.text,
-                                            passwordController.text);
+                                    await TourGuideServices.signIn(
+                                        emailController.text,
+                                        passwordController.text);
 
-                                    if (result.user == null) {
-                                      showSnackBar(context, result.message);
-                                      setState(() {
-                                        signInProcess = false;
-                                      });
-                                    }
+                                    // if (result.user == null) {
+                                    //   showSnackBar(context, result.message);
+                                    //   setState(() {
+                                    //     signInProcess = false;
+                                    //   });
+                                    // }
                                     // TODO: hilangkan nanti
-                                    else {
-                                      Get.back();
-                                    }
+                                    // else {
+                                    //   Get.back();
+                                    // }
                                   }
                                 : null,
                             child: Text(
@@ -167,13 +151,13 @@ class _SignInPageState extends State<SignInPage> {
                 ),
                 Row(
                   children: [
-                    Text("Belum punya akun?  "),
+                    Text("Ingin daftar sebagai Tour Guide?  "),
                     InkWell(
                       onTap: () {
-                        Get.toNamed('/signUp');
+                        //TODO: buat pagenya
                       },
                       child: Text(
-                        "Sign Up",
+                        "ketentuan",
                         style: themeFont.copyWith(color: mainColor),
                       ),
                     )
@@ -184,17 +168,6 @@ class _SignInPageState extends State<SignInPage> {
           )
         ],
       ),
-      floatingActionButton: FloatingActionButton.extended(
-          onPressed: () => Get.toNamed('/tourGuideSignIn'),
-          label: Icon(
-            Icons.arrow_forward_ios,
-            color: backColor,
-            size: 18,
-          ),
-          icon: Text(
-            "Tour Guide",
-            style: themeFont.copyWith(color: backColor),
-          )),
     );
   }
 }

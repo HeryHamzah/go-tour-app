@@ -39,4 +39,7 @@ class BaseUrl {
   static String addTourGuideReview =
       dbUrl + "user_API/add_tourguide_review.php";
   // static String getAllTickets = dbUrl + "user_API/get_all_tickets.php";
+
+  static String tourGuideSignIn = dbUrl + "tourguide_API/tourguide_login.php";
+  static String getTourGuide = dbUrl + "tourguide_API/get_tourguide.php";
 }
