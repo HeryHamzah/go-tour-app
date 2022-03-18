@@ -6,6 +6,16 @@ class Wrapper extends StatefulWidget {
 }
 
 class _WrapperState extends State<Wrapper> {
+  Future<void> getData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var value = prefs.getInt("value");
+    setState(() {
+      tourGuideLoginStatus = (value == 1)
+          ? TourGuideLoginStatus.signIn
+          : TourGuideLoginStatus.notSignIn;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -17,7 +27,16 @@ class _WrapperState extends State<Wrapper> {
     auth.User firebaseUser = Provider.of<auth.User>(context);
 
     if (firebaseUser == null) {
+      // switch (tourGuideLoginStatus) {
+      //   case TourGuideLoginStatus.notSignIn:
+      //     return SplashPage();
+
+      //   case TourGuideLoginStatus.signIn:
+      //     print("TOUR GUIDE LOGIN");
+      //     return TourGuideHomePage();
+      // }
       if (tourGuideLoginStatus == TourGuideLoginStatus.notSignIn) {
+        print("SPLASH SCREEN");
         return SplashPage();
       } else {
         print("TOUR GUIDE LOGIN");

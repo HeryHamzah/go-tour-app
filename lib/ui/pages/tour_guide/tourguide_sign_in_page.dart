@@ -13,6 +13,25 @@ class _TourGuideSignInPageState extends State<TourGuideSignInPage> {
   bool signInProcess = false;
   bool isValidate = false;
 
+  Future<void> tourGuideSignIn(String email, String password) async {
+    try {
+      final response = await http.post(BaseUrl.tourGuideSignIn,
+          body: {'email': email, 'password': password});
+      final data = jsonDecode(response.body);
+      if (data['value'] == 1) {
+        setState(() {
+          tourGuideLoginStatus = TourGuideLoginStatus.signIn;
+          saveData(data['value'], data['id']);
+          signInProcess = false;
+        });
+        // Get.back();
+      }
+      print(data['message']);
+    } catch (e) {
+      print("error Tour Guide Sign In: " + e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -120,20 +139,8 @@ class _TourGuideSignInPageState extends State<TourGuideSignInPage> {
                                     setState(() {
                                       signInProcess = true;
                                     });
-                                    await TourGuideServices.signIn(
-                                        emailController.text,
+                                    await tourGuideSignIn(emailController.text,
                                         passwordController.text);
-
-                                    // if (result.user == null) {
-                                    //   showSnackBar(context, result.message);
-                                    //   setState(() {
-                                    //     signInProcess = false;
-                                    //   });
-                                    // }
-                                    // TODO: hilangkan nanti
-                                    // else {
-                                    //   Get.back();
-                                    // }
                                   }
                                 : null,
                             child: Text(

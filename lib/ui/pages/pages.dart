@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
 
@@ -15,6 +16,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:random_string/random_string.dart';
 import 'package:rating_dialog/rating_dialog.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel_tourguide_app/bloc/blocs.dart';
 import 'package:travel_tourguide_app/services/services.dart';
 import 'package:travel_tourguide_app/shared/shared.dart';
@@ -30,6 +32,7 @@ import 'package:path/path.dart' as path;
 import 'package:ticketview/ticketview.dart';
 import 'package:travel_tourguide_app/extensions/extensions.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:http/http.dart' as http;
 
 part 'sign_up_page.dart';
 part 'splash_page.dart';

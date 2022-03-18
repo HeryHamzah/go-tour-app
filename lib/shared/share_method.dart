@@ -38,14 +38,19 @@ void showSnackBar(BuildContext context, String text) {
 }
 
 Future<void> saveData(int value, String id) async {
-  SharedPreferences pref = await SharedPreferences.getInstance();
-  pref.setInt("value", value);
-  pref.setString("id", id);
+  try {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt("value", value);
+    prefs.setString("id", id);
+    print("Data saved!");
+  } catch (e) {
+    print("error save data: " + e.toString());
+  }
 }
 
-Future<void> getData() async {
-  SharedPreferences pref = await SharedPreferences.getInstance();
-  var value = pref.getInt("value");
-  tourGuideLoginStatus =
-      value == 1 ? TourGuideLoginStatus.signIn : TourGuideLoginStatus.notSignIn;
-}
+// Future<void> getData() async {
+//   SharedPreferences pref = await SharedPreferences.getInstance();
+//   var value = pref.getInt("value");
+//   tourGuideLoginStatus =
+//       value == 1 ? TourGuideLoginStatus.signIn : TourGuideLoginStatus.notSignIn;
+// }
