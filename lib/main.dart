@@ -26,7 +26,8 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (_) => UserBloc()),
           BlocProvider(create: (_) => NavdrawerBloc()),
           BlocProvider(create: (_) => TicketBloc()),
-          BlocProvider(create: (_) => TourguideTicketBloc())
+          BlocProvider(create: (_) => TourguideTicketBloc()),
+          BlocProvider(create: (_) => TourGuideBloc())
         ],
         child: GetMaterialApp(
           initialRoute: '/',
@@ -72,7 +73,9 @@ class MyApp extends StatelessWidget {
             GetPage(
                 name: '/resetPasswordPage', page: () => ResetPasswordPage()),
             GetPage(name: '/mapScreenPage', page: () => MapScreen()),
-            GetPage(name: '/tourGuideSignIn', page: () => TourGuideSignInPage())
+            GetPage(
+                name: '/tourGuideSignIn', page: () => TourGuideSignInPage()),
+            GetPage(name: '/tourGuideHome', page: () => TourGuideHomePage())
           ],
           debugShowCheckedModeBanner: false,
           title: 'Go Tour',

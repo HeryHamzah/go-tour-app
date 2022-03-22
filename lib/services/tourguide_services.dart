@@ -18,9 +18,11 @@ class TourGuideServices {
 
   static Future<TourGuide> getTourGuide(String id) async {
     try {
-      final response = await http.post(BaseUrl.getTourGuide, body: {'id': id});
+      final response =
+          await http.post(BaseUrl.getTourGuide, body: {'id_tourguide': id});
       final data = jsonDecode(response.body);
-      return TourGuide.fromJon(data);
+      final tourGuide = data['result'] as Map<String, dynamic>;
+      return TourGuide.fromJon(tourGuide);
     } catch (e) {
       print("error get Tour Guide: " + e.toString());
       return null;

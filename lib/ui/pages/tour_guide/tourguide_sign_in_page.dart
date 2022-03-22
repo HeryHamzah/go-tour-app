@@ -24,7 +24,15 @@ class _TourGuideSignInPageState extends State<TourGuideSignInPage> {
           saveData(data['value'], data['id']);
           signInProcess = false;
         });
-        // Get.back();
+        //TODO: bukan best practice
+        Get.back();
+        Get.back();
+        // Get.offAllNamed('/tourGuideHome');
+      } else {
+        showSnackBar(context, data['message']);
+        setState(() {
+          signInProcess = false;
+        });
       }
       print(data['message']);
     } catch (e) {

@@ -22,6 +22,7 @@ class _TourGuideHomePageState extends State<TourGuideHomePage> {
         child: ElevatedButton(
           onPressed: () async {
             await tourGuideSignOut();
+            context.bloc<TourGuideBloc>().add(SignOutTourGuide());
           },
           child: Text("logout"),
         ),
