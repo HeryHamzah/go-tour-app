@@ -7,7 +7,6 @@ class Wrapper extends StatefulWidget {
 
 class _WrapperState extends State<Wrapper> {
   String tourGuideID;
-  // tourGuideLoginStatus = TourGuideLoginStatus.notSignIn;
 
   Future<void> getData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -31,7 +30,6 @@ class _WrapperState extends State<Wrapper> {
     auth.User firebaseUser = Provider.of<auth.User>(context);
 
     if (firebaseUser == null) {
-      // getData();
       if (tourGuideLoginStatus == TourGuideLoginStatus.notSignIn) {
         print("SPLASH SCREEN");
         return SplashPage();

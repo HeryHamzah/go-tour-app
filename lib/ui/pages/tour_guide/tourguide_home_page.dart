@@ -6,22 +6,21 @@ class TourGuideHomePage extends StatefulWidget {
 }
 
 class _TourGuideHomePageState extends State<TourGuideHomePage> {
-  Future<void> tourGuideSignOut() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setInt("value", 0);
-    setState(() {
-      tourGuideLoginStatus = TourGuideLoginStatus.notSignIn;
-    });
-  }
+  String tourGuideID = Get.arguments;
 
   @override
   Widget build(BuildContext context) {
+    if (tourGuideID != '') {
+      context.bloc<TourGuideBloc>().add(LoadTourGuide(tourGuideID));
+      print('perintah ini jalan..');
+    }
+
     return Scaffold(
       appBar: AppBar(title: Text("Home Page")),
       body: Center(
         child: ElevatedButton(
           onPressed: () async {
-            await tourGuideSignOut();
+            await TourGuideServices.tourGuideSignOut();
             context.bloc<TourGuideBloc>().add(SignOutTourGuide());
           },
           child: Text("logout"),

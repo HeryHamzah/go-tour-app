@@ -13,33 +13,6 @@ class _TourGuideSignInPageState extends State<TourGuideSignInPage> {
   bool signInProcess = false;
   bool isValidate = false;
 
-  Future<void> tourGuideSignIn(String email, String password) async {
-    try {
-      final response = await http.post(BaseUrl.tourGuideSignIn,
-          body: {'email': email, 'password': password});
-      final data = jsonDecode(response.body);
-      if (data['value'] == 1) {
-        setState(() {
-          tourGuideLoginStatus = TourGuideLoginStatus.signIn;
-          saveData(data['value'], data['id']);
-          signInProcess = false;
-        });
-        //TODO: bukan best practice
-        Get.back();
-        Get.back();
-        // Get.offAllNamed('/tourGuideHome');
-      } else {
-        showSnackBar(context, data['message']);
-        setState(() {
-          signInProcess = false;
-        });
-      }
-      print(data['message']);
-    } catch (e) {
-      print("error Tour Guide Sign In: " + e.toString());
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -147,8 +120,15 @@ class _TourGuideSignInPageState extends State<TourGuideSignInPage> {
                                     setState(() {
                                       signInProcess = true;
                                     });
-                                    await tourGuideSignIn(emailController.text,
-                                        passwordController.text);
+                                    await TourGuideServices.tourGuideSignIn(
+                                            emailController.text,
+                                            passwordController.text,
+                                            context)
+                                        .whenComplete(() {
+                                      setState(() {
+                                        signInProcess = false;
+                                      });
+                                    });
                                   }
                                 : null,
                             child: Text(

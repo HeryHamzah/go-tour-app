@@ -17,6 +17,7 @@ class _SignInPageState extends State<SignInPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backColor,
+      resizeToAvoidBottomInset: false,
       body: ListView(
         children: [
           Padding(

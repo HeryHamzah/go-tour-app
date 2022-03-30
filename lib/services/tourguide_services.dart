@@ -16,6 +16,24 @@ class TourGuideServices {
   //   }
   // }
 
+  static Future<void> tourGuideSignIn(
+      String email, String password, BuildContext context) async {
+    try {
+      final response = await http.post(BaseUrl.tourGuideSignIn,
+          body: {'email': email, 'password': password});
+      final data = jsonDecode(response.body);
+      if (data['value'] == 1) {
+        saveData(data['value'], data['id']);
+        Get.offAllNamed('/tourGuideHome', arguments: data['id']);
+      } else {
+        showSnackBar(context, data['message']);
+      }
+      print(data['message']);
+    } catch (e) {
+      print("error Tour Guide Sign In: " + e.toString());
+    }
+  }
+
   static Future<TourGuide> getTourGuide(String id) async {
     try {
       final response =
@@ -29,12 +47,12 @@ class TourGuideServices {
     }
   }
 
-  // static Future<void> tourGuideSignOut() async {
-  //   SharedPreferences pref = await SharedPreferences.getInstance();
-
-  //   pref.setInt("value", 0);
-  //   tourGuideLoginStatus = TourGuideLoginStatus.notSignIn;
-  // }
+  static Future<void> tourGuideSignOut() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt("value", 0);
+    prefs.setString("id", '');
+    Get.offAllNamed('/');
+  }
 }
 
 // class TourGuideSignInResult {
