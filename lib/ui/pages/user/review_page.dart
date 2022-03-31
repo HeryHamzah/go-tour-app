@@ -8,6 +8,7 @@ class ReviewPage extends StatelessWidget {
     TourGuide tourGuide = data[1];
 
     return Scaffold(
+        backgroundColor: backColor,
         appBar: AppBar(
             elevation: 0,
             backgroundColor: Colors.transparent,

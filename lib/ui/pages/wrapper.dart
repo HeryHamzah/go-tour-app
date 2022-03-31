@@ -36,6 +36,7 @@ class _WrapperState extends State<Wrapper> {
       } else {
         print("TOUR GUIDE LOGIN");
         context.bloc<TourGuideBloc>().add(LoadTourGuide(tourGuideID));
+        context.bloc<TourguideTicketBloc>().add(GetTourGuideTicket());
         return TourGuideHomePage();
       }
     } else {

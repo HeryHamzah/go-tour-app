@@ -42,4 +42,5 @@ class BaseUrl {
 
   static String tourGuideSignIn = dbUrl + "tourguide_API/tourguide_login.php";
   static String getTourGuide = dbUrl + "tourguide_API/get_tourguide.php";
+  static String changeStatus = dbUrl + "tourguide_API/update_status.php";
 }

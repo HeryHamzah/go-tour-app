@@ -53,11 +53,15 @@ class TourGuideServices {
     prefs.setString("id", '');
     Get.offAllNamed('/');
   }
+
+  static Future<void> changeStatus(String id, bool status) async {
+    try {
+      final response = await http.post(BaseUrl.changeStatus,
+          body: {'id': id, 'status': status ? 'on' : 'off'});
+      final data = jsonDecode(response.body);
+      print(data['message']);
+    } catch (e) {
+      print("error change status: " + e.toString());
+    }
+  }
 }
-
-// class TourGuideSignInResult {
-//   final TourGuide tourGuide;
-//   final String message;
-
-//   TourGuideSignInResult({this.tourGuide, this.message});
-// }

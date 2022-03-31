@@ -19,6 +19,13 @@ class TourGuideBloc extends Bloc<TourGuideEvent, TourGuideState> {
       yield TourGuideLoaded(tourGuide);
     } else if (event is SignOutTourGuide) {
       yield TourGuideInitial();
+    } else if (event is ChangeStatusTourGuide) {
+      await TourGuideServices.changeStatus(event.tourGuideID, event.status);
+
+      TourGuide tourGuide =
+          (state as TourGuideLoaded).tourGuide.copyWith(status: event.status);
+
+      yield TourGuideLoaded(tourGuide);
     }
   }
 }

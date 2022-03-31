@@ -17,3 +17,12 @@ class SignOutTourGuide extends TourGuideEvent {
   @override
   List<Object> get props => [];
 }
+
+class ChangeStatusTourGuide extends TourGuideEvent {
+  final String tourGuideID;
+  final bool status;
+
+  ChangeStatusTourGuide(this.tourGuideID, this.status);
+  @override
+  List<Object> get props => [];
+}

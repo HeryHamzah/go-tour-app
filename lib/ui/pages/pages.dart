@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
 
@@ -32,7 +31,6 @@ import 'package:path/path.dart' as path;
 import 'package:ticketview/ticketview.dart';
 import 'package:travel_tourguide_app/extensions/extensions.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:http/http.dart' as http;
 
 part 'sign_up_page.dart';
 part 'splash_page.dart';
