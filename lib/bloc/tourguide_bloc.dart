@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:travel_tourguide_app/models/models.dart';
@@ -26,6 +28,15 @@ class TourGuideBloc extends Bloc<TourGuideEvent, TourGuideState> {
           (state as TourGuideLoaded).tourGuide.copyWith(status: event.status);
 
       yield TourGuideLoaded(tourGuide);
+    } else if (event is UpdateTourGuide) {
+      await TourGuideServices.updateTourGuide(event.tourGuide);
+      if (event.imageFile != null) {
+        await TourGuideServices.uploadTourGuideImage(
+            imageFile: event.imageFile,
+            tourGuideID: event.tourGuide.tourGuideID);
+      }
+
+      yield TourGuideLoaded(event.tourGuide);
     }
   }
 }

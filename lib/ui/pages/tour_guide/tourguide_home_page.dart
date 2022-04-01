@@ -52,9 +52,11 @@ class _TourGuideHomePageState extends State<TourGuideHomePage> {
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   image: DecorationImage(
-                                      image: NetworkImage(
-                                          BaseUrl.getTourGuideImages +
-                                              tourGuide.profilePicture),
+                                      image: (tourGuide.profilePicture != "")
+                                          ? NetworkImage(
+                                              BaseUrl.getTourGuideImages +
+                                                  tourGuide.profilePicture)
+                                          : AssetImage('assets/avatar.png'),
                                       fit: BoxFit.cover),
                                 ),
                               ),
@@ -153,6 +155,8 @@ class _TourGuideHomePageState extends State<TourGuideHomePage> {
                           height: 20,
                         ),
                         ListTile(
+                          onTap: () => Get.toNamed('/tourGuideProfile',
+                              arguments: tourGuide),
                           contentPadding: EdgeInsets.all(0),
                           leading: Container(
                             padding: EdgeInsets.all(5),
@@ -200,12 +204,10 @@ class _TourGuideHomePageState extends State<TourGuideHomePage> {
                         ),
                         ListTile(
                           onTap: () {
-                            TourGuideServices.tourGuideSignOut()
-                                .whenComplete(() {
-                              context
-                                  .bloc<TourGuideBloc>()
-                                  .add(SignOutTourGuide());
-                            });
+                            TourGuideServices.tourGuideSignOut();
+                            context
+                                .bloc<TourGuideBloc>()
+                                .add(SignOutTourGuide());
                           },
                           contentPadding: EdgeInsets.all(0),
                           leading: Container(

@@ -14,6 +14,7 @@ class TourGuide extends Equatable {
   final String numberOfTrips;
   final int cost;
   final bool status;
+  final String password;
 
   TourGuide(
       {this.tourGuideID,
@@ -28,16 +29,16 @@ class TourGuide extends Equatable {
       this.numberOfReviews,
       this.numberOfTrips,
       this.cost,
-      this.status});
+      this.status,
+      this.password});
 
-  TourGuide copyWith({
-    String name,
-    String email,
-    String profilePicture,
-    String hp,
-    int cost,
-    bool status,
-  }) =>
+  TourGuide copyWith(
+          {String name,
+          String email,
+          String profilePicture,
+          String hp,
+          bool status,
+          String password}) =>
       TourGuide(
           tourGuideID: this.tourGuideID,
           name: name ?? this.name,
@@ -50,8 +51,9 @@ class TourGuide extends Equatable {
           balance: this.balance,
           numberOfReviews: this.numberOfReviews,
           numberOfTrips: this.numberOfTrips,
-          cost: cost ?? this.cost,
-          status: status ?? this.status);
+          cost: this.cost,
+          status: status ?? this.status,
+          password: password ?? this.password);
 
   factory TourGuide.fromJon(Map<String, dynamic> json) => TourGuide(
       tourGuideID: json['id'],
@@ -66,7 +68,8 @@ class TourGuide extends Equatable {
       numberOfReviews: json['number_of_reviews'],
       numberOfTrips: json['number_of_trips'],
       cost: int.tryParse(json['cost']),
-      status: json['status'] == 'on' ? true : false);
+      status: json['status'] == 'on' ? true : false,
+      password: json['password']);
 
   @override
   List<Object> get props => [
@@ -82,6 +85,7 @@ class TourGuide extends Equatable {
         numberOfReviews,
         numberOfTrips,
         cost,
-        status
+        status,
+        password
       ];
 }

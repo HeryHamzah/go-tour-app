@@ -24,5 +24,14 @@ class ChangeStatusTourGuide extends TourGuideEvent {
 
   ChangeStatusTourGuide(this.tourGuideID, this.status);
   @override
-  List<Object> get props => [];
+  List<Object> get props => [tourGuideID, status];
+}
+
+class UpdateTourGuide extends TourGuideEvent {
+  final TourGuide tourGuide;
+  final File imageFile;
+
+  UpdateTourGuide(this.tourGuide, this.imageFile);
+  @override
+  List<Object> get props => [tourGuide, imageFile];
 }

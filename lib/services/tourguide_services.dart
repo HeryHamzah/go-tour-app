@@ -1,21 +1,6 @@
 part of 'services.dart';
 
 class TourGuideServices {
-  // static Future<void> signIn(String email, String password) async {
-  //   try {
-  //     final response = await http.post(BaseUrl.tourGuideSignIn,
-  //         body: {'email': email, 'password': password});
-  //     final data = jsonDecode(response.body);
-  //     if (data['value'] == '1') {
-  //       await saveData(int.tryParse(data['value']), data['id']);
-  //       tourGuideLoginStatus = TourGuideLoginStatus.signIn;
-  //     }
-  //     print(data['message']);
-  //   } catch (e) {
-  //     print("error Tour Guide Sign In: " + e.toString());
-  //   }
-  // }
-
   static Future<void> tourGuideSignIn(
       String email, String password, BuildContext context) async {
     try {
@@ -48,10 +33,10 @@ class TourGuideServices {
   }
 
   static Future<void> tourGuideSignOut() async {
+    Get.offAllNamed('/');
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setInt("value", 0);
     prefs.setString("id", '');
-    Get.offAllNamed('/');
   }
 
   static Future<void> changeStatus(String id, bool status) async {
@@ -62,6 +47,46 @@ class TourGuideServices {
       print(data['message']);
     } catch (e) {
       print("error change status: " + e.toString());
+    }
+  }
+
+  static Future<void> updateTourGuide(TourGuide tourGuide) async {
+    try {
+      final response = await http.post(BaseUrl.updateTourGuide, body: {
+        'id_tourguide': tourGuide.tourGuideID,
+        'name': tourGuide.name,
+        'email': tourGuide.email,
+        'image': tourGuide.profilePicture,
+        'password': tourGuide.password
+      });
+      final data = jsonDecode(response.body);
+      print(data['message']);
+    } catch (e) {
+      print("error update Tour Guide: " + e.toString());
+    }
+  }
+
+  static Future<void> uploadTourGuideImage(
+      {File imageFile, String tourGuideID}) async {
+    try {
+      var uri = Uri.parse(BaseUrl.uploadTourGuideImage);
+      var request = http.MultipartRequest("POST", uri);
+
+      request.fields['id_tourguide'] = tourGuideID;
+
+      var stream =
+          http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
+      var length = await imageFile.length();
+      request.files.add(http.MultipartFile('image', stream, length,
+          filename: path.basename(imageFile.path)));
+
+      http.Response response =
+          await http.Response.fromStream(await request.send());
+      final data = jsonDecode(response.body);
+      String message = data["message"];
+      print(message);
+    } catch (e) {
+      print("Error upload Tour Guide image:" + e.toString());
     }
   }
 }
