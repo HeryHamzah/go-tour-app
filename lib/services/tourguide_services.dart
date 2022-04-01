@@ -56,6 +56,7 @@ class TourGuideServices {
         'id_tourguide': tourGuide.tourGuideID,
         'name': tourGuide.name,
         'email': tourGuide.email,
+        'hp': tourGuide.hp,
         'image': tourGuide.profilePicture,
         'password': tourGuide.password
       });

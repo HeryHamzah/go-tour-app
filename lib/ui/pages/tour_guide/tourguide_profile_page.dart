@@ -37,6 +37,8 @@ class _TourGuideProfilePageState extends State<TourGuideProfilePage> {
     contactController = TextEditingController(text: tourGuide.hp);
   }
 
+  //FIXME: tourguide tidak diperbolehkan hapus foto profil
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -155,8 +157,10 @@ class _TourGuideProfilePageState extends State<TourGuideProfilePage> {
                 height: 10,
               ),
               ListTile(
+                onTap: () => Get.toNamed('/tourGuideChangePassword',
+                    arguments: tourGuide),
                 contentPadding: EdgeInsets.all(0),
-                title: Text("Ubah Password"),
+                title: Text("Ganti Password"),
                 trailing: Icon(Icons.arrow_forward_ios_outlined),
               ),
               SizedBox(
@@ -167,9 +171,8 @@ class _TourGuideProfilePageState extends State<TourGuideProfilePage> {
                 height: 46,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        primary: mainColor,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20))),
+                      primary: mainColor,
+                    ),
                     onPressed: (isValid)
                         ? () {
                             context.bloc<TourGuideBloc>().add(
@@ -181,6 +184,7 @@ class _TourGuideProfilePageState extends State<TourGuideProfilePage> {
                                           profilePicture: profilePath),
                                       imageFile),
                                 );
+                            Get.back();
                           }
                         : null,
                     child: Text("Update Profil",

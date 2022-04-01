@@ -64,3 +64,4 @@ part 'tour_guide/tourguide_home_page.dart';
 part 'tour_guide/tourguide_sign_in_page.dart';
 part 'tour_guide/tourguide_profile_page.dart';
 part 'tour_guide/tourguide_change_password.dart';
+part 'tour_guide/trip_history_page.dart';
