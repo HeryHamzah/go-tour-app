@@ -41,6 +41,7 @@ class _MainDrawerState extends State<MainDrawer> {
   }
 }
 
+//FIXME: error drawer setelah topup / beli tiket
 buildMainScreen({int pageID, User user}) {
   switch (pageID) {
     case 1:

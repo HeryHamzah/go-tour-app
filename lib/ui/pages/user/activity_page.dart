@@ -127,6 +127,8 @@ class _ActivityPageState extends State<ActivityPage> {
     );
   }
 
+  //FIXME: isAfter tiket perbaiki
+
   TabBarView generateDestination(TicketState ticketState, String userID) {
     List<Ticket> newestTicket = ticketState.tickets
         .where(

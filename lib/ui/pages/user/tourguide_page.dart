@@ -40,7 +40,10 @@ class _TourGuidePageState extends State<TourGuidePage> {
                       future: GeneralServices.getTourGuides(),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
-                          List<TourGuide> tourGuides = snapshot.data;
+                          List<TourGuide> tourGuides =
+                              (snapshot.data as List<TourGuide>)
+                                  .where((tourGuide) => tourGuide.status)
+                                  .toList();
 
                           tourGuides.sort(
                             (a, b) => (filterValue == filters[1])
