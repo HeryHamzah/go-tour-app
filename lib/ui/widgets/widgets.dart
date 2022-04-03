@@ -21,3 +21,4 @@ part 'tourguide_card.dart';
 part 'destination_choice_card.dart';
 part 'tourguide_ticket_card.dart';
 part 'list_review.dart';
+part 'history_ticket_card.dart';

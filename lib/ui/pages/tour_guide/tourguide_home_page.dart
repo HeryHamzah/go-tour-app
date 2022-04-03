@@ -10,7 +10,7 @@ class _TourGuideHomePageState extends State<TourGuideHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    //FIXME: error receiver null saat full restart emulator
+    //FIXME: error receiver null sesaat (terutama saat full restart emulator). Tidak error ketika dimulai dari login
     if (tourGuideID != null) {
       context.bloc<TourGuideBloc>().add(LoadTourGuide(tourGuideID));
       context.bloc<TourguideTicketBloc>().add(GetTourGuideTicket());
@@ -180,6 +180,8 @@ class _TourGuideHomePageState extends State<TourGuideHomePage> {
                               )),
                         ),
                         ListTile(
+                          onTap: () =>
+                              Get.toNamed('/tripHistory', arguments: tourGuide),
                           contentPadding: EdgeInsets.all(0),
                           leading: Container(
                             padding: EdgeInsets.all(5),

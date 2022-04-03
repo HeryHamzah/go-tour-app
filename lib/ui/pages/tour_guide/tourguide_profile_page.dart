@@ -28,6 +28,89 @@ class _TourGuideProfilePageState extends State<TourGuideProfilePage> {
     });
   }
 
+  void showModalPhoto() {
+    showModalBottomSheet(
+        context: context,
+        backgroundColor: mainColor,
+        builder: (context) {
+          return StatefulBuilder(
+              builder: (BuildContext context, StateSetter modalState) {
+            return Container(
+              padding: EdgeInsets.all(20),
+              height: MediaQuery.of(context).size.height / 6,
+              child: Column(
+                children: [
+                  Text("Foto Profil",
+                      style: TextStyle(fontSize: 18, color: Colors.white)),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      InkWell(
+                        onTap: () async {
+                          await galleryPhoto().then((value) {
+                            if (value != null) {
+                              setState(() {
+                                imageFile = value;
+                                profilePath = path.basename(value.path);
+                              });
+                            }
+                          });
+                          validate(profilePath);
+                          Get.back();
+                        },
+                        child: Column(
+                          children: [
+                            Icon(Icons.camera_alt, color: Colors.white),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text("Galeri",
+                                style: TextStyle(color: Colors.white)),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      InkWell(
+                        onTap: () async {
+                          await cameraPhoto().then((value) {
+                            if (value != null) {
+                              setState(() {
+                                imageFile = value;
+                                profilePath = path.basename(value.path);
+                              });
+                            }
+                          });
+                          validate(profilePath);
+                          Get.back();
+                        },
+                        child: Column(
+                          children: [
+                            Icon(
+                              Icons.camera,
+                              color: Colors.white,
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text("Kamera",
+                                style: TextStyle(color: Colors.white))
+                          ],
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              ),
+            );
+          });
+        });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -36,8 +119,6 @@ class _TourGuideProfilePageState extends State<TourGuideProfilePage> {
     nameController = TextEditingController(text: tourGuide.name);
     contactController = TextEditingController(text: tourGuide.hp);
   }
-
-  //FIXME: tourguide tidak diperbolehkan hapus foto profil
 
   @override
   Widget build(BuildContext context) {
@@ -80,30 +161,29 @@ class _TourGuideProfilePageState extends State<TourGuideProfilePage> {
                       Align(
                         alignment: Alignment.bottomRight,
                         child: GestureDetector(
-                          onTap: () async {
-                            if (profilePath == "") {
-                              imageFile = await galleryPhoto();
-                              if (imageFile != null) {
-                                profilePath = path.basename(imageFile.path);
-                              }
-                            } else {
-                              imageFile = null;
-                              profilePath = "";
-                            }
+                          onTap: () {
+                            // await galleryPhoto().then((value) {
+                            //   if (value != null) {
+                            //     setState(() {
+                            //       imageFile = value;
+                            //       profilePath = path.basename(value.path);
+                            //     });
+                            //   }
+                            // });
+                            showModalPhoto();
+                            // if (imageFile != null) {
+                            //   profilePath = path.basename(imageFile.path);
+                            // }
+
                             validate(profilePath);
-                            setState(() {});
+                            // setState(() {});
                           },
                           child: Container(
                             padding: EdgeInsets.all(5),
                             decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: (profilePath != "")
-                                    ? Colors.pink
-                                    : mainColor),
+                                shape: BoxShape.circle, color: mainColor),
                             child: Icon(
-                              (profilePath != "")
-                                  ? MaterialCommunityIcons.delete
-                                  : MaterialCommunityIcons.pencil,
+                              MaterialCommunityIcons.pencil,
                               color: Colors.white,
                               size: 20,
                             ),
