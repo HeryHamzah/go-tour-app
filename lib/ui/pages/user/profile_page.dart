@@ -1,6 +1,5 @@
 part of '../pages.dart';
 
-//FIXME: Perbaiki logika foto profil
 class ProfilePage extends StatefulWidget {
   final User user;
 
@@ -19,6 +18,16 @@ class _ProfilePageState extends State<ProfilePage> {
   bool isEdited = false;
 
   final _key = GlobalKey<FormState>();
+
+  void validate(String picture, {String name, String hp}) {
+    setState(() {
+      isEdited = (picture != widget.user.profilePicture ||
+              (name ?? nameController.text).trim() != widget.user.name ||
+              (hp ?? hpController.text).trim() != widget.user.hp) &&
+          (name ?? nameController.text).trim() != '' &&
+          (hp ?? hpController.text).trim() != '';
+    });
+  }
 
   @override
   void initState() {
@@ -45,85 +54,85 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
-  // void showModalPhoto() {
-  //   showModalBottomSheet(
-  //       context: context,
-  //       backgroundColor: mainColor,
-  //       builder: (context) {
-  //         return StatefulBuilder(
-  //             builder: (BuildContext context, StateSetter modalState) {
-  //           return Container(
-  //             padding: EdgeInsets.all(20),
-  //             height: MediaQuery.of(context).size.height / 6,
-  //             child: Column(
-  //               children: [
-  //                 Text("Foto Profil",
-  //                     style: TextStyle(fontSize: 18, color: Colors.white)),
-  //                 SizedBox(
-  //                   height: 10,
-  //                 ),
-  //                 Row(
-  //                   mainAxisAlignment: MainAxisAlignment.center,
-  //                   children: [
-  //                     InkWell(
-  //                       onTap: () async {
-  //                         await galleryPhoto().then((value) {
-  //                           modalState(() {
-  //                             profilePictureFile = value;
-  //                           });
-  //                           setState(() {});
-  //                         });
-  //                         // modalState(() {});
+  void showModalPhoto() {
+    showModalBottomSheet(
+        context: context,
+        backgroundColor: mainColor,
+        builder: (context) {
+          return Container(
+            padding: EdgeInsets.all(20),
+            height: MediaQuery.of(context).size.height / 6,
+            child: Column(
+              children: [
+                Text("Foto Profil",
+                    style: TextStyle(fontSize: 18, color: Colors.white)),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      onTap: () async {
+                        await galleryPhoto().then((value) {
+                          if (value != null) {
+                            setState(() {
+                              profilePictureFile = value;
+                              profilePicturePath = path.basename(value.path);
+                            });
+                          }
+                        });
 
-  //                         Get.back();
-  //                       },
-  //                       child: Column(
-  //                         children: [
-  //                           Icon(Icons.camera_alt, color: Colors.white),
-  //                           SizedBox(
-  //                             height: 5,
-  //                           ),
-  //                           Text("Galeri",
-  //                               style: TextStyle(color: Colors.white)),
-  //                         ],
-  //                       ),
-  //                     ),
-  //                     SizedBox(
-  //                       width: 20,
-  //                     ),
-  //                     InkWell(
-  //                       onTap: () async {
-  //                         await cameraPhoto().then((value) {
-  //                           setState(() {
-  //                             profilePictureFile = value;
-  //                           });
-  //                         });
-  //                         modalState(() {});
-  //                         setState(() {});
-  //                         Get.back();
-  //                       },
-  //                       child: Column(
-  //                         children: [
-  //                           Icon(
-  //                             Icons.camera,
-  //                             color: Colors.white,
-  //                           ),
-  //                           SizedBox(
-  //                             height: 5,
-  //                           ),
-  //                           Text("Kamera",
-  //                               style: TextStyle(color: Colors.white))
-  //                         ],
-  //                       ),
-  //                     )
-  //                   ],
-  //                 )
-  //               ],
-  //             ),
-  //           );
-  //         });
-  //       });
-  // }
+                        validate(profilePicturePath);
+                        Get.back();
+                      },
+                      child: Column(
+                        children: [
+                          Icon(Icons.camera_alt, color: Colors.white),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text("Galeri", style: TextStyle(color: Colors.white)),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    InkWell(
+                      onTap: () async {
+                        await cameraPhoto().then((value) {
+                          if (value != null) {
+                            setState(() {
+                              profilePictureFile = value;
+                              profilePicturePath = path.basename(value.path);
+                            });
+                          }
+                        });
+
+                        validate(profilePicturePath);
+                        Get.back();
+                      },
+                      child: Column(
+                        children: [
+                          Icon(
+                            Icons.camera,
+                            color: Colors.white,
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text("Kamera", style: TextStyle(color: Colors.white))
+                        ],
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -179,40 +188,25 @@ class _ProfilePageState extends State<ProfilePage> {
                           alignment: Alignment.bottomRight,
                           child: GestureDetector(
                             onTap: () async {
-                              if (profilePicturePath == "" &&
-                                  profilePictureFile == null) {
-                                // showModalPhoto();
-                                profilePictureFile = await galleryPhoto();
-                                if (profilePictureFile != null) {
-                                  profilePicturePath =
-                                      path.basename(profilePictureFile.path);
-                                }
+                              if (profilePicturePath == "") {
+                                showModalPhoto();
                               } else {
                                 profilePicturePath = "";
                                 profilePictureFile = null;
+                                validate(profilePicturePath);
                               }
-
-                              setState(() {
-                                isEdited = profilePicturePath !=
-                                        widget.user.profilePicture ||
-                                    nameController.text.trim() !=
-                                        widget.user.name ||
-                                    hpController.text.trim() != widget.user.hp;
-                              });
                             },
                             child: Container(
                               // width: 30,
                               // height: 30,
                               padding: const EdgeInsets.all(4),
                               decoration: BoxDecoration(
-                                  color: (profilePicturePath == "" &&
-                                          profilePictureFile == null)
+                                  color: (profilePicturePath == "")
                                       ? mainColor
                                       : Colors.redAccent,
                                   shape: BoxShape.circle),
                               child: Icon(
-                                (profilePicturePath == "" &&
-                                        profilePictureFile == null)
+                                (profilePicturePath == "")
                                     ? MaterialCommunityIcons.camera
                                     : MaterialCommunityIcons.delete,
                                 size: 20,
@@ -254,12 +248,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         return null;
                       },
                       onChanged: (name) {
-                        setState(() {
-                          isEdited = profilePicturePath !=
-                                  widget.user.profilePicture ||
-                              name.trim() != widget.user.name ||
-                              hpController.text.trim() != widget.user.hp;
-                        });
+                        validate(profilePicturePath, name: name);
                       },
                       decoration: InputDecoration(
                           border: OutlineInputBorder(
@@ -318,12 +307,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       keyboardType: TextInputType.phone,
                       controller: hpController,
                       onChanged: (hp) {
-                        setState(() {
-                          isEdited = profilePicturePath !=
-                                  widget.user.profilePicture ||
-                              nameController.text.trim() != widget.user.name ||
-                              hp.trim() != widget.user.hp;
-                        });
+                        validate(profilePicturePath, hp: hp);
                       },
                       decoration: InputDecoration(
                           border: OutlineInputBorder(

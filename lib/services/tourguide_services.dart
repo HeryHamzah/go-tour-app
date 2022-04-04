@@ -75,8 +75,8 @@ class TourGuideServices {
 
       request.fields['id_tourguide'] = tourGuideID;
 
-      var stream =
-          http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
+      var stream = http.ByteStream(imageFile.openRead());
+      stream.cast();
       var length = await imageFile.length();
       request.files.add(http.MultipartFile('image', stream, length,
           filename: path.basename(imageFile.path)));

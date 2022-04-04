@@ -47,7 +47,7 @@ class _ActivityPageState extends State<ActivityPage> {
             : context.bloc<TourguideTicketBloc>().add(ReviewTourGuideTicket(
                 tourGuideTicket.copyWith(
                     comment: response.comment, rating: response.rating)));
-        setState(() {});
+       
       },
     );
 

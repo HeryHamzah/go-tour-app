@@ -55,8 +55,8 @@ class UserServices {
 
       request.fields['id_user'] = userID;
 
-      var stream =
-          http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
+      var stream = http.ByteStream(imageFile.openRead());
+      stream.cast();
       var length = await imageFile.length();
       request.files.add(http.MultipartFile('image', stream, length,
           filename: path.basename(imageFile.path)));
