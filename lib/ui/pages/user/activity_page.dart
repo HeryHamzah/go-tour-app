@@ -47,7 +47,6 @@ class _ActivityPageState extends State<ActivityPage> {
             : context.bloc<TourguideTicketBloc>().add(ReviewTourGuideTicket(
                 tourGuideTicket.copyWith(
                     comment: response.comment, rating: response.rating)));
-       
       },
     );
 
@@ -67,6 +66,7 @@ class _ActivityPageState extends State<ActivityPage> {
       child: Scaffold(
           backgroundColor: backColor,
           appBar: AppBar(
+            automaticallyImplyLeading: false,
             backgroundColor: Colors.transparent,
             elevation: 0,
             title: DropdownButton(

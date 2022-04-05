@@ -44,7 +44,15 @@ class SuccesBookingPage extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16))),
                         onPressed: () {
-                          Get.offAllNamed('/activity');
+                          //bukan best practice
+                          Navigator.of(context)
+                              .popUntil((route) => route.isFirst);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MainPage(
+                                        bottomNavBarIndex: 1,
+                                      )));
                         },
                         child: Text(
                           "Tiketku",
@@ -58,7 +66,9 @@ class SuccesBookingPage extends StatelessWidget {
                       Text("Beli tiket lain? "),
                       InkWell(
                         onTap: () {
-                          Get.offAllNamed("/home");
+                          //kembali ke page route home page
+                          Navigator.of(context)
+                              .popUntil((route) => route.isFirst);
                         },
                         child: Text("Kembali ke Home",
                             style: themeFont.copyWith(color: mainColor)),

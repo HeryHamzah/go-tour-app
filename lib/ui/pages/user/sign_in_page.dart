@@ -146,10 +146,10 @@ class _SignInPageState extends State<SignInPage> {
                                       setState(() {
                                         signInProcess = false;
                                       });
-                                    }
-                                    // TODO: hilangkan nanti
-                                    else {
-                                      Get.back();
+                                    } else {
+                                      //kembali ke page route
+                                      Navigator.of(context)
+                                          .popUntil((route) => route.isFirst);
                                     }
                                   }
                                 : null,

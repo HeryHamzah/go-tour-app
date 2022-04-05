@@ -271,10 +271,10 @@ class _SignUpPageState extends State<SignUpPage> {
                                   setState(() {
                                     signUpProcess = false;
                                   });
-                                }
-                                //TODO: Hilangkan nanti
-                                else {
-                                  Get.back();
+                                } else {
+                                  //kembali ke page route
+                                  Navigator.of(context)
+                                      .popUntil((route) => route.isFirst);
                                 }
                               }
                             },

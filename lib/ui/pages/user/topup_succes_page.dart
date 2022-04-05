@@ -45,8 +45,9 @@ class SuccesTopUpPage extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16))),
                         onPressed: () {
-                          Get.offAllNamed("/myWalletPage");
-                          // context.bloc<NavdrawerBloc>().add(ChangePage(5));
+                          //kembali ke page route wallet page
+                          Navigator.of(context)
+                              .popUntil((route) => route.isFirst);
                         },
                         child: Text(
                           "Dompetku",
@@ -57,11 +58,14 @@ class SuccesTopUpPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Beli tiket lain? "),
+                      Text("Beli tiket? "),
                       InkWell(
                         onTap: () {
-                          Get.offAllNamed("/home");
-                          // context.bloc<NavdrawerBloc>().add(ChangePage(1));
+                          //kembali ke page route wallet page
+                          Navigator.of(context)
+                              .popUntil((route) => route.isFirst);
+                          //mengubah index drawer wallet page ke home page
+                          context.bloc<NavdrawerBloc>().add(ChangePage(1));
                         },
                         child: Text("Kembali ke Home",
                             style: themeFont.copyWith(color: mainColor)),
