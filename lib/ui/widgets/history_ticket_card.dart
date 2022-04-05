@@ -42,7 +42,7 @@ class HistoryTicketCard extends StatelessWidget {
                             image: (tourGuideTicket.userPicture != "")
                                 ? NetworkImage(BaseUrl.getUserImages +
                                     tourGuideTicket.userPicture)
-                                : AssetImage('assets/avatar.png'),
+                                : AssetImage('assets/cache_portrait.png'),
                             fit: BoxFit.cover)),
                   ),
                 ),

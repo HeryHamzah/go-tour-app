@@ -127,14 +127,12 @@ class _ActivityPageState extends State<ActivityPage> {
     );
   }
 
-  //FIXME: isAfter tiket perbaiki
-
   TabBarView generateDestination(TicketState ticketState, String userID) {
     List<Ticket> newestTicket = ticketState.tickets
         .where(
-          (ticket) => ticket.time.isAfter(
-            DateTime.now(),
-          ),
+          (ticket) => ticket.time.add(Duration(days: 1)).isAfter(
+                DateTime.now(),
+              ),
         )
         .where((ticket) => ticket.userID == userID)
         .toList();
@@ -142,9 +140,9 @@ class _ActivityPageState extends State<ActivityPage> {
 
     List<Ticket> oldestTicket = ticketState.tickets
         .where(
-          (ticket) => !ticket.time.isAfter(
-            DateTime.now(),
-          ),
+          (ticket) => !ticket.time.add(Duration(days: 1)).isAfter(
+                DateTime.now(),
+              ),
         )
         .where((ticket) => ticket.userID == userID)
         .toList();
@@ -212,14 +210,16 @@ class _ActivityPageState extends State<ActivityPage> {
       TourguideTicketState tourGuideTicketState, String userID) {
     List<TourGuideTicket> newestTourGuideTicket = tourGuideTicketState
         .tourGuideTickets
-        .where((element) => element.dateTime.isAfter(DateTime.now()))
+        .where((element) =>
+            element.dateTime.add(Duration(days: 1)).isAfter(DateTime.now()))
         .where((element) => element.userID == userID)
         .toList();
     newestTourGuideTicket.sort((a, b) => a.dateTime.compareTo(b.dateTime));
 
     List<TourGuideTicket> oldestTourGuideTicket = tourGuideTicketState
         .tourGuideTickets
-        .where((element) => !element.dateTime.isAfter(DateTime.now()))
+        .where((element) =>
+            !element.dateTime.add(Duration(days: 1)).isAfter(DateTime.now()))
         .where((element) => element.userID == userID)
         .toList();
     oldestTourGuideTicket.sort((a, b) => a.dateTime.compareTo(b.dateTime));

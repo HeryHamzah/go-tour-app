@@ -261,6 +261,7 @@ class _DrawerPageState extends State<DrawerPage> {
                     onPressed: () {
                       AuthServices.signOut();
                       context.bloc<UserBloc>().add(SignOutUser());
+                      //ID page dikembalikan ke home sebelum logout
                       context.bloc<NavdrawerBloc>().add(ChangePage(1));
                     },
                     child: Text(

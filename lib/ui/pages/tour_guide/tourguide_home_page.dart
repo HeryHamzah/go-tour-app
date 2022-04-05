@@ -9,18 +9,20 @@ class _TourGuideHomePageState extends State<TourGuideHomePage> {
   String tourGuideID = Get.arguments;
 
   @override
-  Widget build(BuildContext context) {
-    //FIXME: error receiver null sesaat (terutama saat full restart emulator). Tidak error ketika dimulai dari login
+  void initState() {
+    super.initState();
     if (tourGuideID != null) {
       context.bloc<TourGuideBloc>().add(LoadTourGuide(tourGuideID));
       context.bloc<TourguideTicketBloc>().add(GetTourGuideTicket());
-      print("perintah jalan!");
     }
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: backColor,
         body: BlocBuilder<TourGuideBloc, TourGuideState>(
-          builder: (context, tourGuideState) {
+          builder: (_, tourGuideState) {
             if (tourGuideState is TourGuideLoaded) {
               TourGuide tourGuide = tourGuideState.tourGuide;
               return ListView(

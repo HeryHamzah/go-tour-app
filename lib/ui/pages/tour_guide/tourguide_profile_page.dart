@@ -121,6 +121,8 @@ class _TourGuideProfilePageState extends State<TourGuideProfilePage> {
       backgroundColor: backColor,
       appBar: AppBar(
         elevation: 0,
+        leading: GestureDetector(
+            onTap: () => Get.back(), child: Icon(Icons.arrow_back_ios_new)),
         backgroundColor: Colors.transparent,
         title: Text("Profil Tour Guide"),
       ),
@@ -196,6 +198,7 @@ class _TourGuideProfilePageState extends State<TourGuideProfilePage> {
               TextField(
                 controller: emailController,
                 onChanged: (email) => validate(profilePath, email: email),
+                keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20))),
@@ -210,6 +213,7 @@ class _TourGuideProfilePageState extends State<TourGuideProfilePage> {
               TextField(
                 controller: contactController,
                 onChanged: (contact) => validate(profilePath, contact: contact),
+                keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20))),

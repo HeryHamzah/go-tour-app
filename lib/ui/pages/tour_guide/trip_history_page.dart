@@ -11,20 +11,27 @@ class TripHistoryPage extends StatelessWidget {
         backgroundColor: backColor,
         appBar: AppBar(
           elevation: 0,
-          title: Text("Riwayat Trip"),
+          leading: GestureDetector(
+              onTap: () => Get.back(),
+              child: Icon(
+                Icons.arrow_back_ios_new,
+                color: backColor,
+              )),
+          title:
+              Text("Riwayat Trip", style: themeFont.copyWith(color: backColor)),
           bottom: TabBar(
             indicatorColor: mainColor,
             tabs: [
               Tab(
                 child: Text(
                   "Terbaru",
-                  style: themeFont.copyWith(fontSize: 16),
+                  style: themeFont.copyWith(fontSize: 16, color: backColor),
                 ),
               ),
               Tab(
                 child: Text(
                   "Kedaluwarsa",
-                  style: themeFont.copyWith(fontSize: 16),
+                  style: themeFont.copyWith(fontSize: 16, color: backColor),
                 ),
               )
             ],
@@ -34,7 +41,9 @@ class TripHistoryPage extends StatelessWidget {
           builder: (context, tourGuideTicketState) {
             List<TourGuideTicket> newestTourGuideTicket = tourGuideTicketState
                 .tourGuideTickets
-                .where((element) => element.dateTime.isAfter(DateTime.now()))
+                .where((element) => element.dateTime
+                    .add(Duration(days: 1))
+                    .isAfter(DateTime.now()))
                 .where((element) =>
                     element.tourGuide.tourGuideID == tourGuide.tourGuideID)
                 .toList();
@@ -43,7 +52,9 @@ class TripHistoryPage extends StatelessWidget {
 
             List<TourGuideTicket> oldestTourGuideTicket = tourGuideTicketState
                 .tourGuideTickets
-                .where((element) => !element.dateTime.isAfter(DateTime.now()))
+                .where((element) => !element.dateTime
+                    .add(Duration(days: 1))
+                    .isAfter(DateTime.now()))
                 .where((element) =>
                     element.tourGuide.tourGuideID == tourGuide.tourGuideID)
                 .toList();

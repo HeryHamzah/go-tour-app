@@ -146,13 +146,15 @@ class _TourGuideSignInPageState extends State<TourGuideSignInPage> {
                 ),
                 Row(
                   children: [
-                    Text("Ingin daftar sebagai Tour Guide?  "),
+                    Text("Daftar sebagai Tour Guide?  "),
                     InkWell(
                       onTap: () {
-                        //TODO: buat pagenya
+                        Get.toNamed('/termsConditions');
                       },
                       child: Text(
-                        "ketentuan",
+                        "Syarat & Ketentuan",
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
                         style: themeFont.copyWith(color: mainColor),
                       ),
                     )
