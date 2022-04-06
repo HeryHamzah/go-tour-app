@@ -232,7 +232,7 @@ class _DrawerPageState extends State<DrawerPage> {
                 ListTile(
                     contentPadding: EdgeInsets.all(0),
                     leading: Icon(
-                      Icons.ac_unit,
+                      Icons.info,
                       color: Colors.white,
                       size: 30,
                     ),
@@ -261,7 +261,7 @@ class _DrawerPageState extends State<DrawerPage> {
                     onPressed: () {
                       AuthServices.signOut();
                       context.bloc<UserBloc>().add(SignOutUser());
-                      //ID page dikembalikan ke home sebelum logout
+                      //ID page dikembalikan ke home setelah logout
                       context.bloc<NavdrawerBloc>().add(ChangePage(1));
                     },
                     child: Text(
