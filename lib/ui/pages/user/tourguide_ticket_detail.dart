@@ -204,6 +204,10 @@ class TourGuideTicketDetailPage extends StatelessWidget {
           ],
         ),
       ),
+      //FIXME: contact email null
+      floatingActionButton: buildSpeedDial(
+          contact: tourGuideTicket.tourGuide.hp,
+          email: tourGuideTicket.tourGuide.email),
     );
   }
 }
