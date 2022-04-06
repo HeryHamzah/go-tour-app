@@ -45,9 +45,11 @@ class SuccesTopUpPage extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16))),
                         onPressed: () {
-                          //kembali ke page route wallet page
+                          //kembali ke route page
                           Navigator.of(context)
                               .popUntil((route) => route.isFirst);
+                          //mengubah index drawer ke wallet page
+                          context.bloc<NavdrawerBloc>().add(ChangePage(5));
                         },
                         child: Text(
                           "Dompetku",
@@ -61,10 +63,10 @@ class SuccesTopUpPage extends StatelessWidget {
                       Text("Beli tiket? "),
                       InkWell(
                         onTap: () {
-                          //kembali ke page route wallet page
+                          //kembali ke route page
                           Navigator.of(context)
                               .popUntil((route) => route.isFirst);
-                          //mengubah index drawer wallet page ke home page
+                          //mengubah index drawer ke home page
                           context.bloc<NavdrawerBloc>().add(ChangePage(1));
                         },
                         child: Text("Kembali ke Home",

@@ -44,7 +44,11 @@ class SuccesTourGuideReservation extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16))),
                         onPressed: () {
-                          // Get.offAllNamed('/activity');
+                          //kembali ke route page
+                          Navigator.of(context)
+                              .popUntil((route) => route.isFirst);
+                          //mengubah index drawer ke activity page
+                          context.bloc<NavdrawerBloc>().add(ChangePage(7));
                         },
                         child: Text(
                           "Tiketku",
@@ -58,10 +62,10 @@ class SuccesTourGuideReservation extends StatelessWidget {
                       Text("Beli tiket lain? "),
                       InkWell(
                         onTap: () {
-                          //kembali ke page route tourguide page
+                          //kembali ke route page
                           Navigator.of(context)
                               .popUntil((route) => route.isFirst);
-                          //mengubah index drawer tourguide page ke home page
+                          //mengubah index drawer ke home page
                           context.bloc<NavdrawerBloc>().add(ChangePage(1));
                         },
                         child: Text("Kembali ke Home",

@@ -44,15 +44,13 @@ class SuccesBookingPage extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16))),
                         onPressed: () {
-                          //bukan best practice
+                          //FIXME: tidak menampilkan activity page
+
+                          //kembali ke route page
                           Navigator.of(context)
                               .popUntil((route) => route.isFirst);
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => MainPage(
-                                        bottomNavBarIndex: 1,
-                                      )));
+                          //mengubah index drawer ke activity page
+                          context.bloc<NavdrawerBloc>().add(ChangePage(7));
                         },
                         child: Text(
                           "Tiketku",
@@ -66,9 +64,11 @@ class SuccesBookingPage extends StatelessWidget {
                       Text("Beli tiket lain? "),
                       InkWell(
                         onTap: () {
-                          //kembali ke page route home page
+                          //kembali ke route page
                           Navigator.of(context)
                               .popUntil((route) => route.isFirst);
+                          //mengubah index drawer ke home page
+                          context.bloc<NavdrawerBloc>().add(ChangePage(1));
                         },
                         child: Text("Kembali ke Home",
                             style: themeFont.copyWith(color: mainColor)),
