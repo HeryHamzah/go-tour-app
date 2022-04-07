@@ -37,9 +37,9 @@ class HistoryDetailPage extends StatelessWidget {
                       margin: EdgeInsets.only(bottom: 10),
                       decoration: BoxDecoration(
                           image: DecorationImage(
-                              image: (tourGuideTicket.userPicture != "")
+                              image: (tourGuideTicket.user.profilePicture != "")
                                   ? NetworkImage(BaseUrl.getUserImages +
-                                      tourGuideTicket.userPicture)
+                                      tourGuideTicket.user.profilePicture)
                                   : AssetImage('assets/cache_landscape.png'),
                               fit: BoxFit.cover)),
                     ),
@@ -51,7 +51,7 @@ class HistoryDetailPage extends StatelessWidget {
                         width: MediaQuery.of(context).size.width -
                             4 * defaultMargin,
                         child: Text(
-                          tourGuideTicket.userName,
+                          tourGuideTicket.user.name,
                           style: themeFont.copyWith(
                               color: Colors.black, fontSize: 18),
                           maxLines: 2,
@@ -207,6 +207,8 @@ class HistoryDetailPage extends StatelessWidget {
           ],
         ),
       ),
+      floatingActionButton: buildSpeedDial(
+          contact: tourGuideTicket.user.hp, email: tourGuideTicket.user.email),
     );
   }
 }

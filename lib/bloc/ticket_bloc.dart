@@ -20,7 +20,7 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
 
       yield TicketState(tickets);
     } else if (event is GetTickets) {
-      List<Ticket> tickets = await UserServices.getTickets();
+      List<Ticket> tickets = await GeneralServices.getTickets();
       yield TicketState(tickets);
     } else if (event is ReviewTicket) {
       await UserServices.addDestinationReview(

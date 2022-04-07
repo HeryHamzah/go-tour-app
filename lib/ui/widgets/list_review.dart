@@ -94,17 +94,18 @@ class ListReview extends StatelessWidget {
                               children: [
                                 CircleAvatar(
                                     radius: 15,
-                                    backgroundImage:
-                                        (tourGuideTicket.userPicture == "")
-                                            ? AssetImage("assets/avatar.png")
-                                            : NetworkImage(BaseUrl
-                                                    .getUserImages +
-                                                tourGuideTicket.userPicture)),
+                                    backgroundImage: (tourGuideTicket
+                                                .user.profilePicture ==
+                                            "")
+                                        ? AssetImage("assets/avatar.png")
+                                        : NetworkImage(BaseUrl.getUserImages +
+                                            tourGuideTicket
+                                                .user.profilePicture)),
                                 SizedBox(
                                   width: 16,
                                 ),
                                 Text(
-                                  tourGuideTicket.userName,
+                                  tourGuideTicket.user.name,
                                   style: themeFont.copyWith(
                                       fontWeight: FontWeight.w500),
                                 )

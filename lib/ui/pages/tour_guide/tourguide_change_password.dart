@@ -68,6 +68,8 @@ class _TourGuideChangepasswordState extends State<TourGuideChangepassword> {
         backgroundColor: backColor,
         appBar: AppBar(
           elevation: 0,
+          leading: GestureDetector(
+              onTap: () => Get.back(), child: Icon(Icons.arrow_back_ios_new)),
           backgroundColor: Colors.transparent,
         ),
         body: SingleChildScrollView(

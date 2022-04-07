@@ -212,7 +212,7 @@ class _ActivityPageState extends State<ActivityPage> {
         .tourGuideTickets
         .where((element) =>
             element.dateTime.add(Duration(days: 1)).isAfter(DateTime.now()))
-        .where((element) => element.userID == userID)
+        .where((element) => element.user.id == userID)
         .toList();
     newestTourGuideTicket.sort((a, b) => a.dateTime.compareTo(b.dateTime));
 
@@ -220,7 +220,7 @@ class _ActivityPageState extends State<ActivityPage> {
         .tourGuideTickets
         .where((element) =>
             !element.dateTime.add(Duration(days: 1)).isAfter(DateTime.now()))
-        .where((element) => element.userID == userID)
+        .where((element) => element.user.id == userID)
         .toList();
     oldestTourGuideTicket.sort((a, b) => a.dateTime.compareTo(b.dateTime));
 

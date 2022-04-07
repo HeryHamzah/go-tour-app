@@ -23,7 +23,7 @@ class TourguideTicketBloc
       yield TourguideTicketState(tourGuideTickets);
     } else if (event is GetTourGuideTicket) {
       List<TourGuideTicket> tourGuideTickets =
-          await UserServices.getTourGuideTickets();
+          await GeneralServices.getTourGuideTickets();
 
       yield TourguideTicketState(tourGuideTickets);
     } else if (event is ReviewTourGuideTicket) {

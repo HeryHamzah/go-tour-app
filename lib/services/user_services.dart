@@ -4,12 +4,14 @@ class UserServices {
   static CollectionReference _userCollection =
       FirebaseFirestore.instance.collection('users');
 
+  //regis user ke firebase
   static Future<void> regisUserFirebase(User user) async {
     await _userCollection
         .doc(user.id)
         .set({'email': user.email, 'favorites': user.favorites});
   }
 
+  //regis user ke MySQL
   static Future<void> regisUser(User user) async {
     try {
       await http.post(BaseUrl.regisUser, body: {
@@ -158,33 +160,12 @@ class UserServices {
     }
   }
 
-  static Future<List<Ticket>> getTickets() async {
-    try {
-      final response = await http.get(BaseUrl.getTickets);
-      final data = json.decode(response.body);
-
-      List<Ticket> tickets = [];
-
-      for (var dt in data) {
-        Destination destination =
-            await GeneralServices.getDetailDestination(dt['id_destination']);
-
-        tickets.add(Ticket.fromJson(dt, destination));
-      }
-
-      return tickets;
-    } catch (e) {
-      print("Error get tickets: " + e.toString());
-      return null;
-    }
-  }
-
   static Future<void> saveTourGuideTicket(
       TourGuideTicket tourGuideTicket) async {
     try {
       await http.post(BaseUrl.saveTourGuideTicket, body: {
         "booking_code": tourGuideTicket.bookingCode,
-        "id_user": tourGuideTicket.userID,
+        "id_user": tourGuideTicket.user.id,
         "id_tourguide": tourGuideTicket.tourGuide.tourGuideID,
         "date_time": tourGuideTicket.dateTime.millisecondsSinceEpoch.toString(),
         "destinations": tourGuideTicket.destinations,
@@ -192,18 +173,6 @@ class UserServices {
       });
     } catch (e) {
       print("Error save Tour Guide ticket: " + e.toString());
-    }
-  }
-
-  static Future<List<TourGuideTicket>> getTourGuideTickets() async {
-    try {
-      final response = await http.get(BaseUrl.getTourGuideTickets);
-      final data = json.decode(response.body);
-
-      return (data as List).map((e) => TourGuideTicket.fromJson(e)).toList();
-    } catch (e) {
-      print("Error get Tour Guide Tickets: " + e.toString());
-      return null;
     }
   }
 

@@ -39,9 +39,9 @@ class HistoryTicketCard extends StatelessWidget {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
                         image: DecorationImage(
-                            image: (tourGuideTicket.userPicture != "")
+                            image: (tourGuideTicket.user.profilePicture != "")
                                 ? NetworkImage(BaseUrl.getUserImages +
-                                    tourGuideTicket.userPicture)
+                                    tourGuideTicket.user.profilePicture)
                                 : AssetImage('assets/cache_portrait.png'),
                             fit: BoxFit.cover)),
                   ),
@@ -58,7 +58,7 @@ class HistoryTicketCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    tourGuideTicket.userName,
+                    tourGuideTicket.user.name,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: themeFont.copyWith(

@@ -53,4 +53,37 @@ class GeneralServices {
       return null;
     }
   }
+
+  static Future<List<Ticket>> getTickets() async {
+    try {
+      final response = await http.get(BaseUrl.getTickets);
+      final data = json.decode(response.body);
+
+      List<Ticket> tickets = [];
+
+      for (var dt in data) {
+        Destination destination =
+            await GeneralServices.getDetailDestination(dt['id_destination']);
+
+        tickets.add(Ticket.fromJson(dt, destination));
+      }
+
+      return tickets;
+    } catch (e) {
+      print("Error get tickets: " + e.toString());
+      return null;
+    }
+  }
+
+  static Future<List<TourGuideTicket>> getTourGuideTickets() async {
+    try {
+      final response = await http.get(BaseUrl.getTourGuideTickets);
+      final data = json.decode(response.body);
+
+      return (data as List).map((e) => TourGuideTicket.fromJson(e)).toList();
+    } catch (e) {
+      print("Error get Tour Guide Tickets: " + e.toString());
+      return null;
+    }
+  }
 }

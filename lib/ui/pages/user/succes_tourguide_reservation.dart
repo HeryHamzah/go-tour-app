@@ -94,7 +94,7 @@ class SuccesTourGuideReservation extends StatelessWidget {
 
     await UserServices.saveTransaction(GoTourTransaction(
         transactionID: "C${randomNumeric(10)}",
-        userID: tourGuideTicket.userID,
+        userID: tourGuideTicket.user.id,
         picturePath: tourGuideTicket.tourGuide.profilePicture,
         title: tourGuideTicket.tourGuide.name,
         amount: -tourGuideTicket.totalPrice,

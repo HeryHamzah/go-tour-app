@@ -164,7 +164,7 @@ class TourGuideTicketDetailPage extends StatelessWidget {
                                   fontWeight: FontWeight.w400),
                             ),
                             Text(
-                              tourGuideTicket.userName,
+                              tourGuideTicket.user.name,
                               style: themeFont.copyWith(
                                   color: Colors.black, fontSize: 16),
                             ),
@@ -204,7 +204,6 @@ class TourGuideTicketDetailPage extends StatelessWidget {
           ],
         ),
       ),
-      //FIXME: contact email null
       floatingActionButton: buildSpeedDial(
           contact: tourGuideTicket.tourGuide.hp,
           email: tourGuideTicket.tourGuide.email),

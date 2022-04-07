@@ -324,8 +324,9 @@ class _TourGuideBookingPageState extends State<TourGuideBookingPage> {
                                         bookingCode: randomAlphaNumeric(10)
                                             .toUpperCase(),
                                         dateTime: bookingTime,
-                                        userID: user.id,
-                                        userName: user.name,
+                                        // userID: user.id,
+                                        // userName: user.name,
+                                        user: user,
                                         tourGuide: tourGuide,
                                         destinations:
                                             destinationChoicesInString,

@@ -44,7 +44,7 @@ class SuccesBookingPage extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16))),
                         onPressed: () {
-                          //FIXME: tidak menampilkan activity page
+                          //FIXME: tidak menampilkan activity page jika first routenya home page
 
                           //kembali ke route page
                           Navigator.of(context)

@@ -3,27 +3,20 @@ part of 'models.dart';
 class TourGuideTicket extends Equatable {
   final String bookingCode;
   final DateTime dateTime;
-  final String userName;
   final TourGuide tourGuide;
-  // final String tourGuideID;
-  // final String tourGuideName;
+  final User user;
   final String destinations;
   final int totalPrice;
-  // final String image;
-  final String userID;
-  final String userPicture;
   final String comment;
   final double rating;
 
   TourGuideTicket(
       {this.bookingCode,
       this.dateTime,
-      this.userName,
       this.tourGuide,
+      this.user,
       this.destinations,
       this.totalPrice,
-      this.userID,
-      this.userPicture,
       this.comment,
       this.rating});
 
@@ -42,12 +35,10 @@ class TourGuideTicket extends Equatable {
       TourGuideTicket(
           bookingCode: this.bookingCode,
           dateTime: this.dateTime,
-          userName: this.userName,
           tourGuide: this.tourGuide,
+          user: this.user,
           destinations: this.destinations,
           totalPrice: this.totalPrice,
-          userID: this.userID,
-          userPicture: this.userPicture,
           comment: comment ?? this.comment,
           rating: rating ?? this.rating);
 
@@ -56,17 +47,18 @@ class TourGuideTicket extends Equatable {
           bookingCode: json['id'],
           dateTime: DateTime.fromMillisecondsSinceEpoch(
               int.tryParse(json["date_time"])),
-          userName: json['user_name'],
           tourGuide: TourGuide(
               tourGuideID: json['id_tourguide'],
               name: json['tourguide_name'],
-              profilePicture: json['tourguide_picture']),
-          // tourGuideName: json['tourguide_name'],
+              profilePicture: json['tourguide_picture'],
+              hp: json['tourguide_contact'],
+              email: json['tourguide_email']),
+          user: User(json['id_user'], json['user_email'],
+              name: json['user_name'],
+              profilePicture: json['user_picture'],
+              hp: json['user_contact']),
           destinations: json['destinations'],
           totalPrice: int.tryParse(json['total_price']),
-          // image: json['profile_picture'],
-          userPicture: json['user_picture'],
-          userID: json['id_user'],
           comment: json['comment'],
           rating: double.tryParse(json['rating']));
 
@@ -74,12 +66,10 @@ class TourGuideTicket extends Equatable {
   List<Object> get props => [
         bookingCode,
         dateTime,
-        userName,
         tourGuide,
+        user,
         destinations,
         totalPrice,
-        userID,
-        userPicture,
         comment,
         rating
       ];
