@@ -35,7 +35,7 @@ Aplikasi simulasi pemesanan tiket tempat wisata dan tour guide di Sulawesi Selat
 4. Import gotour.sql ke database MySQL
 
 ## Catatan
-1. project dibuat dengan windows, jadi belum memungkinkan untuk ios
+1. Project dibuat dengan windows, jadi beberapa fungsi pada ios mungkin tidak work
 2. Semua asset destinasi dan tour guide merupakan asset unsplash, bukan asli
 3. (*) silahkan cari tutorialnya
 
