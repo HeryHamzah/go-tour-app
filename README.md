@@ -36,6 +36,7 @@ Aplikasi simulasi pemesanan tiket tempat wisata dan tour guide di Sulawesi Selat
 
 ## Catatan
 1. Project dibuat dengan windows, jadi beberapa fungsi pada ios mungkin tidak work
-2. Semua asset destinasi dan tour guide merupakan asset unsplash, bukan asli
-3. (*) silahkan cari tutorialnya
+2. Saat project dibuat, null safety belum stable. Jadi belum support (update later)
+3. Semua asset destinasi dan tour guide merupakan asset unsplash/fixabay/etc, bukan asli
+4. (*) silahkan cari tutorialnya
 
